@@ -1,36 +1,25 @@
-<!DOCTYPE html>
-<html>
+<h2>Investment List</h2>
 
-<head>
-  <title>Innovative</title>
-  <link rel="stylesheet" href="/css/invest.css">
-</head>
+<!-- TABS -->
+<div class="tabs">
+  <button onclick="location.href='/welfare-fund.html'">
+    Welfare Fund
+  </button>
+  <button onclick="location.href='/welfare.html'">
+    Welfare
+  </button>
+  <button class="active" onclick="location.href='/innovative.html'">
+    Innovative
+  </button>
+</div>
 
-<body>
-
-  <div class="invest-page">
-    <h2>Investment List</h2>
-
-    <!-- TABS -->
-    <div class="tabs">
-      <button onclick="location.href='/welfare-fund.html'">
-        Welfare Fund
-      </button>
-      <button onclick="location.href='/welfare.html'">
-        Welfare
-      </button>
-      <button class="active" onclick="location.href='/innovative.html'">
-        Innovative
-      </button>
-    </div>
-
-    <!-- 🔥 PRODUCTS FROM FIREBASE -->
-    <div id="productList" class="product-list"></div>
-  </div>
-  <script>
-    window.pageCategory = "innovative";
-  </script>
-  <script type="module" src="/js/invest.js"></script>
+<!-- 🔥 PRODUCTS FROM FIREBASE -->
+<div id="productList" class="product-list"></div>
+</div>
+<script>
+  window.pageCategory = "innovative";
+</script>
+<script type="module" src="/js/invest.js"></script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@ body {
 }
 
 .invest-page {
-    max-width: 420px;
+    max-width: var(--max-width, 420px);
     margin: auto;
     padding: 15px;
 }
@@ -41,6 +41,20 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+}
+
+@media (min-width: 600px) {
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (min-width: 800px) {
+    .product-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .product-card {
@@ -103,13 +117,4 @@ body {
     background: #2563eb;
     cursor: not-allowed;
     opacity: 0.85;
-}
-
-
-.product-card {
-    background: linear-gradient(135deg, #2b0f1f, #3b0f2f);
-    border-radius: 14px;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 16px;
 }

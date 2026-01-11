@@ -1,40 +1,29 @@
-<!DOCTYPE html>
-<html>
+<h2>Investment List</h2>
 
-<head>
-  <title>Welfare</title>
-  <link rel="stylesheet" href="/css/invest.css">
-</head>
+<!-- TABS -->
+<div class="tabs">
+  <button onclick="location.href='/welfare-fund.html'">
+    Welfare Fund
+  </button>
+  <button class="active" onclick="location.href='/welfare.html'">
+    Welfare
+  </button>
+  <button onclick="location.href='/innovative.html'">
+    Innovative
+  </button>
+</div>
 
-<body>
+<!-- 🔥 PRODUCTS LOAD HERE -->
+<div id="productList" class="product-list"></div>
+</div>
 
-  <div class="invest-page">
-    <h2>Investment List</h2>
+<!-- 🔑 PAGE CATEGORY (VERY IMPORTANT) -->
+<script>
+  window.pageCategory = "welfare";
+</script>
 
-    <!-- TABS -->
-    <div class="tabs">
-      <button onclick="location.href='/welfare-fund.html'">
-        Welfare Fund
-      </button>
-      <button class="active" onclick="location.href='/welfare.html'">
-        Welfare
-      </button>
-      <button onclick="location.href='/innovative.html'">
-        Innovative
-      </button>
-    </div>
-
-    <!-- 🔥 PRODUCTS LOAD HERE -->
-    <div id="productList" class="product-list"></div>
-  </div>
-
-  <!-- 🔑 PAGE CATEGORY (VERY IMPORTANT) -->
-  <script>
-    window.pageCategory = "welfare";
-  </script>
-
-  <!-- 🔥 SINGLE INVEST SCRIPT -->
-  <script type="module" src="/js/invest.js"></script>
+<!-- 🔥 SINGLE INVEST SCRIPT -->
+<script type="module" src="/js/invest.js"></script>
 
 </body>
 
