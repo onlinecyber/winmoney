@@ -26,6 +26,9 @@ body {
   border-radius: 14px;
   padding: 12px;
   min-height: 70vh;
+  max-width: var(--max-width, 420px);
+  margin: auto;
+  padding-bottom: 20px;
 }
 
 /* ================= INCOME CARD ================= */
@@ -34,7 +37,7 @@ body {
   border-radius: 10px;
   padding: 10px 12px;
   margin-bottom: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* ================= TEXT ================= */
@@ -100,7 +103,8 @@ body {
   color: #000;
   font-weight: 600;
 }
-#incomeList {
-  min-height: auto; /* ❌ remove 70vh effect */
-}
 
+#incomeList {
+  min-height: auto;
+  /* ❌ remove 70vh effect */
+}

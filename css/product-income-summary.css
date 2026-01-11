@@ -10,8 +10,9 @@ body {
 }
 
 #summaryList {
-  max-width: 420px;
+  max-width: var(--max-width, 420px);
   margin: auto;
+  padding-bottom: 20px;
 }
 
 .summary-card {
@@ -19,7 +20,7 @@ body {
   border-radius: 12px;
   padding: 14px;
   margin-bottom: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   border-left: 4px solid #4caf50;
 }
 
@@ -46,5 +47,10 @@ body {
   font-weight: bold;
 }
 
-.status.active { color: #2e7d32; }
-.status.completed { color: #999; }
+.status.active {
+  color: #2e7d32;
+}
+
+.status.completed {
+  color: #999;
+}

@@ -10,6 +10,8 @@
 body {
   background: #f4f6fb;
   padding: 15px;
+  max-width: var(--max-width, 420px);
+  margin: auto;
 }
 
 /* ================= HEADINGS ================= */

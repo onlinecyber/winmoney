@@ -6,6 +6,8 @@ body {
 }
 
 .page {
+  max-width: var(--max-width, 420px);
+  margin: auto;
   padding: 16px;
 }
 
