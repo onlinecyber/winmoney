@@ -10,6 +10,8 @@
 body {
     background: #f4f6fb;
     padding: 15px;
+    max-width: var(--max-width, 420px);
+    margin: auto;
 }
 
 /* ================= HEADINGS ================= */
@@ -31,6 +33,24 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+@media (min-width: 600px) {
+
+    #activeList,
+    #completedList {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (min-width: 800px) {
+
+    #activeList,
+    #completedList {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 /* ================= PRODUCT CARD ================= */
@@ -89,12 +109,4 @@ h2 {
 
 .status.COMPLETED {
     color: #777;
-}
-
-/* ================= MOBILE OPTIMIZATION ================= */
-@media (min-width: 600px) {
-    body {
-        max-width: 420px;
-        margin: auto;
-    }
 }
