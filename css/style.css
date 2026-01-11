@@ -5,6 +5,22 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
+:root {
+  --max-width: 420px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --max-width: 600px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --max-width: 800px;
+  }
+}
+
 body {
   min-height: 100vh;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
@@ -12,15 +28,17 @@ body {
   justify-content: center;
   align-items: center;
   color: #fff;
+  padding: 20px;
+  /* Add padding for larger screens */
 }
 
 .auth-container {
   width: 100%;
-  max-width: 380px;
+  max-width: var(--max-width);
   background: #0b0b0f;
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
 .auth-header {

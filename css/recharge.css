@@ -6,7 +6,7 @@ body {
 }
 
 .recharge-page {
-  max-width: 420px;
+  max-width: var(--max-width, 420px);
   margin: auto;
   padding: 15px;
 }
@@ -103,6 +103,7 @@ body {
   font-size: 16px;
   font-weight: bold;
 }
+
 /* 🔴 CHANGE HERE: selected amount highlight */
 .amount {
   border: 2px solid transparent;
