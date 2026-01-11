@@ -1,60 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
 
-<div class="auth-container">
-  <div class="auth-header">
-    <h2>Register</h2>
-    <p>Welcome to Dream Money</p>
+  <div class="auth-container">
+    <div class="auth-header">
+      <h2>Register</h2>
+      <p>Welcome to Dream Money</p>
+    </div>
+
+    <div class="auth-body">
+
+      <!-- FULL NAME -->
+      <div class="input-box">
+        <label>Full Name</label>
+        <input id="name" type="text" placeholder="Enter Full Name">
+      </div>
+
+      <!-- PHONE NUMBER -->
+      <div class="input-box">
+        <label>Phone Number</label>
+        <input id="phone" type="text" placeholder="Enter Mobile Number">
+      </div>
+
+      <!-- LOGIN PASSWORD -->
+      <div class="input-box">
+        <label>Login Password</label>
+        <input id="password" type="password" placeholder="Enter Password">
+      </div>
+
+      <!-- WITHDRAWAL PASSWORD -->
+      <div class="input-box">
+        <label>Withdrawal Password</label>
+        <input id="txPassword" type="password" placeholder="Enter Withdrawal Password">
+      </div>
+
+      <!-- INVITATION CODE -->
+      <div class="input-box">
+        <label>Invitation Code (optional)</label>
+        <input type="text" id="refCode" placeholder="Referral Code (optional)">
+      </div>
+
+      <button class="auth-btn" onclick="registerUser()">Register Now</button>
+
+      <div class="auth-footer">
+        Already have an account?
+        <a href="/index.html">Go to login</a>
+      </div>
+
+    </div>
   </div>
 
-  <div class="auth-body">
-
-    <!-- FULL NAME -->
-    <div class="input-box">
-      <label>Full Name</label>
-      <input id="name" type="text" placeholder="Enter Full Name">
-    </div>
-
-    <!-- PHONE NUMBER -->
-    <div class="input-box">
-      <label>Phone Number</label>
-      <input id="phone" type="text" placeholder="Enter Mobile Number">
-    </div>
-
-    <!-- LOGIN PASSWORD -->
-    <div class="input-box">
-      <label>Login Password</label>
-      <input id="password" type="password" placeholder="Enter Password">
-    </div>
-
-    <!-- WITHDRAWAL PASSWORD -->
-    <div class="input-box">
-      <label>Withdrawal Password</label>
-      <input id="txPassword" type="password" placeholder="Enter Withdrawal Password">
-    </div>
-
-    <!-- INVITATION CODE -->
-    <div class="input-box">
-      <label>Invitation Code (optional)</label>
-      <input type="text" id="refCode" placeholder="Referral Code (optional)">
-    </div>
-
-    <button class="auth-btn" onclick="registerUser()">Register Now</button>
-
-    <div class="auth-footer">
-      Already have an account?
-      <a href="/index.html">Go to login</a>
-    </div>
-
-  </div>
-</div>
-
-<script type="module" src="/js/auth.js"></script>
+  <script type="module" src="/js/auth.js"></script>
 </body>
+
 </html>
