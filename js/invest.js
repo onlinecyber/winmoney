@@ -49,28 +49,41 @@ async function loadProducts() {
     card.className = "product-card";
 
     card.innerHTML = `
-      <span class="vip">${p.name.split(" ")[0]}</span>
+      <span class="vip-badge">${p.name.split(" ")[0]}</span>
       <img src="/images/${p.image || "image1.jpeg"}">
-      <h3>${p.name}</h3>
+      
+      <div class="card-content">
+        <h3>${p.name}</h3>
 
-      <div class="details">
-        <p>Price <span>₹${p.price}</span></p>
-        <p>Revenue Duration <span>${p.days} Days</span></p>
-        <p>Daily Earnings <span>₹${p.dailyIncome}</span></p>
-        <p>Total Revenue <span>₹${(p.dailyIncome * p.days).toFixed(2)}</span></p>
+        <div class="detail-row">
+          <span class="detail-label">Price</span>
+          <span class="detail-value">₹ ${p.price}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Revenue Duration</span>
+          <span class="detail-value">${p.days} Days</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Daily Earnings</span>
+          <span class="detail-value">₹ ${p.dailyIncome}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Total Revenue</span>
+          <span class="detail-value">₹ ${(p.dailyIncome * p.days).toFixed(1)}</span>
+        </div>
+
+        <button class="invest-btn"
+          id="invest-btn-${pid}"
+          onclick='buyProduct({
+            id:"${pid}",
+            name:"${p.name}",
+            price:${p.price},
+            dailyIncome:${p.dailyIncome},
+            days:${p.days}
+          })'>
+          Invest Now
+        </button>
       </div>
-
-      <button class="invest-btn"
-        id="invest-btn-${pid}"
-        onclick='buyProduct({
-          id:"${pid}",
-          name:"${p.name}",
-          price:${p.price},
-          dailyIncome:${p.dailyIncome},
-          days:${p.days}
-        })'>
-        Invest Now
-      </button>
     `;
 
     list.appendChild(card);

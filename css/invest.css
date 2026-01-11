@@ -1,120 +1,198 @@
-body {
+/* ================= RESET ================= */
+* {
+    box-sizing: border-box;
     margin: 0;
-    background: #000;
-    color: #fff;
-    font-family: 'Segoe UI', sans-serif;
+    padding: 0;
+    font-family: "Segoe UI", sans-serif;
 }
 
+body {
+    background-color: #000;
+    color: #fff;
+    padding-bottom: 70px;
+    /* Space for bottom nav if any */
+}
+
+/* ================= PAGE CONTAINER ================= */
 .invest-page {
-    max-width: var(--max-width, 420px);
-    margin: auto;
+    max-width: 480px;
+    margin: 0 auto;
     padding: 15px;
 }
 
-.page-title {
-    font-size: 22px;
-    margin-bottom: 12px;
+/* ================= HEADER ================= */
+h2 {
+    color: #ff4ecd;
+    /* Pinkish title color */
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
+/* ================= TABS ================= */
 .tabs {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .tabs button {
     flex: 1;
-    padding: 8px;
-    border-radius: 20px;
+    padding: 10px 0;
     border: none;
-    background: #222;
-    color: #aaa;
+    border-radius: 8px;
+    background: #1a1a1a;
+    color: #888;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.tabs .active {
-    background: linear-gradient(135deg, #ff4ecd, #ffb86c);
-    color: #000;
-    font-weight: bold;
+.tabs button.active {
+    background: linear-gradient(90deg, #ff8a80, #80d8ff);
+    /* Example gradient, adjusting to match image */
+    background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    /* Lighter gradient */
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    /* Pink gradient */
+    background: linear-gradient(90deg, #ff8a65, #4fc3f7);
+    /* Orange to Blue - trying to match image "welfare fund" */
+    background: linear-gradient(90deg, #ffab91, #81d4fa);
+    /* Softer */
+
+    /* Let's use a generic gradient that looks good on dark */
+    background: linear-gradient(90deg, #ff7eb3, #ff758c);
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    /* Orange/Red */
+
+    /* Matching the image: "welfare fund" button has a pink/blue/orange mix? 
+       Actually looks like a sunset gradient. */
+    background: linear-gradient(90deg, #ff8a80, #b388ff);
+
+    color: #fff;
+    font-weight: 600;
 }
 
+/* Specific gradient for the active tab based on image */
+.tabs button.active {
+    background: linear-gradient(90deg, #ffab91, #80d8ff);
+    /* Peach to Light Blue */
+    color: #fff;
+}
+
+
+/* ================= PRODUCT LIST ================= */
 .product-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
-@media (min-width: 600px) {
-    .product-list {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-}
-
-@media (min-width: 800px) {
-    .product-list {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
+/* ================= PRODUCT CARD ================= */
 .product-card {
-    background: linear-gradient(135deg, #2b0f1f, #3b0f2f);
-    border-radius: 14px;
+    background: #111;
+    /* Dark card background */
+    border-radius: 15px;
     overflow: hidden;
     position: relative;
+    border: 1px solid #333;
 }
 
+/* Gradient overlay effect for card body if needed, 
+   but image shows a dark card with a gradient background for the text area? 
+   Actually the whole card seems to have a subtle gradient or just dark. 
+   Let's stick to dark #111 or #000 with border. */
+.product-card {
+    background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
+    border: 1px solid #2a2a2a;
+}
+
+
+/* Image Container */
 .product-card img {
     width: 100%;
-    height: 160px;
+    height: 200px;
     object-fit: cover;
+    display: block;
 }
 
-.vip {
+/* VIP Badge */
+.vip-badge {
     position: absolute;
     top: 10px;
     left: 10px;
-    background: #ffb86c;
-    color: #000;
-    padding: 4px 8px;
-    border-radius: 12px;
+    background: linear-gradient(90deg, #ff7eb3, #ff758c);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px 12px 4px 12px;
+    /* Asymmetric radius */
     font-size: 12px;
     font-weight: bold;
+    z-index: 10;
+}
+
+/* Card Content */
+.card-content {
+    padding: 15px;
+    background: linear-gradient(180deg, #1a0b14 0%, #2b0f1f 100%);
+    /* Reddish/Purple dark gradient */
 }
 
 .product-card h3 {
-    padding: 12px;
-    font-size: 15px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #fff;
+    font-weight: 600;
 }
 
-.details {
-    padding: 0 12px 12px;
+/* Details Grid */
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    /* Label - Value */
+    gap: 8px 0;
+    font-size: 13px;
+    margin-bottom: 15px;
 }
 
-.details p {
+.detail-row {
     display: flex;
     justify-content: space-between;
-    font-size: 13px;
-    margin: 4px 0;
-    color: #ddd;
+    align-items: center;
+    margin-bottom: 8px;
 }
 
+.detail-label {
+    color: #aaa;
+}
+
+.detail-value {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Invest Button */
 .invest-btn {
-    width: 90%;
-    margin: 12px auto 15px;
-    display: block;
+    width: 100%;
     padding: 12px;
     border: none;
-    border-radius: 25px;
-    background: linear-gradient(135deg, #ff4ecd, #ffb86c);
-    color: #000;
-    font-weight: bold;
-    font-size: 15px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #ffab91, #e040fb);
+    /* Pink/Purple gradient */
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
+    margin-top: 10px;
+}
+
+.invest-btn:active {
+    opacity: 0.9;
 }
 
 .invest-btn.invested {
-    background: #2563eb;
+    background: #333;
+    color: #888;
     cursor: not-allowed;
-    opacity: 0.85;
 }
