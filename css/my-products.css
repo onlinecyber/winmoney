@@ -17,13 +17,16 @@ body {
 /* ================= HEADINGS ================= */
 h2 {
     text-align: center;
-    margin-bottom: 15px;
-    font-size: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
 }
 
 .section-title {
-    margin: 15px 0 8px;
-    font-size: 15px;
+    margin: 20px 0 10px;
+    font-size: 14px;
+    font-weight: 600;
     color: #444;
 }
 
@@ -32,16 +35,18 @@ h2 {
 #completedList {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
 }
 
 /* ================= PRODUCT CARD ================= */
 .product {
     background: #ffffff;
     border-radius: 12px;
-    padding: 14px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-    border-left: 5px solid #4caf50;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 6px solid #4caf50;
+    /* Green border as in image */
+    position: relative;
 }
 
 /* Completed product color */
@@ -53,42 +58,43 @@ h2 {
 /* ================= TEXT ================= */
 .product h3 {
     font-size: 16px;
-    margin-bottom: 6px;
-    color: #222;
+    margin-bottom: 8px;
+    color: #000;
+    font-weight: 700;
 }
 
 .row {
     font-size: 13px;
-    color: #555;
-    margin-bottom: 3px;
+    color: #666;
+    margin-bottom: 4px;
+    font-weight: 500;
 }
 
 /* ================= PROGRESS BAR ================= */
 .progress {
-    background: #eaeaea;
+    background: #f0f0f0;
     height: 6px;
     border-radius: 10px;
-    margin: 8px 0;
+    margin: 12px 0 8px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #00c853, #64dd17);
+    background: #4caf50;
+    /* Matching green */
     width: 0%;
+    border-radius: 10px;
 }
 
 /* ================= STATUS ================= */
 .status {
     font-size: 12px;
-    font-weight: bold;
-    margin-top: 4px;
+    font-weight: 700;
+    margin-top: 5px;
+    color: #000;
 }
 
-.status.ACTIVE {
-    color: #2e7d32;
-}
-
-.status.COMPLETED {
-    color: #777;
+.status span {
+    font-weight: 800;
 }
