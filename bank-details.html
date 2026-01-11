@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bank-details.css">
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span onclick="history.back()">✕</span>
+    <h2>My Bank Account</h2>
+  </div>
+
+  <!-- BANK CARD -->
+  <div class="bank-card">
+    <h3 id="bankName">Loading...</h3>
+
+    <div class="row">
+      <span>Account Holder</span>
+      <b id="holder">-</b>
+    </div>
+
+    <div class="row">
+      <span>Account Number</span>
+      <b id="account">-</b>
+    </div>
+
+    <div class="row">
+      <span>IFSC Code</span>
+      <b id="ifsc">-</b>
+    </div>
+  </div>
+
+  <button class="delete-btn" onclick="deleteBank()">Delete Bank Account</button>
+
+</div>
+
+<script type="module" src="/js/bank-details.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Account</title>
+  <link rel="stylesheet" href="/css/account.css">
+</head>
+<body>
+
+<div class="account">
+
+  <!-- USER HEADER -->
+  <div class="user-header">
+    <div class="user-left">
+      <img src="/images/dp.jpg" class="avatar">
+      <div>
+        <h3 id="username">User</h3>
+        <p id="userId">ID: ------</p>
+      </div>
+    </div>
+    <div class="bell">🔔</div>
+  </div>
+
+  <!-- LEVEL CARD -->
+  <div class="level-card">
+    <div class="level-top">
+      <span>LV0</span>
+      <button onclick="location.href='/welfare-fund.html'">
+        Buy Product
+      </button>
+    </div>
+
+    <p>Current progress <span id="progress">0 / 290</span></p>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="actions">
+    <button class="recharge" onclick="location.href='/recharge.html'">
+      Recharge
+    </button>
+
+    <button onclick="location.href='/withdraw.html'" style="background-color: #a90e0e;">
+      Withdraw
+    </button>
+
+    <button class="telegram">Telegram</button>
+  </div>
+
+  <!-- BALANCE CARD -->
+  <div class="wallet-box">
+  <div class="wallet deposit">
+    <h4>Deposit Balance</h4>
+    <p id="depositBal">₹0</p>
+    <small>For investing only</small>
+  </div>
+
+  <div class="wallet withdraw">
+    <h4>Withdraw Balance</h4>
+    <p id="withdrawBal">₹0</p>
+    <small>Daily income & withdrawals</small>
+  </div>
+</div>
+
+
+  <!-- MENU GRID -->
+  <div class="menu-grid">
+    <div onclick="location.href='/my-products.html'">My Orders</div>
+    <div onclick="location.href='/income-history.html'">Balance Details</div>
+    <div id="bankCardBtn" style="cursor:pointer;">Bank Card</div>
+    <div onclick="location.href='/help-center.html'">Help Center</div>
+    <div onclick="location.href='/info.html'">Info</div>
+    <div onclick="location.href='/recharge-history.html'">Recharge History</div>
+    <div onclick="location.href='/withdraw-history.html'">Withdraw History</div>
+    <div onclick="location.href='/invite.html'">Invite & Earn</div>
+  </div>
+
+  <!-- LOGOUT -->
+  <button class="logout" onclick="logout()">Logout</button>
+
+</div>
+
+<script type="module" src="/js/account.js"></script>
+<script type="module" src="/js/daily-income.js"></script>
+<script type="module" src="/frontrd/js/income-engine.js"></script>
+</body>
+</html>

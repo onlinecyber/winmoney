@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>⚙ Admin</h2>
+    <button onclick="loadTab('products')">📦 Products</button>
+    <button onclick="loadTab('recharge')">💳 Recharge</button>
+    <button onclick="loadTab('withdraw')">💸 Withdraw</button>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content" id="content">
+    <h3>Welcome Admin 👋</h3>
+    <p>Select a section from sidebar</p>
+  </main>
+
+</div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>

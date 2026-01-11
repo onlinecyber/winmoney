@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Invite & Earn</title>
+  <link rel="stylesheet" href="/css/invite.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="header">
+    <span onclick="history.back()">←</span>
+    <h2>Invite & Earn</h2>
+  </div>
+
+  <div class="history-item">
+    <div class="top">
+      <div class="amount">₹<span id="reward">0</span></div>
+      <div class="status approved">EARNED</div>
+    </div>
+
+    <div class="row">
+      <span>Total Invites</span>
+      <span id="inviteCount">0</span>
+    </div>
+
+    <div class="row">
+      <span>Your Referral Code</span>
+      <span id="refCode">----</span>
+    </div>
+  </div>
+</div>
+<div class="history-item">
+  <div class="top">
+    <div class="amount">₹<span id="reward">0</span></div>
+    <div class="status approved">EARNED</div>
+  </div>
+
+  <div class="row">
+    <span>Total Invites</span>
+    <span id="inviteCount">0</span>
+  </div>
+
+  <div class="row">
+    <span>Your Referral Code</span>
+    <span class="ref-code" id="refCode">----</span>
+  </div>
+
+  <button onclick="copyRefCode()">Copy Code</button>
+
+  <div class="row">
+    <span>Invite Link</span>
+  </div>
+  <div class="ref-code" id="inviteLink"></div>
+
+  <button onclick="copyInviteLink()">Copy Invite Link</button>
+  <button class="whatsapp-btn" onclick="shareWhatsApp()">
+  📱 Share on WhatsApp
+  </button>
+</div>
+
+<script type="module" src="/js/invite.js"></script>
+</body>
+</html>

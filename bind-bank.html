@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank Card Info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bind-bank.css">
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <button class="back" onclick="history.back()">←</button>
+    <h2>Bank Card Info</h2>
+  </div>
+
+  <!-- 🔴 BANK CARD INFO BOX -->
+  <div class="bank-card">
+
+    <!-- ICON + TITLE -->
+    <div class="bank-card-header">
+      <span class="card-icon">💳</span>
+      <h3>Bank Card Info</h3>
+    </div>
+
+    <!-- BANK -->
+    <div class="form-group">
+      <label>Bank</label>
+      <select id="bank">
+        <option value="">Please Select Bank</option>
+        <option value="SBI">State Bank of India</option>
+        <option value="HDFC">HDFC Bank</option>
+        <option value="ICICI">ICICI Bank</option>
+        <option value="AXIS">Axis Bank</option>
+        <option value="UBI">UNION BANK OF INDIA</option>
+        <option value="APB">AIRTEL PAYMENT BANK</option>
+        <option value="IPPB">INDIAN POST PAYMENT BANK</option>
+        <option value="BOI">BANK OF INDIA</option>
+      </select>
+    </div>
+
+    <!-- IFSC -->
+    <div class="form-group">
+      <label>Bank IFSC</label>
+      <input
+        type="text"
+        id="ifsc"
+        placeholder="Bank IFSC"
+        autocomplete="off"
+      >
+    </div>
+
+    <!-- HOLDER NAME -->
+    <div class="form-group">
+      <label>Card Holder Name</label>
+      <input
+        type="text"
+        id="holder"
+        placeholder="Account holder name"
+        autocomplete="off"
+      >
+    </div>
+
+    <!-- CARD NUMBER -->
+    <div class="form-group">
+      <label>Card Number</label>
+      <input
+        type="text"
+        id="account"
+        placeholder="Mobile money wallet number"
+        inputmode="numeric"
+        autocomplete="off"
+      >
+    </div>
+
+    <!-- TRANSACTION PASSWORD -->
+    <div class="form-group">
+      <label>Transaction password</label>
+      <input
+        type="password"
+        id="txpass"
+        placeholder="Trade Password"
+        autocomplete="new-password"
+      >
+    </div>
+
+    <!-- BUTTON -->
+    <button class="add-bank-btn" onclick="addBank()">
+      Add Bank Card
+    </button>
+
+  </div>
+
+  <!-- EXPLAIN -->
+  <div class="explain">
+    <p>1. Withdrawal time from 09:00:00 to 16:30:00</p>
+    <p>2. Withdraw an amount between 106 and 1000000</p>
+    <p>3. You can only request withdrawal 1 time per day</p>
+    <p>4. Withdrawal rate: 5 percent</p>
+  </div>
+
+</div>
+
+<script type="module" src="/js/bind-bank.js"></script>
+</body>
+</html>

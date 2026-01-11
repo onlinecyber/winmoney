@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Withdraw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/withdraw.css">
+</head>
+
+<body>
+
+<div class="withdraw-page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span onclick="history.back()">✕</span>
+    <h2>Withdraw</h2>
+  </div>
+
+  <!-- CARD -->
+  <div class="card">
+    <p class="card-title">Bank Details</p>
+    <p class="card-name" id="bankInfo">Loading...</p>
+    <button class="delete-bank-btn" onclick="deleteBank()">Delete Bank Account</button>
+  </div>
+
+  <!-- AMOUNT -->
+  <div class="section">
+    <label>Amount</label>
+    <p class="balance">
+      Account Balance: ₹<span id="wallet">0.00</span>
+    </p>
+    <input
+      type="number"
+      id="withdrawAmount"
+      placeholder="Withdrawal amount 106 - 1000000"
+      autocomplete="off"
+    >
+  </div>
+
+  <!-- PASSWORD -->
+  <div class="section">
+    <label>Transaction password</label>
+    <input
+      type="password"
+      id="txnPassword"
+      placeholder="Transaction password"
+      autocomplete="new-password"
+    >
+  </div>
+
+  <!-- INFO -->
+  <div class="info">
+    <h4>Explain</h4>
+    <p>1. Daily marketing from 09:00:00 to 16:30:00</p>
+    <p>2. Withdraw amount between 106 and 1000000</p>
+    <p>3. You can request withdrawal only 1 time per day</p>
+    <p>4. Withdrawal rate: 5%</p>
+  </div>
+
+  <!-- ACTION -->
+  <button class="withdraw-btn" onclick="submitWithdraw()">
+    Apply Withdrawal
+  </button>
+
+</div>
+
+<!-- 🔴 BANK NOT BOUND POPUP -->
+<div id="bindPopup" class="bank-popup" style="display:none;">
+  <div class="bank-popup-box">
+
+    <h3>System prompt</h3>
+    <p>
+      You have not yet bound your bank account.
+      Please fill in your bank account information
+      correctly for withdrawal
+    </p>
+
+    <div class="bank-popup-actions">
+      <button class="btn-cancel" onclick="closePopup()">Cancel</button>
+      <button class="btn-bind" onclick="goBindBank()">
+        Bind bank account
+      </button>
+    </div>
+
+  </div>
+</div>
+<script type="module" src="/js/withdraw.js"></script>
+</body>
+</html>

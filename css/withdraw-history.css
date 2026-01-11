@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f2f4f7;
+}
+
+.page {
+  max-width: 420px;
+  margin: auto;
+  padding-bottom: 30px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background: #1f2937;
+  color: #fff;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.back {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ===== CARD ===== */
+.history-item {
+  background: #ffffff;
+  margin: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* TOP ROW */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.amount {
+  font-size: 20px;
+  font-weight: bold;
+  color: #16a34a; /* green */
+}
+
+.status {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.status.approved {
+  color: #16a34a;
+  background: #dcfce7;
+}
+
+.status.rejected {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+.status.pending {
+  color: #ca8a04;
+  background: #fef9c3;
+}
+
+/* DETAILS ROW */
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+.row span:last-child {
+  font-weight: bold;
+}

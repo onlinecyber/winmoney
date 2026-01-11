@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recharge</title>
+  <link rel="stylesheet" href="/css/recharge.css">
+</head>
+<body>
+
+<div class="recharge-page">
+
+  <!-- HEADER -->
+  <div class="recharge-header">
+    <button class="back" onclick="history.back()">←</button>
+    <h2>Recharge</h2>
+  </div>
+
+  <!-- AMOUNT -->
+  <div class="section">
+    <label>Recharge Amount</label>
+    <input type="number" id="amount" value="">
+  </div>
+
+  <!-- QUICK AMOUNTS -->
+  <div class="quick-amounts">
+    <!-- 🔴 CHANGE HERE: setAmount → selectAmount -->
+   <div class="amount" onclick="selectAmount(this, 200)">200</div>
+   <div class="amount" onclick="selectAmount(this, 500)">500</div>
+   <div class="amount" onclick="selectAmount(this, 1000)">1000</div>
+   <div class="amount" onclick="selectAmount(this, 2000)">2000</div>
+   <div class="amount" onclick="selectAmount(this, 5000)">5000</div>
+   <div class="amount" onclick="selectAmount(this, 10000)">10000</div>
+  </div>
+
+  <!-- CHANNEL -->
+  <div class="section">
+    <label>Recharge Channel</label>
+
+    <div class="channel active" onclick="selectChannel(this)">
+      PTM <span class="radio"></span>
+    </div>
+
+    <div class="channel" onclick="selectChannel(this)">
+      XD <span class="radio"></span>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="info">
+    <h4>Explain</h4>
+    <p>1. Please do not modify the deposit amount.</p>
+    <p>2. Each deposit must be initiated from this page.</p>
+    <p>3. Deposit will be credited within 5 minutes.</p>
+    <p>4. If not received, contact customer service.</p>
+  </div>
+
+  <!-- ACTION -->
+  <button class="recharge-btn"onclick="goToPayment()">Recharge Now</button>
+
+
+</div>
+
+<script src="/js/recharge.js"></script>
+</body>
+</html>

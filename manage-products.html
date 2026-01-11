@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin – Manage Products</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  padding: 20px;
+}
+table {
+  width: 100%;
+  background: #fff;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+th {
+  background: #2563eb;
+  color: #fff;
+}
+button {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+.edit { background: #16a34a; color: #fff; }
+.delete { background: #dc2626; color: #fff; }
+.save { background: #2563eb; color: #fff; width: 100%; }
+
+#editBox {
+  display: none;
+  max-width: 420px;
+  background: #fff;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>📦 Manage Products</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Daily</th>
+      <th>Days</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="productList"></tbody>
+</table>
+
+<!-- EDIT BOX -->
+<div id="editBox">
+  <h3>✏️ Edit Product</h3>
+
+  <input id="e_name" placeholder="Name">
+  <input id="e_price" type="number" placeholder="Price">
+  <input id="e_daily" type="number" placeholder="Daily Income">
+  <input id="e_days" type="number" placeholder="Duration">
+  <input id="e_image" placeholder="Image">
+
+  <select id="e_active">
+    <option value="true">Active</option>
+    <option value="false">Inactive</option>
+  </select>
+
+  <button class="save" onclick="saveProduct()">Save Changes</button>
+</div>
+
+<script type="module">
+import { db } from "../js/firebase.js";
+import { ref, onValue, get, update, remove } from
+"https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+
+const list = document.getElementById("productList");
+let currentPID = null;
+
+/* LOAD PRODUCTS */
+onValue(ref(db, "products"), snap => {
+  list.innerHTML = "";
+  snap.forEach(child => {
+    const p = child.val();
+    const pid = child.key;
+
+    list.innerHTML += `
+      <tr>
+        <td>${pid}</td>
+        <td>${p.name}</td>
+        <td>₹${p.price}</td>
+        <td>₹${p.dailyIncome}</td>
+        <td>${p.days}</td>
+        <td>${p.active ? "Active" : "Inactive"}</td>
+        <td>
+          <button class="edit" onclick="editProduct('${pid}')">Edit</button>
+          <button class="delete" onclick="deleteProduct('${pid}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+});
+
+/* DELETE */
+window.deleteProduct = async function(pid) {
+  if (!confirm("Delete this product?")) return;
+  await remove(ref(db, `products/${pid}`));
+  alert("✅ Product deleted");
+};
+
+/* EDIT */
+window.editProduct = async function(pid) {
+  currentPID = pid;
+  const snap = await get(ref(db, `products/${pid}`));
+  const p = snap.val();
+
+  e_name.value = p.name;
+  e_price.value = p.price;
+  e_daily.value = p.dailyIncome;
+  e_days.value = p.days;
+  e_image.value = p.image;
+  e_active.value = p.active;
+
+  document.getElementById("editBox").style.display = "block";
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+};
+
+/* SAVE */
+window.saveProduct = async function() {
+  if (!currentPID) return;
+
+  await update(ref(db, `products/${currentPID}`), {
+    name: e_name.value,
+    price: Number(e_price.value),
+    dailyIncome: Number(e_daily.value),
+    days: Number(e_days.value),
+    image: e_image.value,
+    active: e_active.value === "true",
+    updatedAt: Date.now()
+  });
+
+  alert("✅ Product updated");
+  document.getElementById("editBox").style.display = "none";
+};
+</script>
+
+</body>
+</html>

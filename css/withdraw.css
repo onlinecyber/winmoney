@@ -1,0 +1,173 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #0b0b0f;
+  color: #fff;
+}
+
+.withdraw-page {
+  max-width: 420px;
+  margin: auto;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header span {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.card {
+  margin: 16px 0;
+  padding: 20px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3a3a9f, #9f3a7a);
+}
+
+.card-title {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.card-name {
+  font-size: 18px;
+  margin-top: 6px;
+}
+
+.section {
+  margin-top: 16px;
+}
+
+.section label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.balance {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+
+.section input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #1c1c22;
+  color: #fff;
+}
+
+.info {
+  margin-top: 20px;
+  font-size: 13px;
+  opacity: 0.85;
+  position: relative;
+}
+
+.record-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #222;
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.withdraw-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  color: #fff;
+  background: linear-gradient(90deg, #ff8a00, #e52e71);
+  cursor: pointer;
+}
+/* ================= BANK POPUP ================= */
+
+.bank-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.bank-popup-box {
+  width: 90%;
+  max-width: 360px;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #ff9a6b,
+    #ff6db3,
+    #a78bfa
+  );
+  color: #fff;
+}
+
+.bank-popup-box h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.bank-popup-box p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.bank-popup-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.bank-popup-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #e5e7eb;
+  color: #000;
+}
+
+.btn-bind {
+  background: linear-gradient(90deg, #ff5fa2, #ff8a00);
+  color: #fff;
+}
+
+
+.delete-bank-btn{
+  margin-top:12px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:25px;
+  background:#ff4d4d;
+  color:#fff;
+  font-size:15px;
+}

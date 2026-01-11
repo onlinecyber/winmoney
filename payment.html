@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/payment.css">
+</head>
+
+<body>
+
+<div class="payment-box">
+
+  <!-- HEADER -->
+  <div class="header">
+    <p>Payment Amount</p>
+    <h1>₹<span id="payAmount">0</span></h1>
+    <div id="timer">00:10:00</div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <span class="tab active" onclick="showDirect()">Direct Transfer</span>
+    <span class="tab " onclick="showQR()">Scan QRCode</span>
+  </div>
+  <!-- PAYMENT METHOD -->
+  <div class="method-box">
+    <p>Select Payment Method</p>
+    <div class="methods">
+      <!-- 🔴 CHANGE HERE: Paytm click -->
+      <div class="method" onclick="openPaytm()">Paytm</div>
+
+      <!-- 🔴 CHANGE HERE: PhonePe click -->
+      <div class="method" onclick="openPhonePe()">PhonePe</div>
+    </div>
+
+  </div>
+
+  <!-- WARNING -->
+  <div class="warning">
+    ⚠ Payment can only be made once. Multiple payments are not valid!!!
+  </div>
+
+  <!-- DIRECT TRANSFER -->
+  <div id="directBox">
+
+    <div class="step">
+      <b>1. Transfer <span id="TransferAmount">0</span> RS to the following upi</b> 
+      <div class="copy-box">
+        <span id="upi">inzamamulh758@ptaxis</span>
+        <button onclick="copyText('upi')">📋</button>
+      </div>
+
+      <div class="copy-box">
+      <span id="amtText">0</span>
+        <button onclick="copyText('amtText')">📋</button>
+      </div>
+    </div>
+
+    <div class="step">
+      <b>2. Submit Ref No / Reference No / UTR</b>
+      <div class="utr-box">
+        <input type="text" id="utr" placeholder="UTR (UPI Ref. ID)">
+        <button onclick="submitUTR()">Submit</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QR BOX -->
+  <div id="qrBox" style="display:none;text-align:center;">
+    <!-- 🔴 CHANGE HERE: dynamic amount -->
+    <h2>₹<span id="qrAmount">0</span></h2>
+    <p>Use Mobile Scan code to pay</p>
+    <img src="/images/QR.jpeg" width="220">
+
+    <div class="step">
+      <b>2. Submit Ref No / Reference No / UTR</b>
+      <div class="utr-box">
+        <input type="text" id="utr" placeholder="UTR (UPI Ref. ID)">
+        <button onclick="submitUTR()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="/js/payment.js"></script>
+</body>
+</html>

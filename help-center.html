@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Help Center</title>
+  <link rel="stylesheet" href="/css/help-center.css">
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span onclick="history.back()">←</span>
+    <h2>Help Center</h2>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card">
+    <h3>❓ Frequently Asked Questions</h3>
+
+    <div class="faq-item">
+      <div class="faq-q">What is minimum withdraw amount?</div>
+      <div class="faq-a">Minimum withdrawal amount is ₹106.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Why my withdraw is pending?</div>
+      <div class="faq-a">
+        Withdraw requests are processed within 24–48 hours.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">If withdraw is rejected, will I get refund?</div>
+      <div class="faq-a">
+        Yes. Rejected withdraw amount is refunded to your wallet.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Why invite is required for withdraw?</div>
+      <div class="faq-a">
+        At least 1 successful invite is required to withdraw.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">When will invite reward be added?</div>
+      <div class="faq-a">
+        Invite reward is added after invited user’s first recharge is approved.
+      </div>
+    </div>
+  </div>
+
+  <!-- WITHDRAW HELP -->
+  <div class="card">
+    <h3>💸 Withdraw Help</h3>
+    <ul>
+      <li>Minimum withdraw: ₹106</li>
+      <li>5% processing fee is applied</li>
+      <li>At least 1 invite required</li>
+      <li>Processing time: 24–48 hours</li>
+    </ul>
+  </div>
+
+  <!-- RECHARGE HELP -->
+  <div class="card">
+    <h3>💳 Recharge Help</h3>
+    <ul>
+      <li>Enter correct 12-digit UTR</li>
+      <li>Recharge approval may take some time</li>
+      <li>Wrong UTR may cause rejection</li>
+    </ul>
+  </div>
+
+  <!-- CONTACT SUPPORT -->
+  <div class="card">
+    <h3>📞 Contact Support</h3>
+
+    <button class="support-btn whatsapp"
+      onclick="openWhatsApp()">
+      📱 WhatsApp Support
+    </button>
+
+    <button class="support-btn telegram"
+      onclick="openTelegram()">
+      💬 Telegram Support
+    </button>
+  </div>
+
+</div>
+
+<script src="/js/help-center.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="auth-container">
+  <div class="auth-header">
+    <h2>Login</h2>
+    <p>Welcome to Dream Money</p>
+  </div>
+
+  <div class="auth-body">
+
+    <div class="input-box">
+      <label>Phone Number</label>
+      <input id="phone" type="text" placeholder="Enter mobile number">
+    </div>
+
+    <div class="input-box">
+      <label>Password</label>
+      <input id="password" type="password" placeholder="Enter password">
+    </div>
+
+    <!-- 🔴 CHANGE HERE: onclick add kiya -->
+  <button class="auth-btn" onclick="loginUser()">
+  Login Now
+  </button>
+
+    <div class="auth-footer">
+      No account?
+      <a href="/register.html">Register Now</a>
+    </div>
+
+  </div>
+</div>
+
+<script type="module" src="/js/auth.js"></script>
+<!-- 🔴 CHANGE HERE: login button click action -->
+<script>
+  function loginUser() {
+    // 🔴 yaha direct account page open hoga
+    window.location.href = "/account.html";
+  }
+</script>
+<script type="module" src="/js/income-engine.js"></script>
+</body>
+</html>

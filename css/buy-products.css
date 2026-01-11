@@ -1,0 +1,41 @@
+body{
+  margin:0;
+  background:#000;
+  color:#fff;
+  font-family: Arial, sans-serif;
+}
+
+.page{ padding:15px; }
+
+.header{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.product{
+  background:#1e1e1e;
+  padding:15px;
+  border-radius:12px;
+  margin-top:15px;
+}
+
+.product h3{
+  margin:0 0 8px;
+}
+
+.product p{
+  font-size:14px;
+  color:#ccc;
+}
+
+.buy-btn{
+  margin-top:10px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(90deg,#ff8a65,#ff5ca8);
+  color:#fff;
+  font-size:15px;
+}
