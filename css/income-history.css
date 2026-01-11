@@ -1,110 +1,107 @@
 /* ================= RESET ================= */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", sans-serif;
 }
 
 /* ================= PAGE ================= */
 body {
-  background: #f4f6fb;
-  padding: 15px;
+    background: #f4f6fb;
+    padding: 15px;
 }
 
 /* ================= CONTAINER ================= */
 .page-title {
-  text-align: center;
-  margin-bottom: 12px;
-  font-size: 18px;
-  color: #111;
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #111;
 }
 
 /* Dark card wrapper */
 #incomeList {
-  background: #111;
-  border-radius: 14px;
-  padding: 12px;
-  min-height: 70vh;
-  max-width: var(--max-width, 420px);
-  margin: auto;
-  padding-bottom: 20px;
+    background: #111;
+    border-radius: 14px;
+    padding: 12px;
+    min-height: 70vh;
 }
 
 /* ================= INCOME CARD ================= */
 .income-card {
-  background: #1c1c1c;
-  border-radius: 10px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: #1c1c1c;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* ================= TEXT ================= */
 .income-product {
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
 }
 
 .income-day {
-  font-size: 12px;
-  color: #aaa;
-  margin-top: 2px;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 2px;
 }
 
 .income-amount {
-  font-size: 15px;
-  font-weight: bold;
-  color: #00e676;
-  margin-top: 4px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #00e676;
+    margin-top: 4px;
 }
 
 .income-time {
-  font-size: 11px;
-  color: #888;
-  margin-top: 2px;
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
 }
 
 /* ================= EMPTY ================= */
 .empty {
-  text-align: center;
-  color: #aaa;
-  font-size: 14px;
-  padding: 30px 0;
+    text-align: center;
+    color: #aaa;
+    font-size: 14px;
+    padding: 30px 0;
 }
 
 /* ================= MOBILE WIDTH ================= */
 @media (min-width: 600px) {
-  body {
-    max-width: 420px;
-    margin: auto;
-  }
+    body {
+        max-width: 420px;
+        margin: auto;
+    }
 }
 
 .filters {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
 }
 
 .filters button {
-  flex: 1;
-  padding: 6px 0;
-  border: none;
-  border-radius: 6px;
-  background: #222;
-  color: #aaa;
-  font-size: 13px;
+    flex: 1;
+    padding: 6px 0;
+    border: none;
+    border-radius: 6px;
+    background: #222;
+    color: #aaa;
+    font-size: 13px;
 }
 
 .filters button.active {
-  background: #00e676;
-  color: #000;
-  font-weight: 600;
+    background: #00e676;
+    color: #000;
+    font-weight: 600;
 }
 
 #incomeList {
-  min-height: auto;
-  /* ❌ remove 70vh effect */
+    min-height: auto;
+    /* ❌ remove 70vh effect */
 }

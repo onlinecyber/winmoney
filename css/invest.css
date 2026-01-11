@@ -1,104 +1,115 @@
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
 body {
-  margin: 0;
-  background: #f2f4f7;
+    margin: 0;
+    background: #000;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 .invest-page {
-  max-width: var(--max-width, 420px);
-  margin: auto;
-  padding: 15px;
+    max-width: 420px;
+    margin: auto;
+    padding: 15px;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 15px;
-  font-size: 18px;
+.page-title {
+    font-size: 22px;
+    margin-bottom: 12px;
 }
 
-/* TABS */
 .tabs {
-  display: flex;
-  background: #fff;
-  border-radius: 8px;
-  padding: 4px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .tabs button {
-  flex: 1;
-  border: none;
-  background: transparent;
-  padding: 10px;
-  font-weight: bold;
-  color: #666;
-  cursor: pointer;
-  border-radius: 6px;
+    flex: 1;
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    background: #222;
+    color: #aaa;
 }
 
-.tabs button.active {
-  background: #2563eb;
-  color: #fff;
+.tabs .active {
+    background: linear-gradient(135deg, #ff4ecd, #ffb86c);
+    color: #000;
+    font-weight: bold;
 }
 
-/* PRODUCT LIST */
 .product-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .product-card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, #2b0f1f, #3b0f2f);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
 }
 
-.product-img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
+.product-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
 }
 
-.p-info {
-  padding: 15px;
+.vip {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ffb86c;
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
-.p-title {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 8px;
+.product-card h3 {
+    padding: 12px;
+    font-size: 15px;
 }
 
-.p-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-  font-size: 14px;
-  color: #444;
+.details {
+    padding: 0 12px 12px;
 }
 
-.p-price {
-  color: #dc2626;
-  font-weight: bold;
-  font-size: 16px;
+.details p {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin: 4px 0;
+    color: #ddd;
 }
 
 .invest-btn {
-  width: 100%;
-  margin-top: 12px;
-  padding: 12px;
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
+    width: 90%;
+    margin: 12px auto 15px;
+    display: block;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ff4ecd, #ffb86c);
+    color: #000;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.invest-btn.invested {
+    background: #2563eb;
+    cursor: not-allowed;
+    opacity: 0.85;
+}
+
+
+.product-card {
+    background: linear-gradient(135deg, #2b0f1f, #3b0f2f);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 16px;
 }

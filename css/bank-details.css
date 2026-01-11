@@ -1,53 +1,51 @@
 body {
-  margin: 0;
-  background: #0f0f0f;
-  color: #fff;
-  font-family: Arial, sans-serif;
+    margin: 0;
+    background: #0f0f0f;
+    color: #fff;
+    font-family: Arial, sans-serif;
 }
 
 .page {
-  max-width: var(--max-width, 420px);
-  margin: auto;
-  padding: 16px;
+    padding: 16px;
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .header span {
-  font-size: 20px;
-  cursor: pointer;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .bank-card {
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #3b82f6, #9333ea);
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #3b82f6, #9333ea);
 }
 
 .bank-card h3 {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 12px;
-  font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 14px;
 }
 
 .delete-btn {
-  margin-top: 25px;
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 30px;
-  font-size: 16px;
-  background: linear-gradient(90deg, #ff4d4d, #ff7a7a);
-  color: white;
-  cursor: pointer;
+    margin-top: 25px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    background: linear-gradient(90deg, #ff4d4d, #ff7a7a);
+    color: white;
+    cursor: pointer;
 }
