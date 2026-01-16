@@ -11,6 +11,16 @@ import {
 let currentUser = null;
 let userTxPassword = null;
 
+/* ================= SHA-256 HASH FUNCTION ================= */
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
 /* ================= AUTH ================= */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -24,7 +34,7 @@ onAuthStateChanged(auth, async (user) => {
   const snap = await get(ref(db, `users/${uid}`));
   const data = snap.val() || {};
 
-  // ✅ transaction password
+  // ✅ transaction password (stored as hash)
   userTxPassword = data.txPassword || "";
 
   // ✅ SHOW WITHDRAW WALLET BALANCE (IMPORTANT)
@@ -92,7 +102,7 @@ window.submitWithdraw = async function () {
 
   /* ================= 🔒 FULL INVEST CHECK (NEW) ================= */
   const totalDeposited = Number(userData.stats?.totalDeposited || 0);
-  const totalInvested  = Number(userData.stats?.totalInvested || 0);
+  const totalInvested = Number(userData.stats?.totalInvested || 0);
 
   if (totalInvested < totalDeposited) {
     alert("❌ You must invest 100% of your deposit before withdrawing");
@@ -105,7 +115,9 @@ window.submitWithdraw = async function () {
     return;
   }
 
-  if (pass !== userTxPassword) {
+  // 🔐 Hash input password and compare with stored hash
+  const hashedPass = await hashPassword(pass);
+  if (hashedPass !== userTxPassword) {
     alert("Incorrect transaction password");
     return;
   }

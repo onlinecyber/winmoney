@@ -29,6 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+/* ================= SHA-256 HASH FUNCTION ================= */
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
 /* ================= REGISTER ================= */
 window.registerUser = async function () {
   const name = document.getElementById("name").value.trim();
@@ -60,11 +70,14 @@ window.registerUser = async function () {
     const referralCode =
       "REF" + Math.random().toString(36).substring(2, 8).toUpperCase();
 
+    /* 🔐 Hash transaction password */
+    const hashedTxPassword = await hashPassword(txPassword);
+
     /* ✅ CREATE USER (NO REWARD HERE) */
     await set(ref(db, "users/" + uid), {
       name,
       phone,
-      txPassword,
+      txPassword: hashedTxPassword, // 🔐 Stored as hash
       role: "user",
       status: "active",
 
