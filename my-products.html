@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Products</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/my-products.css">
 </head>
 
-<body>
+<body class="bg-gray-100 min-h-screen px-3 py-4 sm:px-4 md:px-6 max-w-md mx-auto">
 
-    <h2 style="text-align:center">My Products</h2>
+    <h2 class="text-center text-lg sm:text-xl font-bold text-gray-900 mb-5">My Products</h2>
 
-    <h3 class="section-title">Active Products</h3>
-    <div id="activeList"></div>
+    <h3 class="section-title text-sm sm:text-base font-semibold text-gray-600 mb-3 mt-5">Active Products</h3>
+    <div id="activeList" class="flex flex-col gap-3 w-full"></div>
 
-    <h3 class="section-title">Completed Products</h3>
-    <div id="completedList"></div>
+    <h3 class="section-title text-sm sm:text-base font-semibold text-gray-600 mb-3 mt-5">Completed Products</h3>
+    <div id="completedList" class="flex flex-col gap-3 w-full"></div>
 
     <script type="module" src="/js/my-products.js"></script>
     <script type="module" src="/js/income-engine.js"></script>
