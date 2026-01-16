@@ -4,8 +4,7 @@ import { onAuthStateChanged }
 import {
   ref,
   get,
-  set,
-  runTransaction
+  set
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 /* ================= CONFIG ================= */
@@ -120,31 +119,49 @@ window.buyProduct = async function (product) {
     alert("Already invested");
     return;
   }
-  // new
-   const walletSnap = await get(
-    ref(db, `users/${currentUser.uid}/wallets/deposit`)
-  );
-  console.log("INVEST DEPOSIT =", walletSnap.val());
 
+  // Get current wallet balances
   const walletsRef = ref(db, `users/${uid}/wallets`);
+  const walletSnap = await get(walletsRef);
+  const wallets = walletSnap.val() || {};
 
-  const tx = await runTransaction(walletsRef, (wallets) => {
-    wallets = wallets || {};
-    const deposit = Number(wallets.deposit || 0);
+  const deposit = Number(wallets.deposit || 0);
+  const withdraw = Number(wallets.withdraw || 0);
+  const totalBalance = deposit + withdraw;
 
-    if (deposit < price) return; // ❌ cancel
+  console.log("Deposit =", deposit, "| Withdraw =", withdraw, "| Total =", totalBalance, "| Price =", price);
 
-    return {
-      deposit: deposit - price,
-      withdraw: Number(wallets.withdraw || 0)
-    };
-  });
-
-  if (!tx.committed) {
-    alert("Insufficient deposit balance");
+  // Check if combined balance is sufficient
+  if (totalBalance < price) {
+    alert("Insufficient balance! Total available: ₹" + totalBalance);
     return;
   }
 
+  // Calculate deductions: deposit first, remaining from withdraw
+  let newDeposit = deposit;
+  let newWithdraw = withdraw;
+  let remaining = price;
+
+  // First deduct from deposit
+  if (deposit >= remaining) {
+    newDeposit = deposit - remaining;
+    remaining = 0;
+  } else {
+    // Use all deposit, then take rest from withdraw
+    newDeposit = 0;
+    remaining = remaining - deposit;
+    newWithdraw = withdraw - remaining;
+  }
+
+  console.log("After deduction: Deposit =", newDeposit, "| Withdraw =", newWithdraw);
+
+  // Update wallets
+  await set(walletsRef, {
+    deposit: newDeposit,
+    withdraw: newWithdraw
+  });
+
+  // Save product purchase
   await set(prodRef, {
     productId: id,
     name,
@@ -157,4 +174,5 @@ window.buyProduct = async function (product) {
   });
 
   alert("Product purchased successfully 🎉");
+  markInvested(id);
 };
