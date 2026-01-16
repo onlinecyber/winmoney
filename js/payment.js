@@ -67,10 +67,26 @@ window.copyText = function (id) {
 
 /* ================= SUBMIT UTR ================= */
 window.submitUTR = async function () {
-  const utr = document.getElementById("utr").value.trim();
+  const utr = document.getElementById("utr").value.trim().replace(/\s/g, '');
 
-  if (!/^\d{12}$/.test(utr)) {
-    alert("Enter Valid UTR Number");
+  // UTR validation: 12-22 digits (standard UPI UTR range)
+  if (!utr) {
+    alert("Please enter UTR number");
+    return;
+  }
+
+  if (!/^\d+$/.test(utr)) {
+    alert("UTR should contain only numbers");
+    return;
+  }
+
+  if (utr.length < 12) {
+    alert("UTR is too short. Minimum 12 digits required.");
+    return;
+  }
+
+  if (utr.length > 22) {
+    alert("UTR is too long. Maximum 22 digits allowed.");
     return;
   }
 
