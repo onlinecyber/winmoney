@@ -9,7 +9,7 @@ import {
 
 /* ================= CONFIG ================= */
 // pageCategory must be set in HTML before this script
-// window.pageCategory = "welfare" | "welfare-fund" | "innovative"
+// window.pageCategory = "bronze" | "silver" | "gold"
 
 const list = document.getElementById("productList");
 let currentUser = null;
