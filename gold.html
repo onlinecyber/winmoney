@@ -4,35 +4,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Innovative</title>
+  <title>Gold Plan</title>
   <link rel="stylesheet" href="/css/invest.css">
 </head>
 
 <body>
 
   <div class="invest-page">
-    <h2>Investment List</h2>
+    <h2>Investment Plans</h2>
 
     <!-- TABS -->
     <div class="tabs">
-      <button onclick="location.href='/welfare-fund.html'">
-        Welfare Fund
+      <button onclick="location.href='/bronze.html'">
+        🥉 Bronze
       </button>
-      <button onclick="location.href='/welfare.html'">
-        Welfare
+      <button onclick="location.href='/silver.html'">
+        🥈 Silver
       </button>
-      <button class="active" onclick="location.href='/innovative.html'">
-        Innovative
+      <button class="active" onclick="location.href='/gold.html'">
+        🥇 Gold
       </button>
     </div>
 
-    <!-- 🔥 PRODUCTS FROM FIREBASE -->
+    <!-- 🔥 PRODUCTS LOAD HERE -->
     <div id="productList" class="product-list"></div>
   </div>
 
+  <!-- 🔑 PAGE CATEGORY -->
   <script>
-    window.pageCategory = "innovative";
+    window.pageCategory = "gold";
   </script>
+
+  <!-- 🔥 INVEST SCRIPT -->
   <script type="module" src="/js/invest.js"></script>
 
 </body>
