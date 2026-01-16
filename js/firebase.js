@@ -5,15 +5,15 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
-// 🔥 Firebase Configuration (ONLY ONE PLACE)
+// 🔥 Firebase Configuration (NEW PROJECT)
 const firebaseConfig = {
-  apiKey: "AIzaSyDhqg9EX54By6H73ELA2KYfWPrW12fKzKw",
-  authDomain: "dream-money-b68d8.firebaseapp.com",
-  databaseURL: "https://dream-money-b68d8-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "dream-money-b68d8",
-  storageBucket: "dream-money-b68d8.appspot.com", // ✅ correct
-  messagingSenderId: "758736283682",
-  appId: "1:758736283682:web:00fc1ad62115ba69de027b"
+  apiKey: "AIzaSyBA0BP5Tw3QdlLEI7DMcBr9OVIKTIsMYiY",
+  authDomain: "online-73c00.firebaseapp.com",
+  databaseURL: "https://online-73c00-default-rtdb.firebasedatabase.app",
+  projectId: "online-73c00",
+  storageBucket: "online-73c00.firebasestorage.app",
+  messagingSenderId: "906312941692",
+  appId: "1:906312941692:web:addfe47c4827c740f649f9"
 };
 
 // Initialize Firebase
