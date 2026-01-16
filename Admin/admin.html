@@ -1,341 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Premium Admin Panel</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Premium Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-<style>
-/* ================= BODY ================= */
-body {
-  font-family: 'Inter', sans-serif;
-  margin:0;
-  background:#e0f7fa;
-  color:#111;
-}
+  <style>
+    /* ================= BODY ================= */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: #e0f7fa;
+      color: #111;
+    }
 
-/* ================= HEADER ================= */
-header {
-  background: linear-gradient(135deg, #1e3a8a, #06b6d4);
-  color:#fff;
-  text-align:center;
-  padding:70px 15px 40px 15px;
-  font-weight:700;
-  font-size:1.6rem;
-  border-bottom-left-radius:60px;
-  border-bottom-right-radius:60px;
-  position: relative;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-header h1 { margin:0; }
+    /* ================= HEADER ================= */
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #06b6d4);
+      color: #fff;
+      text-align: center;
+      padding: 70px 15px 40px 15px;
+      font-weight: 700;
+      font-size: 1.6rem;
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
 
-/* ================= NAV ================= */
-nav {
-  display:flex;
-  background:#1e40af;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-}
-nav button {
-  flex:1;
-  padding:16px;
-  border:none;
-  background:transparent;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.3s;
-  font-size:0.95rem;
-}
-nav button:hover {background: rgba(255,255,255,0.2);}
-nav button.active {background: #06b6d4;color:#fff;}
+    header h1 {
+      margin: 0;
+    }
 
-/* ================= SECTIONS ================= */
-section {display:none;padding:20px;}
-section.active {display:block;}
-h3 {margin-bottom:20px;font-weight:700;color:#1e3a8a;}
+    /* ================= NAV ================= */
+    nav {
+      display: flex;
+      background: #1e40af;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    }
 
-/* ================= CARDS ================= */
-.card {
-  background:#fff;
-  padding:18px;
-  margin:14px 0;
-  border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.1);
-  transition:0.3s;
-}
-.card:hover {box-shadow:0 12px 30px rgba(0,0,0,0.15);}
-.card b {font-weight:700;font-size:1.1rem;}
-.card p {margin:4px 0;font-size:0.95rem;color:#333;line-height:1.4;}
-.card .status {
-  font-weight:600;
-  padding:4px 8px;
-  border-radius:8px;
-  display:inline-block;
-}
-.status.pending {background:#fbbf24;color:#fff;}
-.status.approved {background:#22c55e;color:#fff;}
-.status.rejected {background:#ef4444;color:#fff;}
+    nav button {
+      flex: 1;
+      padding: 16px;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.95rem;
+    }
 
-/* ================= BUTTONS ================= */
-.card button {
-  margin:8px 6px 0 0;
-  padding:8px 14px;
-  border-radius:10px;
-  border:none;
-  cursor:pointer;
-  font-weight:600;
-  font-size:0.9rem;
-  transition:0.2s;
-}
-button.edit{background:#16a34a;color:#fff;}
-button.delete{background:#dc2626;color:#fff;}
-button.toggle{background:#2563eb;color:#fff;}
-button.approve{background:#06b6d4;color:#fff;}
-button.reject{background:#ef4444;color:#fff;}
+    nav button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
-/* ================= ADD / EDIT BOX ================= */
-#addBox,#editBox {
-  background: rgba(255,255,255,0.95);
-  padding:20px;
-  margin-bottom:20px;
-  border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.1);
-}
-input, select {
-  width:100%;
-  padding:12px;
-  margin-top:8px;
-  margin-bottom:16px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  font-size:1rem;
-}
-#editBox {display:none;}
-</style>
+    nav button.active {
+      background: #06b6d4;
+      color: #fff;
+    }
+
+    /* ================= SECTIONS ================= */
+    section {
+      display: none;
+      padding: 20px;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    h3 {
+      margin-bottom: 20px;
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+
+    /* ================= CARDS ================= */
+    .card {
+      background: #fff;
+      padding: 18px;
+      margin: 14px 0;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .card b {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      margin: 4px 0;
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    .card .status {
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .status.pending {
+      background: #fbbf24;
+      color: #fff;
+    }
+
+    .status.approved {
+      background: #22c55e;
+      color: #fff;
+    }
+
+    .status.rejected {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    /* ================= BUTTONS ================= */
+    .card button {
+      margin: 8px 6px 0 0;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+
+    button.edit {
+      background: #16a34a;
+      color: #fff;
+    }
+
+    button.delete {
+      background: #dc2626;
+      color: #fff;
+    }
+
+    button.toggle {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    button.approve {
+      background: #06b6d4;
+      color: #fff;
+    }
+
+    button.reject {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    /* ================= ADD / EDIT BOX ================= */
+    #addBox,
+    #editBox {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    #editBox {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-  <h1>⚙ Premium Admin Panel</h1>
-</header>
+  <header>
+    <h1>⚙ Premium Admin Panel</h1>
+  </header>
 
-<nav>
-  <button onclick="show('products')" class="active">📦 Products</button>
-  <button onclick="show('recharge')">💳 Recharge</button>
-  <button onclick="show('withdraw')">💸 Withdraw</button>
-</nav>
+  <nav>
+    <button onclick="show('products')" class="active">📦 Products</button>
+    <button onclick="show('recharge')">💳 Recharge</button>
+    <button onclick="show('withdraw')">💸 Withdraw</button>
+  </nav>
 
-<div class="searchBox">
-  <input id="searchInput" placeholder="Search by name/UID..." />
-  <select id="filterSelect">
-    <option value="all">All</option>
-    <option value="pending">Pending</option>
-    <option value="approved">Approved</option>
-    <option value="rejected">Rejected</option>
-  </select>
-</div>
-
-<!-- ================= PRODUCTS ================= -->
-<section id="products" class="active">
-  <h3>Manage Products</h3>
-
-  <!-- ADD PRODUCT -->
-  <div id="addBox">
-    <h4>➕ Add Product</h4>
-    <input id="pid" placeholder="Product ID">
-    <input id="pname" placeholder="Product Name">
-    <select id="category">
-      <option value="welfare">Welfare</option>
-      <option value="welfare-fund">Welfare Fund</option>
-      <option value="innovative">Innovative</option>
+  <div class="searchBox">
+    <input id="searchInput" placeholder="Search by name/UID..." />
+    <select id="filterSelect">
+      <option value="all">All</option>
+      <option value="pending">Pending</option>
+      <option value="approved">Approved</option>
+      <option value="rejected">Rejected</option>
     </select>
-    <input id="price" type="number" placeholder="Price">
-    <input id="dailyIncome" type="number" placeholder="Daily Income">
-    <input id="days" type="number" placeholder="Duration (days)">
-    <input id="image" placeholder="Image filename">
-    <select id="active">
-      <option value="true">Active</option>
-      <option value="false">Inactive</option>
-    </select>
-    <button id="saveBtn" class="edit">💾 Save Product</button>
   </div>
 
-  <!-- EDIT PRODUCT -->
-  <div id="editBox">
-    <h4>✏️ Edit Product</h4>
-    <input id="e_name" placeholder="Name">
-    <input id="e_price" type="number" placeholder="Price">
-    <input id="e_daily" type="number" placeholder="Daily Income">
-    <input id="e_days" type="number" placeholder="Days">
-    <select id="e_active">
-      <option value="true">Active</option>
-      <option value="false">Inactive</option>
-    </select>
-    <button onclick="saveProduct()" class="edit">💾 Save Changes</button>
-  </div>
+  <!-- ================= PRODUCTS ================= -->
+  <section id="products" class="active">
+    <h3>Manage Products</h3>
 
-  <div id="productList"></div>
-</section>
+    <!-- ADD PRODUCT -->
+    <div id="addBox">
+      <h4>➕ Add Product</h4>
+      <input id="pid" placeholder="Product ID">
+      <input id="pname" placeholder="Product Name">
+      <select id="category">
+        <option value="welfare">Welfare</option>
+        <option value="welfare-fund">Welfare Fund</option>
+        <option value="innovative">Innovative</option>
+      </select>
+      <input id="price" type="number" placeholder="Price">
+      <input id="dailyIncome" type="number" placeholder="Daily Income">
+      <input id="days" type="number" placeholder="Duration (days)">
+      <input id="image" placeholder="Image filename">
+      <select id="active">
+        <option value="true">Active</option>
+        <option value="false">Inactive</option>
+      </select>
+      <button id="saveBtn" class="edit">💾 Save Product</button>
+    </div>
 
-<!-- ================= RECHARGE ================= -->
-<section id="recharge">
-  <h3>Recharge Requests</h3>
-  <div id="paymentList"></div>
-</section>
+    <!-- EDIT PRODUCT -->
+    <div id="editBox">
+      <h4>✏️ Edit Product</h4>
+      <input id="e_name" placeholder="Name">
+      <input id="e_price" type="number" placeholder="Price">
+      <input id="e_daily" type="number" placeholder="Daily Income">
+      <input id="e_days" type="number" placeholder="Days">
+      <select id="e_active">
+        <option value="true">Active</option>
+        <option value="false">Inactive</option>
+      </select>
+      <button onclick="saveProduct()" class="edit">💾 Save Changes</button>
+    </div>
 
-<!-- ================= WITHDRAW ================= -->
-<section id="withdraw">
-  <h3>Withdraw Requests</h3>
-  <div id="withdrawList"></div>
-</section>
+    <div id="productList"></div>
+  </section>
 
-<script type="module">
-import { db } from "../js/firebase.js";
-import { ref, onValue, get, set, update, remove, runTransaction } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+  <!-- ================= RECHARGE ================= -->
+  <section id="recharge">
+    <h3>Recharge Requests</h3>
+    <div id="paymentList"></div>
+  </section>
 
-/* TAB SWITCH */
-window.show=id=>{
-  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-  document.querySelector(`nav button[onclick="show('${id}')"]`).classList.add("active");
-  if(id!=="products") document.getElementById("editBox").style.display="none";
-}
+  <!-- ================= WITHDRAW ================= -->
+  <section id="withdraw">
+    <h3>Withdraw Requests</h3>
+    <div id="withdrawList"></div>
+  </section>
 
-/* ================= ADD PRODUCT ================= */
-document.getElementById("saveBtn").addEventListener("click", async()=>{
-  const pid=document.getElementById("pid").value.trim();
-  const name=document.getElementById("pname").value.trim();
-  const category=document.getElementById("category").value;
-  const price=Number(document.getElementById("price").value);
-  const dailyIncome=Number(document.getElementById("dailyIncome").value);
-  const days=Number(document.getElementById("days").value);
-  const image=document.getElementById("image").value.trim();
-  const active=document.getElementById("active").value==="true";
-  if(!pid||!name||!price||!dailyIncome||!days){alert("Please fill all fields");return;}
-  await set(ref(db,`products/${pid}`),{name,category,price,dailyIncome,days,image,active,createdAt:Date.now()});
-  alert("✅ Product added successfully");
-  document.querySelectorAll("#addBox input").forEach(i=>i.value="");
-});
+  <script type="module">
+    import { db } from "../js/firebase.js";
+    import { ref, onValue, get, set, update, remove, runTransaction } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
-/* ================= MANAGE PRODUCTS ================= */
-const productList=document.getElementById("productList");
-let currentPID=null;
+    /* TAB SWITCH */
+    window.show = id => {
+      document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+      document.querySelector(`nav button[onclick="show('${id}')"]`).classList.add("active");
+      if (id !== "products") document.getElementById("editBox").style.display = "none";
+    }
 
-onValue(ref(db,"products"), snap=>{
-  productList.innerHTML="";
-  if(!snap.exists()){productList.innerHTML="<p>No products</p>";return;}
-  snap.forEach(c=>{
-    const p=c.val(), id=c.key;
-    productList.innerHTML+=`
+    /* ================= ADD PRODUCT ================= */
+    document.getElementById("saveBtn").addEventListener("click", async () => {
+      const pid = document.getElementById("pid").value.trim();
+      const name = document.getElementById("pname").value.trim();
+      const category = document.getElementById("category").value;
+      const price = Number(document.getElementById("price").value);
+      const dailyIncome = Number(document.getElementById("dailyIncome").value);
+      const days = Number(document.getElementById("days").value);
+      const image = document.getElementById("image").value.trim();
+      const active = document.getElementById("active").value === "true";
+      if (!pid || !name || !price || !dailyIncome || !days) { alert("Please fill all fields"); return; }
+      await set(ref(db, `products/${pid}`), { name, category, price, dailyIncome, days, image, active, createdAt: Date.now() });
+      alert("✅ Product added successfully");
+      document.querySelectorAll("#addBox input").forEach(i => i.value = "");
+    });
+
+    /* ================= MANAGE PRODUCTS ================= */
+    const productList = document.getElementById("productList");
+    let currentPID = null;
+
+    onValue(ref(db, "products"), snap => {
+      productList.innerHTML = "";
+      if (!snap.exists()) { productList.innerHTML = "<p>No products</p>"; return; }
+      snap.forEach(c => {
+        const p = c.val(), id = c.key;
+        productList.innerHTML += `
       <div class="card">
         <b>${p.name}</b> (${p.category})<br>
         ₹${p.price} | ₹${p.dailyIncome}/day | ${p.days} days<br>
-        <p class="status ${p.active?'approved':'rejected'}">Status: ${p.active?"Active":"Inactive"}</p>
+        <p class="status ${p.active ? 'approved' : 'rejected'}">Status: ${p.active ? "Active" : "Inactive"}</p>
         <button class="edit" onclick="editProduct('${id}')">Edit</button>
-        <button class="toggle" onclick="toggleProduct('${id}',${!p.active})">${p.active?"Deactivate":"Activate"}</button>
+        <button class="toggle" onclick="toggleProduct('${id}',${!p.active})">${p.active ? "Deactivate" : "Activate"}</button>
         <button class="delete" onclick="deleteProduct('${id}')">Delete</button>
       </div>
     `;
-  });
-});
+      });
+    });
 
-window.toggleProduct=(id,state)=>update(ref(db,"products/"+id),{active:state});
-window.deleteProduct=id=>{if(confirm("Delete product?")) remove(ref(db,"products/"+id));}
+    window.toggleProduct = (id, state) => update(ref(db, "products/" + id), { active: state });
+    window.deleteProduct = id => { if (confirm("Delete product?")) remove(ref(db, "products/" + id)); }
 
-window.editProduct=async pid=>{
-  currentPID=pid;
-  const snap=await get(ref(db,"products/"+pid));
-  if(!snap.exists()) return;
-  const p=snap.val();
-  e_name.value=p.name; e_price.value=p.price; e_daily.value=p.dailyIncome; e_days.value=p.days; e_active.value=p.active;
-  document.getElementById("editBox").style.display="block";
-  window.scrollTo({top:document.getElementById("editBox").offsetTop-20, behavior:"smooth"});
-}
+    window.editProduct = async pid => {
+      currentPID = pid;
+      const snap = await get(ref(db, "products/" + pid));
+      if (!snap.exists()) return;
+      const p = snap.val();
+      e_name.value = p.name; e_price.value = p.price; e_daily.value = p.dailyIncome; e_days.value = p.days; e_active.value = p.active;
+      document.getElementById("editBox").style.display = "block";
+      window.scrollTo({ top: document.getElementById("editBox").offsetTop - 20, behavior: "smooth" });
+    }
 
-window.saveProduct=async()=>{
-  if(!currentPID) return;
-  await update(ref(db,"products/"+currentPID),{
-    name:e_name.value, price:Number(e_price.value),
-    dailyIncome:Number(e_daily.value), days:Number(e_days.value),
-    active:e_active.value==="true", updatedAt:Date.now()
-  });
-  alert("✅ Product updated");
-  document.getElementById("editBox").style.display="none";
-  currentPID=null;
-}
+    window.saveProduct = async () => {
+      if (!currentPID) return;
+      await update(ref(db, "products/" + currentPID), {
+        name: e_name.value, price: Number(e_price.value),
+        dailyIncome: Number(e_daily.value), days: Number(e_days.value),
+        active: e_active.value === "true", updatedAt: Date.now()
+      });
+      alert("✅ Product updated");
+      document.getElementById("editBox").style.display = "none";
+      currentPID = null;
+    }
 
-/* ================= RECHARGE ================= */
-const paymentList=document.getElementById("paymentList");
-onValue(ref(db,"payments"), snap=>{
-  paymentList.innerHTML="";
-  if(!snap.exists()){paymentList.innerHTML="<p>No recharge requests</p>"; return;}
-  snap.forEach(c=>{
-    const p=c.val(), id=c.key;
-    let statusClass=p.status==='pending'?'pending':p.status==='approved'?'approved':'rejected';
-    paymentList.innerHTML+=`
+    /* ================= RECHARGE ================= */
+    const paymentList = document.getElementById("paymentList");
+    onValue(ref(db, "payments"), snap => {
+      paymentList.innerHTML = "";
+      if (!snap.exists()) { paymentList.innerHTML = "<p>No recharge requests</p>"; return; }
+      snap.forEach(c => {
+        const p = c.val(), id = c.key;
+        let statusClass = p.status === 'pending' ? 'pending' : p.status === 'approved' ? 'approved' : 'rejected';
+        paymentList.innerHTML += `
       <div class="card">
         <p><b>UID:</b> ${p.uid}</p>
         <p><b>Amount:</b> ₹${p.amount}</p>
         <p><b>UTR:</b> ${p.utr || "N/A"}</p>
         <p class="status ${statusClass}"><b>Status:</b> ${p.status}</p>
-        ${p.status==="pending"?`
+        ${p.status === "pending" ? `
           <button class="approve" onclick="approveRecharge('${id}','${p.uid}',${p.amount})">Approve</button>
-          <button class="reject" onclick="rejectRecharge('${id}')">Reject</button>`:""}
+          <button class="reject" onclick="rejectRecharge('${id}')">Reject</button>` : ""}
       </div>
     `;
-  });
-});
-//window.approveRecharge=async(pid,uid,amount)=>{await runTransaction(ref(db,`users/${uid}/wallets/withdraw`), bal=>(Number(bal)||0)+amount);await update(ref(db,"payments/"+pid),{status:"approved", approvedAt:Date.now()});alert("✅ Recharge approved");}
-window.approveRecharge = async (pid, uid, amount) => {
+      });
+    });
+    //window.approveRecharge=async(pid,uid,amount)=>{await runTransaction(ref(db,`users/${uid}/wallets/withdraw`), bal=>(Number(bal)||0)+amount);await update(ref(db,"payments/"+pid),{status:"approved", approvedAt:Date.now()});alert("✅ Recharge approved");}
+    window.approveRecharge = async (pid, uid, amount) => {
 
-  /* ✅ ADD AMOUNT TO WITHDRAW WALLET */
-  await runTransaction(
-    ref(db, `users/${uid}/wallets/deposit`),
-    bal => (Number(bal) || 0) + amount
-  );
+      /* ✅ ADD AMOUNT TO DEPOSIT WALLET */
+      await runTransaction(
+        ref(db, `users/${uid}/wallets/deposit`),
+        bal => (Number(bal) || 0) + amount
+      );
 
-  /* ✅ UPDATE TOTAL DEPOSITED (VERY IMPORTANT) */
-  await runTransaction(
-    ref(db, `users/${uid}/stats/totalDeposited`),
-    total => (Number(total) || 0) + amount
-  );
+      /* ✅ UPDATE TOTAL DEPOSITED (VERY IMPORTANT) */
+      await runTransaction(
+        ref(db, `users/${uid}/stats/totalDeposited`),
+        total => (Number(total) || 0) + amount
+      );
 
-  /* ✅ UPDATE PAYMENT STATUS */
-  await update(ref(db, "payments/" + pid), {
-    status: "approved",
-    approvedAt: Date.now()
-  });
+      /* 🔥 REFERRAL REWARD LOGIC (First Recharge Only) */
+      const userSnap = await get(ref(db, `users/${uid}`));
+      const userData = userSnap.val() || {};
 
-  alert("✅ Recharge approved & deposit recorded");
-};
+      // Check if this is first approved recharge
+      const hasReceivedFirstReward = userData.stats?.firstRechargeRewarded || false;
+      const referredBy = userData.referredBy || null;
 
-window.rejectRecharge=pid=>update(ref(db,"payments/"+pid),{status:"rejected",rejectedAt:Date.now()});
+      if (!hasReceivedFirstReward && referredBy) {
+        // Find referrer by referral code
+        const allUsersSnap = await get(ref(db, "users"));
+        let referrerUID = null;
 
-/* ================= WITHDRAW ================= */
-const withdrawList=document.getElementById("withdrawList");
-onValue(ref(db,"withdrawals"), snap=>{
-  withdrawList.innerHTML="";
-  if(!snap.exists()){withdrawList.innerHTML="<p>No withdraw requests</p>"; return;}
-  snap.forEach(c=>{
-    const w=c.val(), id=c.key;
-    let statusClass=w.status==='pending'?'pending':w.status==='approved'?'approved':'rejected';
-    withdrawList.innerHTML+=`
+        allUsersSnap.forEach(child => {
+          if (child.val().referralCode === referredBy) {
+            referrerUID = child.key;
+          }
+        });
+
+        if (referrerUID) {
+          const REFERRAL_REWARD = 100; // ₹100 reward
+
+          // Add reward to referrer's withdraw wallet
+          await runTransaction(
+            ref(db, `users/${referrerUID}/wallets/withdraw`),
+            bal => (Number(bal) || 0) + REFERRAL_REWARD
+          );
+
+          // Update referrer's referral stats
+          await runTransaction(
+            ref(db, `users/${referrerUID}/referrals/count`),
+            count => (Number(count) || 0) + 1
+          );
+
+          await runTransaction(
+            ref(db, `users/${referrerUID}/referrals/reward`),
+            reward => (Number(reward) || 0) + REFERRAL_REWARD
+          );
+
+          // Mark user as rewarded (so reward isn't given again)
+          await update(ref(db, `users/${uid}/stats`), {
+            firstRechargeRewarded: true
+          });
+
+          console.log(`✅ Referral reward ₹${REFERRAL_REWARD} given to ${referrerUID}`);
+        }
+      }
+
+      /* ✅ UPDATE PAYMENT STATUS */
+      await update(ref(db, "payments/" + pid), {
+        status: "approved",
+        approvedAt: Date.now()
+      });
+
+      alert("✅ Recharge approved & deposit recorded");
+    };
+
+    window.rejectRecharge = pid => update(ref(db, "payments/" + pid), { status: "rejected", rejectedAt: Date.now() });
+
+    /* ================= WITHDRAW ================= */
+    const withdrawList = document.getElementById("withdrawList");
+    onValue(ref(db, "withdrawals"), snap => {
+      withdrawList.innerHTML = "";
+      if (!snap.exists()) { withdrawList.innerHTML = "<p>No withdraw requests</p>"; return; }
+      snap.forEach(c => {
+        const w = c.val(), id = c.key;
+        let statusClass = w.status === 'pending' ? 'pending' : w.status === 'approved' ? 'approved' : 'rejected';
+        withdrawList.innerHTML += `
       <div class="card">
         <p><b>UID:</b> ${w.uid}</p>
         <p><b>Amount:</b> ₹${w.requestAmount}</p>
         <p class="status ${statusClass}"><b>Status:</b> ${w.status}</p>
-        ${w.status==="pending"?`
+        ${w.status === "pending" ? `
           <button class="approve" onclick="approveWithdraw('${id}')">Approve</button>
-          <button class="reject" onclick="rejectWithdraw('${id}','${w.uid}',${w.requestAmount})">Reject</button>`:""}
+          <button class="reject" onclick="rejectWithdraw('${id}','${w.uid}',${w.requestAmount})">Reject</button>` : ""}
       </div>
     `;
-  });
-});
-window.approveWithdraw=id=>update(ref(db,"withdrawals/"+id),{status:"approved",approvedAt:Date.now()});
-window.rejectWithdraw=async(id,uid,amount)=>{await runTransaction(ref(db,`users/${uid}/wallets/withdraw`),bal=>(Number(bal)||0)+amount);await update(ref(db,"withdrawals/"+id),{status:"rejected",rejectedAt:Date.now()});alert("✅ Withdraw rejected & refunded");}
+      });
+    });
+    window.approveWithdraw = id => update(ref(db, "withdrawals/" + id), { status: "approved", approvedAt: Date.now() });
+    window.rejectWithdraw = async (id, uid, amount) => { await runTransaction(ref(db, `users/${uid}/wallets/withdraw`), bal => (Number(bal) || 0) + amount); await update(ref(db, "withdrawals/" + id), { status: "rejected", rejectedAt: Date.now() }); alert("✅ Withdraw rejected & refunded"); }
 
-</script>
+  </script>
 </body>
+
 </html>
