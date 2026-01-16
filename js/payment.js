@@ -2,7 +2,7 @@ import { auth, db } from "./firebase.js";
 import { onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 import { ref, push, get }
-  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 /* ================= GET AMOUNT ================= */
 const params = new URLSearchParams(window.location.search);
 const rechargeAmount = Number(params.get("amount")) || 0;
@@ -88,18 +88,18 @@ window.submitUTR = async function () {
   }
 
   const newPaymentRef = await push(paymentsRef, {
-  uid: currentUser.uid,
-  amount: rechargeAmount,
-  utr,
-  status: "pending",
-  createdAt: Date.now()
-});
+    uid: currentUser.uid,
+    amount: rechargeAmount,
+    utr,
+    status: "pending",
+    createdAt: Date.now()
+  });
 
-// 🔥 paymentId localStorage me save
-localStorage.setItem("lastPaymentId", newPaymentRef.key);
+  // 🔥 paymentId localStorage me save
+  localStorage.setItem("lastPaymentId", newPaymentRef.key);
 
-alert("UTR submitted, waiting for approval...");
-document.getElementById("utr").value = "";
+  alert("UTR submitted, waiting for approval...");
+  document.getElementById("utr").value = "";
 
 };
 
@@ -118,8 +118,8 @@ window.openPhonePe = function () {
   window.location.href =
     "upi://pay?pa=inzamamulh758@ptaxis&pn=Recharge&am=" + rechargeAmount;
 };
-import { onValue } 
-  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { onValue }
+  from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 /* ================= AUTO STATUS CHECK ================= */
 

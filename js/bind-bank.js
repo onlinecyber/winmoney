@@ -1,8 +1,8 @@
 import { auth, db } from "./firebase.js";
 import { ref, set } from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 import { onAuthStateChanged } from
-"https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+  "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 let currentUser = null;
 
