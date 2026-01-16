@@ -9,7 +9,7 @@ import { getDatabase } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-
 const firebaseConfig = {
   apiKey: "AIzaSyBA0BP5Tw3QdlLEI7DMcBr9OVIKTIsMYiY",
   authDomain: "online-73c00.firebaseapp.com",
-  databaseURL: "https://online-73c00-default-rtdb.firebasedatabase.app",
+  databaseURL: "https://online-73c00-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "online-73c00",
   storageBucket: "online-73c00.firebasestorage.app",
   messagingSenderId: "906312941692",

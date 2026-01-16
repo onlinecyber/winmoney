@@ -95,17 +95,24 @@ window.registerUser = async function () {
       createdAt: Date.now()
     });
 
-    alert("Register successful");
+    console.log("✅ User saved to database");
+    alert("✅ Register successful!");
     window.location.href = "/account.html";
 
   } catch (err) {
+    console.error("❌ Registration Error:", err);
+    console.error("Error Code:", err.code);
+    console.error("Error Message:", err.message);
+
     if (err.code === "auth/email-already-in-use") {
-      alert("Number already registered. Please login.");
+      alert("❌ Number already registered. Please login.");
       window.location.href = "/index.html";
     } else if (err.code === "auth/weak-password") {
-      alert("Password must be at least 6 characters");
+      alert("❌ Password must be at least 6 characters");
+    } else if (err.code === "auth/network-request-failed") {
+      alert("❌ Network error. Check your internet connection.");
     } else {
-      alert(err.message);
+      alert("❌ Error: " + err.message);
     }
   }
 };
