@@ -191,6 +191,39 @@
 
 <body>
 
+  <!-- 🔐 ADMIN PASSWORD PROTECTION -->
+  <script>
+    (function () {
+      const ADMIN_PASSWORD = "admin@123"; // Change this password
+      const MAX_ATTEMPTS = 3;
+      let attempts = 0;
+
+      while (attempts < MAX_ATTEMPTS) {
+        const input = prompt("🔐 Enter Admin Password:");
+
+        if (input === null) {
+          // User clicked cancel
+          window.location.href = "/index.html";
+          return;
+        }
+
+        if (input === ADMIN_PASSWORD) {
+          break; // Correct password
+        }
+
+        attempts++;
+        if (attempts < MAX_ATTEMPTS) {
+          alert("❌ Wrong password! " + (MAX_ATTEMPTS - attempts) + " attempts left.");
+        }
+      }
+
+      if (attempts >= MAX_ATTEMPTS) {
+        alert("❌ Too many wrong attempts. Access denied!");
+        window.location.href = "/index.html";
+      }
+    })();
+  </script>
+
   <header>
     <h1>⚙ Premium Admin Panel</h1>
   </header>
