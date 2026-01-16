@@ -161,6 +161,19 @@ window.buyProduct = async function (product) {
     withdraw: newWithdraw
   });
 
+  // ✅ Update stats.totalInvested for withdraw unlock logic
+  const statsRef = ref(db, `users/${uid}/stats`);
+  const statsSnap = await get(statsRef);
+  const stats = statsSnap.val() || {};
+  const currentInvested = Number(stats.totalInvested || 0);
+
+  await set(statsRef, {
+    ...stats,
+    totalInvested: currentInvested + price
+  });
+
+  console.log("Updated totalInvested =", currentInvested + price);
+
   // Save product purchase
   await set(prodRef, {
     productId: id,

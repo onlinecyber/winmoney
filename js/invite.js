@@ -18,7 +18,7 @@ onAuthStateChanged(auth, async (user) => {
 
   // invite link
   const inviteLink =
-    `${window.location.origin}/pages/signup.html?ref=${refCode}`;
+    `${window.location.origin}/register.html?ref=${refCode}`;
 
   document.getElementById("inviteLink").innerText = inviteLink;
 
@@ -50,7 +50,7 @@ window.shareWhatsApp = function () {
     document.getElementById("inviteLink").innerText;
 
   const message =
-`🔥 Join this app & earn money!
+    `🔥 Join this app & earn money!
 
 💰 Get rewards after first recharge
 🤝 Use my referral code: ${refCode}
