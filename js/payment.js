@@ -3,6 +3,8 @@ import { onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 import { ref, push, get }
   from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+
+import "./toast.js";
 /* ================= GET AMOUNT ================= */
 const params = new URLSearchParams(window.location.search);
 const rechargeAmount = Number(params.get("amount")) || 0;
@@ -62,7 +64,7 @@ window.copyText = function (id) {
   const el = document.getElementById(id);
   if (!el) return;
   navigator.clipboard.writeText(el.innerText);
-  alert("Copied");
+  toastSuccess("Copied!");
 };
 
 /* ================= SUBMIT UTR ================= */
@@ -71,22 +73,22 @@ window.submitUTR = async function () {
 
   // UTR validation: 12-22 digits (standard UPI UTR range)
   if (!utr) {
-    alert("Please enter UTR number");
+    toastWarning("Please enter UTR number");
     return;
   }
 
   if (!/^\d+$/.test(utr)) {
-    alert("UTR should contain only numbers");
+    toastError("UTR should contain only numbers");
     return;
   }
 
   if (utr.length < 12) {
-    alert("UTR is too short. Minimum 12 digits required.");
+    toastError("UTR is too short. Minimum 12 digits required.");
     return;
   }
 
   if (utr.length > 22) {
-    alert("UTR is too long. Maximum 22 digits allowed.");
+    toastError("UTR is too long. Maximum 22 digits allowed.");
     return;
   }
 
@@ -99,7 +101,7 @@ window.submitUTR = async function () {
   });
 
   if (duplicate) {
-    alert("UTR already used");
+    toastError("UTR already used!");
     return;
   }
 

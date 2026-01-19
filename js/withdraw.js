@@ -8,6 +8,8 @@ import {
   runTransaction
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
+import "./toast.js";
+
 let currentUser = null;
 let userTxPassword = null;
 
@@ -116,7 +118,7 @@ window.submitWithdraw = async function () {
   const inviteCount = Number(referrals.count || 0);
 
   if (inviteCount < 1) {
-    alert("You must invite at least 1 user to withdraw");
+    toastWarning("You must invite at least 1 user to withdraw");
     return;
   }
 
@@ -125,20 +127,20 @@ window.submitWithdraw = async function () {
   const totalInvested = Number(userData.stats?.totalInvested || 0);
 
   if (totalInvested < totalDeposited) {
-    alert("❌ You must invest 100% of your deposit before withdrawing");
+    toastError("You must invest 100% of your deposit before withdrawing");
     return;
   }
   /* ============================================================= */
 
   if (!amount || amount < 106) {
-    alert("Minimum withdrawal amount is 106");
+    toastWarning("Minimum withdrawal amount is ₹106");
     return;
   }
 
   // 🔐 Hash input password and compare with stored hash
   const hashedPass = await hashPassword(pass);
   if (hashedPass !== userTxPassword) {
-    alert("Incorrect transaction password");
+    toastError("Incorrect transaction password");
     return;
   }
 
@@ -156,7 +158,7 @@ window.submitWithdraw = async function () {
   });
 
   if (!tx.committed) {
-    alert("Insufficient withdraw balance");
+    toastError("Insufficient withdraw balance");
     return;
   }
 
@@ -172,7 +174,7 @@ window.submitWithdraw = async function () {
 
   document.getElementById("wallet").innerText = tx.snapshot.val();
 
-  alert(`Withdraw submitted ✅\nBank Amount: ₹${bankAmount}`);
+  toastSuccess(`Withdrawal submitted! Amount: ₹${bankAmount.toLocaleString()}`);
 
   document.getElementById("withdrawAmount").value = "";
   document.getElementById("txnPassword").value = "";

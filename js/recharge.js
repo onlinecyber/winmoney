@@ -4,6 +4,8 @@ import { onAuthStateChanged } from
 import { ref, get } from
   "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
+import "./toast.js";
+
 /* ================= LOAD BALANCE ================= */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -60,7 +62,7 @@ window.goToPayment = function () {
   const amt = Number(document.getElementById("amount")?.value);
 
   if (!amt || amt <= 0) {
-    alert("Please select valid amount");
+    toastWarning("Please select a valid amount");
     return;
   }
 

@@ -4,6 +4,7 @@ import { ref, set, get } from
 import { onAuthStateChanged } from
   "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
+import "./toast.js";
 let currentUser = null;
 
 /* ================= SHA-256 HASH FUNCTION ================= */
@@ -39,7 +40,7 @@ window.addBank = async function () {
 
   // 🔴 validation
   if (!bank || !ifsc || !holder || !account || !txpass) {
-    alert("Please fill all details");
+    toastWarning("Please fill all details");
     return;
   }
 
@@ -60,7 +61,7 @@ window.addBank = async function () {
     const isMatch = (hashedInput === storedTxPassword) || (txpass === storedTxPassword);
 
     if (!isMatch) {
-      alert("Incorrect transaction password");
+      toastError("Incorrect transaction password");
       console.log("❌ Password mismatch");
       return;
     }
@@ -77,13 +78,13 @@ window.addBank = async function () {
     });
 
     console.log("✅ Bank saved successfully!");
-    alert("Bank card added successfully");
+    toastSuccess("Bank card added successfully!");
 
     // 🔥 BACK TO WITHDRAW PAGE
     location.href = "/withdraw.html";
 
   } catch (err) {
     console.error("❌ Error:", err);
-    alert("Error: " + err.message);
+    toastError("Error: " + err.message);
   }
 };

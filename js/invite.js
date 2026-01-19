@@ -4,6 +4,7 @@ import { onAuthStateChanged }
 import { ref, get }
   from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
+import "./toast.js";
 onAuthStateChanged(auth, async (user) => {
   if (!user) return;
 
@@ -34,13 +35,13 @@ onAuthStateChanged(auth, async (user) => {
 window.copyRefCode = function () {
   const text = document.getElementById("refCode").innerText;
   navigator.clipboard.writeText(text);
-  alert("Referral code copied ✅");
+  toastSuccess("Referral code copied!");
 };
 
 window.copyInviteLink = function () {
   const text = document.getElementById("inviteLink").innerText;
   navigator.clipboard.writeText(text);
-  alert("Invite link copied ✅");
+  toastSuccess("Invite link copied!");
 };
 window.shareWhatsApp = function () {
   const refCode =
