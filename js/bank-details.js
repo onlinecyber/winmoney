@@ -4,6 +4,7 @@ import { onAuthStateChanged } from
 import { ref, get, remove } from
   "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
+import "./toast.js";
 let currentUser = null;
 
 onAuthStateChanged(auth, async (user) => {
@@ -17,8 +18,8 @@ onAuthStateChanged(auth, async (user) => {
   const bankSnap = await get(ref(db, "users/" + user.uid + "/bank"));
 
   if (!bankSnap.exists()) {
-    alert("Bank details not added");
-    location.href = "/account.html";
+    toastWarning("Bank details not added");
+    setTimeout(() => { location.href = "/account.html"; }, 1500);
     return;
   }
 
@@ -44,6 +45,6 @@ window.deleteBank = async function () {
 
   await remove(ref(db, "users/" + currentUser.uid + "/bank"));
 
-  alert("Bank account deleted");
-  location.href = "/account.html";
+  toastSuccess("Bank account deleted");
+  setTimeout(() => { location.href = "/account.html"; }, 1500);
 };
