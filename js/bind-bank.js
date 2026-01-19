@@ -66,7 +66,36 @@ window.addBank = async function () {
       return;
     }
 
-    console.log("✅ Password verified, saving bank...");
+    console.log("✅ Password verified, checking for duplicate account...");
+
+    // 🔒 CHECK IF BANK ACCOUNT ALREADY USED BY ANOTHER USER
+    const allUsersSnap = await get(ref(db, "users"));
+    let isDuplicate = false;
+    let duplicateUserName = "";
+
+    if (allUsersSnap.exists()) {
+      allUsersSnap.forEach((child) => {
+        const uid = child.key;
+        const uData = child.val();
+
+        // Skip current user
+        if (uid === currentUser.uid) return;
+
+        // Check if this user has the same bank account number
+        if (uData.bank && uData.bank.account === account) {
+          isDuplicate = true;
+          duplicateUserName = uData.name || "Another user";
+        }
+      });
+    }
+
+    if (isDuplicate) {
+      toastError("This bank account is already linked to another user!");
+      console.log("❌ Duplicate bank account detected");
+      return;
+    }
+
+    console.log("✅ No duplicate found, saving bank...");
 
     // 🔴 SAVE BANK UNDER USER
     await set(ref(db, "users/" + currentUser.uid + "/bank"), {
