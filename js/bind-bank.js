@@ -27,12 +27,15 @@ onAuthStateChanged(auth, (user) => {
 
 // 🔥 ADD BANK CARD
 window.addBank = async function () {
+  console.log("🔥 addBank() called");
 
   const bank = document.getElementById("bank").value;
   const ifsc = document.getElementById("ifsc").value.trim();
   const holder = document.getElementById("holder").value.trim();
   const account = document.getElementById("account").value.trim();
   const txpass = document.getElementById("txpass").value.trim();
+
+  console.log("Bank:", bank, "IFSC:", ifsc, "Holder:", holder, "Account:", account);
 
   // 🔴 validation
   if (!bank || !ifsc || !holder || !account || !txpass) {
@@ -41,16 +44,28 @@ window.addBank = async function () {
   }
 
   try {
+    console.log("🔐 Verifying transaction password...");
+
     // 🔐 Verify transaction password
     const userSnap = await get(ref(db, "users/" + currentUser.uid));
     const userData = userSnap.val() || {};
     const storedTxPassword = userData.txPassword || "";
 
+    console.log("Stored password length:", storedTxPassword.length);
+
+    // Check if stored password is hashed (64 chars) or plain text
     const hashedInput = await hashPassword(txpass);
-    if (hashedInput !== storedTxPassword) {
+
+    // Support both hashed and plain text passwords (for old users)
+    const isMatch = (hashedInput === storedTxPassword) || (txpass === storedTxPassword);
+
+    if (!isMatch) {
       alert("Incorrect transaction password");
+      console.log("❌ Password mismatch");
       return;
     }
+
+    console.log("✅ Password verified, saving bank...");
 
     // 🔴 SAVE BANK UNDER USER
     await set(ref(db, "users/" + currentUser.uid + "/bank"), {
@@ -61,12 +76,14 @@ window.addBank = async function () {
       createdAt: Date.now()
     });
 
+    console.log("✅ Bank saved successfully!");
     alert("Bank card added successfully");
 
     // 🔥 BACK TO WITHDRAW PAGE
     location.href = "/withdraw.html";
 
   } catch (err) {
-    alert(err.message);
+    console.error("❌ Error:", err);
+    alert("Error: " + err.message);
   }
 };

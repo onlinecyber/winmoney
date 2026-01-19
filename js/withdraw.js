@@ -80,6 +80,16 @@ async function checkBank() {
   }
 }
 
+/* ================= POPUP FUNCTIONS ================= */
+window.goBindBank = function () {
+  location.href = "/bind-bank.html";
+};
+
+window.closePopup = function () {
+  const popup = document.getElementById("bindPopup");
+  if (popup) popup.style.display = "none";
+};
+
 /* ================= POPUP ================= */
 window.submitWithdraw = async function () {
   const amount = Number(document.getElementById("withdrawAmount").value);
