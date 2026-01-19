@@ -111,11 +111,12 @@ window.submitUTR = async function () {
     createdAt: Date.now()
   });
 
-  // 🔥 paymentId localStorage me save
+  // 🔥 Save to localStorage for pending page
   localStorage.setItem("lastPaymentId", newPaymentRef.key);
+  localStorage.setItem("lastPaymentAmount", rechargeAmount);
 
-  alert("UTR submitted, waiting for approval...");
-  document.getElementById("utr").value = "";
+  // 🔥 Redirect to pending/buffering page
+  location.href = `/pending.html?id=${newPaymentRef.key}&amount=${rechargeAmount}`;
 
 };
 

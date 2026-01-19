@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Processing</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pending-container {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 400px;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            border: 6px solid rgba(102, 126, 234, 0.2);
+            border-top: 6px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .pending-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #667eea;
+        }
+
+        .status-text {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .amount-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .amount-label {
+            font-size: 13px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        .amount-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .info-text {
+            font-size: 13px;
+            opacity: 0.6;
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+
+        .dots {
+            display: inline-block;
+        }
+
+        .dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+
+            0%,
+            20% {
+                content: '';
+            }
+
+            40% {
+                content: '.';
+            }
+
+            60% {
+                content: '..';
+            }
+
+            80%,
+            100% {
+                content: '...';
+            }
+        }
+
+        .back-btn {
+            margin-top: 30px;
+            padding: 14px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="pending-container">
+        <div class="loader"></div>
+
+        <div class="pending-icon">⏳</div>
+
+        <h1>Payment Processing</h1>
+
+        <p class="status-text">
+            Your payment is being verified<span class="dots"></span>
+            <br>Please wait for admin approval.
+        </p>
+
+        <div class="amount-box">
+            <p class="amount-label">Amount Submitted</p>
+            <p class="amount-value" id="pendingAmount">₹0</p>
+        </div>
+
+        <p class="info-text">
+            ⚡ This usually takes 5-10 minutes<br>
+            📱 You'll be redirected automatically when approved
+        </p>
+
+        <button class="back-btn" onclick="location.href='/account.html'">
+            ← Back to Account
+        </button>
+    </div>
+
+    <script type="module">
+        import { auth, db } from "./js/firebase.js";
+        import { onAuthStateChanged } from
+            "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+        import { ref, onValue } from
+            "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+
+        // Get payment ID from URL or localStorage
+        const params = new URLSearchParams(window.location.search);
+        const paymentId = params.get("id") || localStorage.getItem("lastPaymentId");
+        const amount = params.get("amount") || localStorage.getItem("lastPaymentAmount");
+
+        // Show amount
+        const amountEl = document.getElementById("pendingAmount");
+        if (amountEl && amount) {
+            amountEl.innerText = `₹${Number(amount).toLocaleString()}`;
+        }
+
+        // Listen for status change
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                location.href = "/index.html";
+                return;
+            }
+
+            if (!paymentId) {
+                console.log("No payment ID found");
+                return;
+            }
+
+            // Real-time listener for payment status
+            const paymentRef = ref(db, `payments/${paymentId}`);
+
+            onValue(paymentRef, (snapshot) => {
+                const payment = snapshot.val();
+
+                if (!payment) {
+                    console.log("Payment not found");
+                    return;
+                }
+
+                console.log("Payment status:", payment.status);
+
+                if (payment.status === "approved") {
+                    // Clear localStorage
+                    localStorage.removeItem("lastPaymentId");
+                    localStorage.removeItem("lastPaymentAmount");
+
+                    // Redirect to success
+                    location.href = "/success.html?amount=" + payment.amount;
+                } else if (payment.status === "rejected") {
+                    // Redirect to failed
+                    location.href = "/failed.html";
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
