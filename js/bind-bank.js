@@ -90,7 +90,7 @@ window.addBank = async function () {
     }
 
     if (isDuplicate) {
-      toastError("This bank account is already linked to another user!");
+      toastWarning("This bank account is already linked with another account");
       console.log("❌ Duplicate bank account detected");
       return;
     }
