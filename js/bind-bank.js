@@ -68,31 +68,19 @@ window.addBank = async function () {
 
     console.log("✅ Password verified, checking for duplicate account...");
 
-    // 🔒 CHECK IF BANK ACCOUNT ALREADY USED BY ANOTHER USER
-    const allUsersSnap = await get(ref(db, "users"));
-    let isDuplicate = false;
-    let duplicateUserName = "";
+    // 🔒 CHECK IF BANK ACCOUNT ALREADY USED (using bankAccounts index)
+    const bankCheckRef = ref(db, "bankAccounts/" + account);
+    const bankCheckSnap = await get(bankCheckRef);
 
-    if (allUsersSnap.exists()) {
-      allUsersSnap.forEach((child) => {
-        const uid = child.key;
-        const uData = child.val();
+    if (bankCheckSnap.exists()) {
+      const existingUid = bankCheckSnap.val().uid;
 
-        // Skip current user
-        if (uid === currentUser.uid) return;
-
-        // Check if this user has the same bank account number
-        if (uData.bank && uData.bank.account === account) {
-          isDuplicate = true;
-          duplicateUserName = uData.name || "Another user";
-        }
-      });
-    }
-
-    if (isDuplicate) {
-      toastWarning("Bank already linked to another account");
-      console.log("❌ Duplicate bank account detected");
-      return;
+      // If linked to different user, block
+      if (existingUid !== currentUser.uid) {
+        toastWarning("Bank already linked to another account");
+        console.log("❌ Duplicate bank account detected");
+        return;
+      }
     }
 
     console.log("✅ No duplicate found, saving bank...");
@@ -103,6 +91,12 @@ window.addBank = async function () {
       ifsc: ifsc,
       holder: holder,
       account: account,
+      createdAt: Date.now()
+    });
+
+    // 🔴 SAVE BANK ACCOUNT INDEX (for duplicate check)
+    await set(ref(db, "bankAccounts/" + account), {
+      uid: currentUser.uid,
       createdAt: Date.now()
     });
 
