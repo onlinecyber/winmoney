@@ -7,6 +7,9 @@ import {
   set
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
+// Import toast notifications
+import "./toast.js";
+
 /* ================= CONFIG ================= */
 // pageCategory must be set in HTML before this script
 // window.pageCategory = "bronze" | "silver" | "gold"
@@ -116,7 +119,7 @@ window.buyProduct = async function (product) {
 
   const prodRef = ref(db, `userProducts/${uid}/${id}`);
   if ((await get(prodRef)).exists()) {
-    alert("Already invested");
+    toastWarning("You have already invested in this product!");
     return;
   }
 
@@ -133,7 +136,7 @@ window.buyProduct = async function (product) {
 
   // Check if combined balance is sufficient
   if (totalBalance < price) {
-    alert("Insufficient balance! Total available: ₹" + totalBalance);
+    toastError("Insufficient balance! Available: ₹" + totalBalance.toLocaleString());
     return;
   }
 
@@ -186,6 +189,6 @@ window.buyProduct = async function (product) {
     status: "active"
   });
 
-  alert("Product purchased successfully 🎉");
+  toastSuccess("Product purchased successfully! 🎉");
   markInvested(id);
 };
