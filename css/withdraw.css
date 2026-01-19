@@ -33,9 +33,51 @@ body {
   background: linear-gradient(135deg, #3a3a9f, #9f3a7a);
 }
 
+.bank-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.bank-icon {
+  font-size: 28px;
+}
+
 .card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.bank-details {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.bank-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bank-row:last-child {
+  border-bottom: none;
+}
+
+.bank-row .label {
   font-size: 13px;
-  opacity: 0.8;
+  opacity: 0.7;
+}
+
+.bank-row .value {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
 }
 
 .card-name {

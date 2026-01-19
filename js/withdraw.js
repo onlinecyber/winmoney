@@ -50,19 +50,29 @@ onAuthStateChanged(auth, async (user) => {
 /* ================= BANK INFO ================= */
 async function loadBankInfo() {
   const snap = await get(ref(db, `users/${currentUser.uid}/bank`));
-  const el = document.getElementById("bankInfo");
+
+  const bankNameEl = document.getElementById("bankName");
+  const bankHolderEl = document.getElementById("bankHolder");
+  const bankAccountEl = document.getElementById("bankAccount");
+  const bankCard = document.getElementById("bankCard");
 
   if (!snap.exists()) {
-    if (el) el.innerText = "No bank account";
+    if (bankNameEl) bankNameEl.innerText = "Not linked";
+    if (bankHolderEl) bankHolderEl.innerText = "--";
+    if (bankAccountEl) bankAccountEl.innerText = "•••• ••••";
     return;
   }
 
   const bank = snap.val();
-  const shortAcc = bank.account
-    ? "•••• " + bank.account.slice(-4)
-    : "";
 
-  if (el) el.innerText = `${bank.bank} ${shortAcc}`;
+  // Mask account number: show only last 4 digits
+  const maskedAccount = bank.account
+    ? "•••• •••• " + bank.account.slice(-4)
+    : "•••• ••••";
+
+  if (bankNameEl) bankNameEl.innerText = bank.bankName || bank.bank || "Unknown";
+  if (bankHolderEl) bankHolderEl.innerText = bank.holder || "--";
+  if (bankAccountEl) bankAccountEl.innerText = maskedAccount;
 }
 
 /* ================= BANK CHECK ================= */
