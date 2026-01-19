@@ -14,31 +14,48 @@
 
     <!-- HEADER -->
     <div class="header">
-      <span onclick="history.back()">✕</span>
-      <h2>My Bank Account</h2>
+      <span onclick="history.back()">←</span>
+      <h2>🏦 My Bank Account</h2>
     </div>
 
-    <!-- BANK CARD -->
-    <div class="bank-card">
-      <h3 id="bankName">Loading...</h3>
-
-      <div class="row">
-        <span>Account Holder</span>
-        <b id="holder">-</b>
+    <!-- BANK CARD (shown when bank exists) -->
+    <div class="bank-card" id="bankCard" style="display:none;">
+      <div class="bank-header">
+        <span class="bank-icon">🏧</span>
+        <h3 id="bankName">Loading...</h3>
       </div>
 
-      <div class="row">
-        <span>Account Number</span>
-        <b id="account">-</b>
+      <div class="bank-info">
+        <div class="row">
+          <span class="label">Account Holder</span>
+          <span class="value" id="holder">-</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Account Number</span>
+          <span class="value" id="account">-</span>
+        </div>
+
+        <div class="row">
+          <span class="label">IFSC Code</span>
+          <span class="value" id="ifsc">-</span>
+        </div>
       </div>
 
-      <div class="row">
-        <span>IFSC Code</span>
-        <b id="ifsc">-</b>
+      <div class="status-badge">
+        <span>✓ Verified</span>
       </div>
     </div>
 
-    <button class="delete-btn" onclick="deleteBank()">Delete Bank Account</button>
+    <!-- NO BANK (shown when no bank linked) -->
+    <div class="no-bank-card" id="noBankCard" style="display:none;">
+      <div class="no-bank-icon">💳</div>
+      <h3>No Bank Account Linked</h3>
+      <p>Link your bank account to enable withdrawals</p>
+      <button class="add-bank-btn" onclick="location.href='/bind-bank.html'">
+        ➕ Add Bank Account
+      </button>
+    </div>
 
   </div>
 

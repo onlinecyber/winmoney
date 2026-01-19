@@ -5,6 +5,7 @@ import { ref, get, remove } from
   "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 import "./toast.js";
+
 let currentUser = null;
 
 onAuthStateChanged(auth, async (user) => {
@@ -17,16 +18,24 @@ onAuthStateChanged(auth, async (user) => {
 
   const bankSnap = await get(ref(db, "users/" + user.uid + "/bank"));
 
+  const bankCard = document.getElementById("bankCard");
+  const noBankCard = document.getElementById("noBankCard");
+
   if (!bankSnap.exists()) {
-    toastWarning("Bank details not added");
-    setTimeout(() => { location.href = "/account.html"; }, 1500);
+    // Show no bank card
+    if (bankCard) bankCard.style.display = "none";
+    if (noBankCard) noBankCard.style.display = "block";
     return;
   }
+
+  // Show bank card
+  if (bankCard) bankCard.style.display = "block";
+  if (noBankCard) noBankCard.style.display = "none";
 
   const bank = bankSnap.val();
 
   document.getElementById("bankName").innerText =
-    bank.bank || "My Bank";
+    bank.bankName || bank.bank || "My Bank";
 
   document.getElementById("holder").innerText =
     bank.holder || "-";
@@ -36,7 +45,7 @@ onAuthStateChanged(auth, async (user) => {
 
   const acc = bank.account || "";
   document.getElementById("account").innerText =
-    acc ? "XXXX XXXX " + acc.slice(-4) : "-";
+    acc ? "•••• •••• " + acc.slice(-4) : "-";
 });
 
 // 🔥 DELETE BANK
