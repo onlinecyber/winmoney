@@ -15,55 +15,99 @@
     <!-- HEADER -->
     <div class="recharge-header">
       <button class="back" onclick="history.back()">←</button>
-      <h2>Recharge</h2>
+      <h2>💳 Recharge</h2>
     </div>
 
-    <!-- AMOUNT -->
+    <!-- BALANCE CARD -->
+    <div class="balance-card">
+      <div class="balance-icon">💰</div>
+      <div class="balance-info">
+        <span class="balance-label">Current Balance</span>
+        <span class="balance-amount" id="currentBalance">₹0.00</span>
+      </div>
+    </div>
+
+    <!-- AMOUNT INPUT -->
     <div class="section">
-      <label>Recharge Amount</label>
-      <input type="number" id="amount" value="">
+      <label>💵 Enter Amount</label>
+      <div class="amount-input-box">
+        <span class="currency">₹</span>
+        <input type="number" id="amount" placeholder="Enter amount" value="">
+      </div>
     </div>
 
     <!-- QUICK AMOUNTS -->
-    <div class="quick-amounts">
-      <!-- 🔴 CHANGE HERE: setAmount → selectAmount -->
-      <div class="amount" onclick="selectAmount(this, 200)">200</div>
-      <div class="amount" onclick="selectAmount(this, 500)">500</div>
-      <div class="amount" onclick="selectAmount(this, 1000)">1000</div>
-      <div class="amount" onclick="selectAmount(this, 2000)">2000</div>
-      <div class="amount" onclick="selectAmount(this, 5000)">5000</div>
-      <div class="amount" onclick="selectAmount(this, 10000)">10000</div>
+    <div class="section">
+      <label>⚡ Quick Select</label>
+      <div class="quick-amounts">
+        <div class="amount" onclick="selectAmount(this, 200)">
+          <span class="amt-value">₹200</span>
+          <span class="amt-tag">Starter</span>
+        </div>
+        <div class="amount" onclick="selectAmount(this, 500)">
+          <span class="amt-value">₹500</span>
+          <span class="amt-tag">Popular</span>
+        </div>
+        <div class="amount hot" onclick="selectAmount(this, 1000)">
+          <span class="hot-badge">🔥 HOT</span>
+          <span class="amt-value">₹1000</span>
+          <span class="amt-tag">Best Value</span>
+        </div>
+        <div class="amount" onclick="selectAmount(this, 2000)">
+          <span class="amt-value">₹2000</span>
+          <span class="amt-tag">Premium</span>
+        </div>
+        <div class="amount" onclick="selectAmount(this, 5000)">
+          <span class="amt-value">₹5000</span>
+          <span class="amt-tag">VIP</span>
+        </div>
+        <div class="amount" onclick="selectAmount(this, 10000)">
+          <span class="amt-value">₹10000</span>
+          <span class="amt-tag">Ultimate</span>
+        </div>
+      </div>
     </div>
 
     <!-- CHANNEL -->
     <div class="section">
-      <label>Recharge Channel</label>
+      <label>🏦 Payment Channel</label>
 
       <div class="channel active" onclick="selectChannel(this)">
-        PTM <span class="radio"></span>
+        <div class="channel-info">
+          <span class="channel-icon">📱</span>
+          <span class="channel-name">UPI / PayTM</span>
+        </div>
+        <span class="radio"></span>
       </div>
 
       <div class="channel" onclick="selectChannel(this)">
-        XD <span class="radio"></span>
+        <div class="channel-info">
+          <span class="channel-icon">🏧</span>
+          <span class="channel-name">Bank Transfer</span>
+        </div>
+        <span class="radio"></span>
       </div>
     </div>
 
     <!-- INFO -->
-    <div class="info">
-      <h4>Explain</h4>
-      <p>1. Please do not modify the deposit amount.</p>
-      <p>2. Each deposit must be initiated from this page.</p>
-      <p>3. Deposit will be credited within 5 minutes.</p>
-      <p>4. If not received, contact customer service.</p>
+    <div class="info-box">
+      <h4>ℹ️ Important</h4>
+      <ul>
+        <li>Do not modify the deposit amount</li>
+        <li>Each deposit must be initiated from this page</li>
+        <li>Deposit will be credited within 5 minutes</li>
+        <li>If not received, contact customer service</li>
+      </ul>
     </div>
 
     <!-- ACTION -->
-    <button class="recharge-btn" onclick="goToPayment()">Recharge Now</button>
-
+    <button class="recharge-btn" onclick="goToPayment()">
+      💳 Recharge Now
+    </button>
 
   </div>
 
-  <script src="/js/recharge.js"></script>
+  <script type="module" src="/js/recharge.js"></script>
 </body>
 
 </html>

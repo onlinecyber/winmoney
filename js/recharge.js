@@ -1,3 +1,27 @@
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged } from
+  "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { ref, get } from
+  "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+
+/* ================= LOAD BALANCE ================= */
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    location.href = "/index.html";
+    return;
+  }
+
+  const snap = await get(ref(db, `users/${user.uid}`));
+  const data = snap.val() || {};
+
+  const depositBal = Number(data.wallets?.deposit || 0);
+  const balanceEl = document.getElementById("currentBalance");
+
+  if (balanceEl) {
+    balanceEl.innerText = `₹${depositBal.toLocaleString()}`;
+  }
+});
+
 /* ================= AMOUNT SELECT ================= */
 window.selectAmount = function (element, value) {
 

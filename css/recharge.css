@@ -1,119 +1,305 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  background: #000;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
   color: #fff;
   font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
 }
 
 .recharge-page {
   max-width: var(--max-width, 420px);
   margin: auto;
   padding: 15px;
+  padding-bottom: 30px;
 }
 
+/* ================= HEADER ================= */
 .recharge-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.recharge-header h2 {
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .back {
-  background: #1a1a1a;
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
   border: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-}
-
-.section {
-  margin-top: 18px;
-}
-
-.section label {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-.section input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 6px;
-  border-radius: 10px;
-  border: none;
-  background: #111;
-  color: #fff;
-  font-size: 16px;
-}
-
-.quick-amounts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin: 15px 0;
-}
-
-.quick-amounts button {
-  padding: 12px;
-  background: #111;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-}
-
-.channel {
-  margin-top: 10px;
-  padding: 14px;
+  padding: 10px 14px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #222, #111);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.channel.active {
-  background: linear-gradient(135deg, #ff4ecd, #ffb86c);
-  color: #000;
-}
-
-.radio {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-}
-
-.channel.active .radio {
-  background: #000;
-}
-
-.info {
-  margin-top: 20px;
-  font-size: 13px;
-  opacity: 0.85;
-}
-
-.recharge-btn {
-  width: 100%;
-  margin-top: 25px;
-  padding: 14px;
-  border: none;
-  border-radius: 25px;
-  background: linear-gradient(135deg, #ff4ecd, #ffb86c);
-  color: #000;
   font-size: 16px;
-  font-weight: bold;
-}
-
-/* 🔴 CHANGE HERE: selected amount highlight */
-.amount {
-  border: 2px solid transparent;
   cursor: pointer;
   transition: 0.3s;
 }
 
+.back:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ================= BALANCE CARD ================= */
+.balance-card {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.balance-icon {
+  font-size: 36px;
+}
+
+.balance-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.balance-label {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.balance-amount {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* ================= SECTIONS ================= */
+.section {
+  margin-top: 20px;
+}
+
+.section label {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ================= AMOUNT INPUT ================= */
+.amount-input-box {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 4px;
+  border: 2px solid transparent;
+  transition: 0.3s;
+}
+
+.amount-input-box:focus-within {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.currency {
+  padding: 12px 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.amount-input-box input {
+  flex: 1;
+  padding: 14px 12px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  outline: none;
+}
+
+.amount-input-box input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+}
+
+/* ================= QUICK AMOUNTS ================= */
+.quick-amounts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.amount {
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 16px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.amount:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+  transform: translateY(-2px);
+}
+
 .amount.active {
-  border: 2px solid #ff8ccf;
-  background: linear-gradient(135deg, #ff8ccf, #ffb6e6);
-  color: #000;
-  font-weight: bold;
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+}
+
+.amt-value {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.amt-tag {
+  display: block;
+  font-size: 10px;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.amount.active .amt-value {
+  color: #667eea;
+}
+
+.amount.active .amt-tag {
+  opacity: 1;
+  color: #a78bfa;
+}
+
+/* Hot Badge */
+.amount.hot {
+  border-color: #f59e0b;
+}
+
+.hot-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  font-size: 8px;
+  padding: 4px 8px;
+  border-radius: 0 12px 0 10px;
+  font-weight: 700;
+}
+
+/* ================= CHANNEL ================= */
+.channel {
+  margin-top: 10px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.channel:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.channel.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-color: transparent;
+}
+
+.channel-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.channel-icon {
+  font-size: 22px;
+}
+
+.channel-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  transition: 0.3s;
+}
+
+.channel.active .radio {
+  background: #fff;
+  border-color: #fff;
+  box-shadow: inset 0 0 0 4px #667eea;
+}
+
+/* ================= INFO BOX ================= */
+.info-box {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  border-left: 4px solid #667eea;
+}
+
+.info-box h4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #a78bfa;
+}
+
+.info-box ul {
+  list-style: none;
+  font-size: 12px;
+  opacity: 0.7;
+  line-height: 1.8;
+}
+
+.info-box li::before {
+  content: "• ";
+  color: #667eea;
+}
+
+/* ================= RECHARGE BUTTON ================= */
+.recharge-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 16px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  transition: 0.3s;
+}
+
+.recharge-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+}
+
+.recharge-btn:active {
+  transform: translateY(0);
 }
