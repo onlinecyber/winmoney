@@ -11,6 +11,8 @@ import {
   get
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
+import "./toast.js";
+
 /* helper: phone -> fake email */
 function phoneToEmail(phone) {
   return phone + "@app.com";
@@ -49,12 +51,12 @@ window.registerUser = async function () {
     document.getElementById("refCode")?.value.trim() || null;
 
   if (!name || !phone || !password || !txPassword) {
-    alert("Please fill all fields");
+    toastWarning("Please fill all fields");
     return;
   }
 
   if (phone.length < 10) {
-    alert("Enter valid phone number");
+    toastWarning("Enter valid phone number");
     return;
   }
 
@@ -96,7 +98,7 @@ window.registerUser = async function () {
     });
 
     console.log("✅ User saved to database");
-    alert("✅ Register successful!");
+    toastSuccess("Registration successful!");
     window.location.href = "/account.html";
 
   } catch (err) {
@@ -105,14 +107,14 @@ window.registerUser = async function () {
     console.error("Error Message:", err.message);
 
     if (err.code === "auth/email-already-in-use") {
-      alert("❌ Number already registered. Please login.");
-      window.location.href = "/index.html";
+      toastWarning("Number already registered");
+      setTimeout(() => { window.location.href = "/index.html"; }, 1500);
     } else if (err.code === "auth/weak-password") {
-      alert("❌ Password must be at least 6 characters");
+      toastError("Password must be at least 6 characters");
     } else if (err.code === "auth/network-request-failed") {
-      alert("❌ Network error. Check your internet connection.");
+      toastError("Network error. Check internet");
     } else {
-      alert("❌ Error: " + err.message);
+      toastError("Registration failed");
     }
   }
 };
@@ -123,7 +125,7 @@ window.loginUser = async function () {
   const password = document.getElementById("password").value;
 
   if (!phone || !password) {
-    alert("Fill all fields");
+    toastWarning("Fill all fields");
     return;
   }
 
@@ -135,13 +137,13 @@ window.loginUser = async function () {
 
     const snap = await get(ref(db, "users/" + cred.user.uid));
     if (!snap.exists() || snap.val().status !== "active") {
-      alert("Account blocked");
+      toastError("Account blocked");
       return;
     }
 
     window.location.href = "/account.html";
 
   } catch (err) {
-    alert("Invalid phone number or password");
+    toastError("Invalid phone or password");
   }
 };
