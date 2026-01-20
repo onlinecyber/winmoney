@@ -184,8 +184,6 @@ window.openPhonePe = function () {
   window.location.href =
     "upi://pay?pa=inzamamulh758@ptaxis&pn=Recharge&am=" + rechargeAmount;
 };
-import { onValue }
-  from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 /* ================= AUTO STATUS CHECK ================= */
 
@@ -210,5 +208,3 @@ if (paymentId) {
     }
   });
 }
-
-
