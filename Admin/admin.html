@@ -379,20 +379,28 @@
         return;
       }
 
-      const settingsData = {
-        upiId,
-        updatedAt: Date.now()
-      };
+      try {
+        // Get existing QR if no new one uploaded
+        let qrToSave = qrBase64;
+        if (!qrToSave) {
+          const existingSnap = await get(ref(db, "settings/payment/qrCodeUrl"));
+          if (existingSnap.exists()) {
+            qrToSave = existingSnap.val();
+          }
+        }
 
-      // Add QR if new image selected
-      if (qrBase64) {
-        settingsData.qrCodeUrl = qrBase64;
+        await set(ref(db, "settings/payment"), {
+          upiId,
+          qrCodeUrl: qrToSave || "",
+          updatedAt: Date.now()
+        });
+
+        alert("✅ Payment settings saved!");
+        qrBase64 = ""; // Reset
+      } catch (error) {
+        alert("❌ Error: " + error.message);
+        console.error(error);
       }
-
-      await update(ref(db, "settings/payment"), settingsData);
-
-      alert("✅ Payment settings saved!");
-      qrBase64 = ""; // Reset
     };
 
     /* ================= ADD PRODUCT ================= */
