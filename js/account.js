@@ -46,6 +46,49 @@ onAuthStateChanged(auth, (user) => {
     // Set user ID (first 8 chars of uid)
     const userIdEl = document.getElementById("userId");
     if (userIdEl) userIdEl.innerText = "ID: " + uid.substring(0, 8).toUpperCase();
+
+    // 🔥 VIP LEVEL CALCULATION (Based on Total Investment)
+    const totalInvested = Number(data.stats?.totalInvested || 0);
+
+    // VIP Levels:
+    // VIP 0: ₹0 - ₹999
+    // VIP 1: ₹1,000 - ₹4,999
+    // VIP 2: ₹5,000 - ₹14,999
+    // VIP 3: ₹15,000 - ₹49,999
+    // VIP 4: ₹50,000+
+
+    let vipLevel = 0;
+    let nextThreshold = 1000;
+    let progressPercent = 0;
+
+    if (totalInvested >= 50000) {
+      vipLevel = 4;
+      progressPercent = 100;
+    } else if (totalInvested >= 15000) {
+      vipLevel = 3;
+      nextThreshold = 50000;
+      progressPercent = ((totalInvested - 15000) / (50000 - 15000)) * 100;
+    } else if (totalInvested >= 5000) {
+      vipLevel = 2;
+      nextThreshold = 15000;
+      progressPercent = ((totalInvested - 5000) / (15000 - 5000)) * 100;
+    } else if (totalInvested >= 1000) {
+      vipLevel = 1;
+      nextThreshold = 5000;
+      progressPercent = ((totalInvested - 1000) / (5000 - 1000)) * 100;
+    } else {
+      vipLevel = 0;
+      nextThreshold = 1000;
+      progressPercent = (totalInvested / 1000) * 100;
+    }
+
+    // Update VIP display
+    const vipLevelEl = document.querySelector(".vip-level");
+    if (vipLevelEl) vipLevelEl.innerText = "VIP " + vipLevel;
+
+    const vipBarEl = document.getElementById("vipBar");
+    if (vipBarEl) vipBarEl.style.width = Math.min(progressPercent, 100) + "%";
+
   }, { onlyOnce: true });
 
   // 🔥 ENSURE WALLET NODE EXISTS (VERY IMPORTANT)
