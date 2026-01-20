@@ -12,76 +12,114 @@
 
   <div class="account">
 
-    <!-- USER HEADER -->
-    <div class="user-header">
-      <div class="user-left">
-        <img src="/images/dp.jpg" class="avatar">
-        <div>
-          <h3 id="username">User</h3>
-          <p id="userId">ID: ------</p>
+    <!-- PREMIUM HEADER -->
+    <div class="header-section">
+      <div class="user-card">
+        <div class="user-info">
+          <div class="avatar-wrapper">
+            <img src="/images/dp.jpg" class="avatar">
+            <span class="status-dot"></span>
+          </div>
+          <div class="user-details">
+            <h3 id="username">User</h3>
+            <p id="userId" class="user-id">ID: ------</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span class="bell" onclick="location.href='/help-center.html'">🔔</span>
         </div>
       </div>
-      <div class="bell">🔔</div>
-    </div>
 
-    <!-- LEVEL CARD -->
-    <div class="level-card">
-      <div class="level-top">
-        <span>LV0</span>
-        <button onclick="location.href='/bronze.html'">
-          Buy Product
-        </button>
-      </div>
-
-      <p>Current progress <span id="progress">0 / 290</span></p>
-      <div class="progress-bar">
-        <div class="progress-fill"></div>
+      <!-- VIP BADGE -->
+      <div class="vip-badge">
+        <span class="vip-icon">👑</span>
+        <span class="vip-level">VIP 0</span>
+        <div class="vip-progress">
+          <div class="vip-bar" id="vipBar"></div>
+        </div>
       </div>
     </div>
 
-    <!-- ACTION BUTTONS -->
-    <div class="actions">
-      <button class="recharge" onclick="location.href='/recharge.html'">
-        Recharge
+    <!-- QUICK ACTIONS -->
+    <div class="quick-actions">
+      <button class="action-btn recharge" onclick="location.href='/recharge.html'">
+        <span class="action-icon">💳</span>
+        <span>Recharge</span>
       </button>
-
-      <button onclick="location.href='/withdraw.html'" style="background-color: #a90e0e;">
-        Withdraw
+      <button class="action-btn withdraw" onclick="location.href='/withdraw.html'">
+        <span class="action-icon">💰</span>
+        <span>Withdraw</span>
       </button>
-
-      <button class="telegram">Telegram</button>
+      <button class="action-btn invest" onclick="location.href='/bronze.html'">
+        <span class="action-icon">📈</span>
+        <span>Invest</span>
+      </button>
     </div>
 
-    <!-- BALANCE CARD -->
-    <div class="wallet-box">
+    <!-- WALLET CARDS -->
+    <div class="wallet-section">
       <div class="wallet deposit">
-        <h4>Deposit Balance</h4>
-        <p id="depositBal">₹0</p>
-        <small>For investing only</small>
+        <div class="wallet-header">
+          <span class="wallet-icon">🔐</span>
+          <span class="wallet-title">Deposit Balance</span>
+        </div>
+        <p class="wallet-amount" id="depositBal">₹0.00</p>
+        <span class="wallet-subtitle">For investing only</span>
       </div>
 
       <div class="wallet withdraw">
-        <h4>Withdraw Balance</h4>
-        <p id="withdrawBal">₹0</p>
-        <small>Daily income & withdrawals</small>
+        <div class="wallet-header">
+          <span class="wallet-icon">💸</span>
+          <span class="wallet-title">Withdraw Balance</span>
+        </div>
+        <p class="wallet-amount" id="withdrawBal">₹0.00</p>
+        <span class="wallet-subtitle">Daily income & withdrawals</span>
       </div>
     </div>
 
-
     <!-- MENU GRID -->
-    <div class="menu-grid">
-      <div onclick="location.href='/my-products.html'">My Orders</div>
-      <div onclick="location.href='/income-history.html'">Balance Details</div>
-      <div id="bankCardBtn" style="cursor:pointer;">Bank Card</div>
-      <div onclick="location.href='/help-center.html'">Help Center</div>
-      <div onclick="location.href='/info.html'">Info</div>
-      <div onclick="location.href='/recharge-history.html'">Recharge History</div>
-      <div onclick="location.href='/withdraw-history.html'">Withdraw History</div>
-      <div onclick="location.href='/invite.html'">Invite & Earn</div>
+    <div class="menu-section">
+      <h4 class="section-title">Services</h4>
+      <div class="menu-grid">
+        <div class="menu-item" onclick="location.href='/my-products.html'">
+          <span class="menu-icon">📦</span>
+          <span class="menu-text">My Orders</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/income-history.html'">
+          <span class="menu-icon">📊</span>
+          <span class="menu-text">Income</span>
+        </div>
+        <div class="menu-item" id="bankCardBtn">
+          <span class="menu-icon">🏦</span>
+          <span class="menu-text">Bank Card</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/invite.html'">
+          <span class="menu-icon">🎁</span>
+          <span class="menu-text">Invite</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/recharge-history.html'">
+          <span class="menu-icon">📥</span>
+          <span class="menu-text">Recharge</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/withdraw-history.html'">
+          <span class="menu-icon">📤</span>
+          <span class="menu-text">Withdraw</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/help-center.html'">
+          <span class="menu-icon">❓</span>
+          <span class="menu-text">Help</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/info.html'">
+          <span class="menu-icon">ℹ️</span>
+          <span class="menu-text">About</span>
+        </div>
+      </div>
     </div>
 
     <!-- LOGOUT -->
-    <button class="logout" onclick="logout()">Logout</button>
+    <button class="logout-btn" onclick="logout()">
+      <span>🚪</span> Logout
+    </button>
 
   </div>
 
