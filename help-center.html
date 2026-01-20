@@ -5,24 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Help Center</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/help-center.css">
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body>
 
-  <div class="page w-full max-w-md mx-auto">
+  <div class="page">
 
     <!-- HEADER -->
     <div class="header">
-      <span onclick="history.back()">←</span>
-      <h2>Help Center</h2>
+      <span class="back-btn" onclick="history.back()">←</span>
+      <h2>❓ Help Center</h2>
     </div>
 
-    <!-- FAQ -->
-    <div class="card">
-      <h3>❓ Frequently Asked Questions</h3>
+    <!-- FAQ SECTION -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">💡</span>
+        <span class="section-title">Frequently Asked Questions</span>
+      </div>
 
       <div class="faq-item">
         <div class="faq-q">What is minimum withdraw amount?</div>
@@ -30,63 +31,62 @@
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">Why my withdraw is pending?</div>
-        <div class="faq-a">
-          Withdraw requests are processed within 24–48 hours.
-        </div>
+        <div class="faq-q">Why is my withdraw pending?</div>
+        <div class="faq-a">Withdraw requests are processed within 24–48 hours.</div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">If withdraw is rejected, will I get refund?</div>
-        <div class="faq-a">
-          Yes. Rejected withdraw amount is refunded to your wallet.
-        </div>
+        <div class="faq-q">Will I get refund if withdraw is rejected?</div>
+        <div class="faq-a">Yes. Rejected amount is refunded to your wallet.</div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">Why invite is required for withdraw?</div>
-        <div class="faq-a">
-          At least 1 successful invite is required to withdraw.
-        </div>
+        <div class="faq-q">Why is invite required for withdraw?</div>
+        <div class="faq-a">At least 1 successful invite is required to withdraw.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q">When will invite reward be added?</div>
-        <div class="faq-a">
-          Invite reward is added after invited user’s first recharge is approved.
-        </div>
+        <div class="faq-a">Reward is added after invited user's first recharge is approved.</div>
       </div>
     </div>
 
     <!-- WITHDRAW HELP -->
-    <div class="card">
-      <h3>💸 Withdraw Help</h3>
-      <ul>
-        <li>Minimum withdraw: ₹106</li>
-        <li>5% processing fee is applied</li>
-        <li>At least 1 invite required</li>
-        <li>Processing time: 24–48 hours</li>
-      </ul>
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">💸</span>
+        <span class="section-title">Withdraw Guide</span>
+      </div>
+      <div class="info-list">
+        <div class="info-item">Minimum withdraw: ₹106</div>
+        <div class="info-item">5% processing fee applied</div>
+        <div class="info-item">At least 1 invite required</div>
+        <div class="info-item">Processing time: 24–48 hours</div>
+      </div>
     </div>
 
     <!-- RECHARGE HELP -->
-    <div class="card">
-      <h3>💳 Recharge Help</h3>
-      <ul>
-        <li>Enter correct 12-digit UTR</li>
-        <li>Recharge approval may take some time</li>
-        <li>Wrong UTR may cause rejection</li>
-      </ul>
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">💳</span>
+        <span class="section-title">Recharge Guide</span>
+      </div>
+      <div class="info-list">
+        <div class="info-item">Enter correct 12-digit UTR</div>
+        <div class="info-item">Recharge approval may take some time</div>
+        <div class="info-item">Wrong UTR may cause rejection</div>
+      </div>
     </div>
 
     <!-- CONTACT SUPPORT -->
-    <div class="card">
-      <h3>📞 Contact Support</h3>
-
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">📞</span>
+        <span class="section-title">Contact Support</span>
+      </div>
       <button class="support-btn whatsapp" onclick="openWhatsApp()">
         📱 WhatsApp Support
       </button>
-
       <button class="support-btn telegram" onclick="openTelegram()">
         💬 Telegram Support
       </button>

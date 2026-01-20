@@ -4,102 +4,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Information</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>About Us</title>
   <link rel="stylesheet" href="/css/help-center.css">
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body>
 
-  <div class="page w-full max-w-md mx-auto">
+  <div class="page">
 
     <!-- HEADER -->
     <div class="header">
-      <span onclick="history.back()">←</span>
-      <h2>Information</h2>
+      <span class="back-btn" onclick="history.back()">←</span>
+      <h2>ℹ️ About Us</h2>
     </div>
 
     <!-- ABOUT PLATFORM -->
-    <div class="card">
-      <h3>ℹ️ About This Platform</h3>
-      <p>
-        This platform is a digital service designed to provide users
-        access to structured products, wallet features, and reward systems.
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">🏢</span>
+        <span class="section-title">About This Platform</span>
+      </div>
+      <p class="section-text">
+        This platform is a digital service designed to provide users access to
+        structured investment products, wallet features, and reward systems.
         We focus on transparency, user safety, and smooth platform experience.
       </p>
     </div>
 
     <!-- HOW IT WORKS -->
-    <div class="card">
-      <h3>⚙️ How It Works</h3>
-      <ul>
-        <li>Create and verify your account</li>
-        <li>Choose available products or services</li>
-        <li>Use wallet balance to activate services</li>
-        <li>Track earnings and activity in dashboard</li>
-        <li>Request withdrawal as per rules</li>
-      </ul>
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">⚙️</span>
+        <span class="section-title">How It Works</span>
+      </div>
+      <div class="info-list">
+        <div class="info-item numbered">1. Create and verify your account</div>
+        <div class="info-item numbered">2. Choose available products to invest</div>
+        <div class="info-item numbered">3. Use wallet balance to activate services</div>
+        <div class="info-item numbered">4. Track earnings in dashboard</div>
+        <div class="info-item numbered">5. Request withdrawal as per rules</div>
+      </div>
     </div>
 
-    <!-- WALLET & WITHDRAW -->
-    <div class="card">
-      <h3>💰 Wallet & Withdrawal Policy</h3>
-      <ul>
-        <li>Wallet reflects earnings and rewards</li>
-        <li>Minimum withdrawal limit applies</li>
-        <li>Withdraw requests are processed within 24–72 hours</li>
-        <li>Incorrect details may lead to rejection</li>
-      </ul>
+    <!-- WALLET POLICY -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">💰</span>
+        <span class="section-title">Wallet & Withdrawal Policy</span>
+      </div>
+      <div class="info-list">
+        <div class="info-item">Wallet reflects earnings and rewards</div>
+        <div class="info-item">Minimum withdrawal limit applies</div>
+        <div class="info-item">Withdraw requests processed in 24–72 hours</div>
+        <div class="info-item">Incorrect details may lead to rejection</div>
+      </div>
     </div>
 
     <!-- REFERRAL -->
-    <div class="card">
-      <h3>👥 Invite & Referral Policy</h3>
-      <ul>
-        <li>Each user receives a unique invite code</li>
-        <li>Referral rewards depend on invite activity</li>
-        <li>Fake or self-invites are strictly prohibited</li>
-        <li>Violation may result in account suspension</li>
-      </ul>
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">👥</span>
+        <span class="section-title">Invite & Referral Policy</span>
+      </div>
+      <div class="info-list">
+        <div class="info-item">Each user receives a unique invite code</div>
+        <div class="info-item">Referral rewards depend on invite activity</div>
+        <div class="info-item">Fake or self-invites are prohibited</div>
+        <div class="info-item">Violation may result in account suspension</div>
+      </div>
     </div>
 
-    <!-- RISK & DISCLAIMER -->
-    <div class="card">
-      <h3>⚠️ Risk Disclosure & Disclaimer</h3>
-      <p>
-        The platform does not guarantee fixed or lifetime earnings.
-        All activities are subject to operational and technical conditions.
-        Users are advised to use the platform responsibly.
+    <!-- RISK DISCLAIMER -->
+    <div class="section-card warning-card">
+      <div class="section-header">
+        <span class="section-icon">⚠️</span>
+        <span class="section-title">Risk Disclosure</span>
+      </div>
+      <p class="section-text">
+        The platform does not guarantee fixed or lifetime earnings. All activities
+        are subject to operational and technical conditions. Users are advised to
+        use the platform responsibly.
       </p>
     </div>
 
     <!-- ACCOUNT RULES -->
-    <div class="card">
-      <h3>🔐 Account Rules</h3>
-      <ul>
-        <li>Only one account per user is allowed</li>
-        <li>Sharing login details is not permitted</li>
-        <li>Suspicious activity may result in account freeze</li>
-        <li>Company reserves the right to take action</li>
-      </ul>
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">🔐</span>
+        <span class="section-title">Account Rules</span>
+      </div>
+      <div class="info-list">
+        <div class="info-item">Only one account per user allowed</div>
+        <div class="info-item">Sharing login details not permitted</div>
+        <div class="info-item">Suspicious activity may freeze account</div>
+      </div>
     </div>
 
     <!-- DATA PRIVACY -->
-    <div class="card">
-      <h3>🔒 Data Privacy & Security</h3>
-      <p>
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">🔒</span>
+        <span class="section-title">Data Privacy & Security</span>
+      </div>
+      <p class="section-text">
         User data is stored securely and is not shared with third parties.
         We follow standard security practices to protect user information.
-      </p>
-    </div>
-
-    <!-- UPDATES -->
-    <div class="card">
-      <h3>📝 Policy Updates</h3>
-      <p>
-        The platform may update rules, features, or policies at any time.
-        Continued use of the platform indicates acceptance of updates.
       </p>
     </div>
 
