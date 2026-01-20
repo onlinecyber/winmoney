@@ -307,14 +307,12 @@
       <label>UPI ID</label>
       <input type="text" id="upiId" placeholder="Enter UPI ID (e.g., name@upi)">
 
-      <label>QR Code Image URL</label>
-      <input type="text" id="qrCodeUrl" placeholder="Enter QR Code Image URL">
+      <label>Upload QR Code Image</label>
+      <input type="file" id="qrCodeFile" accept="image/*" onchange="previewQR(this)">
 
-      <p style="font-size:12px;color:#666;margin-top:10px;">
-        💡 Tip: Upload QR image to hosting and paste URL here
-      </p>
-
-      <div id="qrPreview" style="margin:15px 0;text-align:center;"></div>
+      <div id="qrPreview" style="margin:15px 0;text-align:center;">
+        <p style="font-size:12px;color:#666;">No image selected</p>
+      </div>
 
       <button class="edit" onclick="savePaymentSettings()">💾 Save Settings</button>
     </div>
@@ -341,6 +339,24 @@
     }
 
     /* ================= PAYMENT SETTINGS ================= */
+    let qrBase64 = "";
+
+    // Preview QR on file select
+    window.previewQR = function (input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        qrBase64 = e.target.result;
+        document.getElementById("qrPreview").innerHTML = `
+          <img src="${qrBase64}" style="max-width:200px;border-radius:10px;">
+          <p style="font-size:12px;color:#16a34a;margin-top:8px;">✓ Image ready to save</p>
+        `;
+      };
+      reader.readAsDataURL(file);
+    };
+
     // Load current settings
     onValue(ref(db, "settings/payment"), snap => {
       if (snap.exists()) {
@@ -348,7 +364,6 @@
         document.getElementById("currentUpi").innerText = data.upiId || "Not set";
         document.getElementById("currentQr").src = data.qrCodeUrl || "";
         document.getElementById("upiId").value = data.upiId || "";
-        document.getElementById("qrCodeUrl").value = data.qrCodeUrl || "";
       } else {
         document.getElementById("currentUpi").innerText = "Not set";
         document.getElementById("currentQr").src = "";
@@ -358,20 +373,26 @@
     // Save settings
     window.savePaymentSettings = async () => {
       const upiId = document.getElementById("upiId").value.trim();
-      const qrCodeUrl = document.getElementById("qrCodeUrl").value.trim();
 
       if (!upiId) {
         alert("Please enter UPI ID");
         return;
       }
 
-      await set(ref(db, "settings/payment"), {
+      const settingsData = {
         upiId,
-        qrCodeUrl,
         updatedAt: Date.now()
-      });
+      };
+
+      // Add QR if new image selected
+      if (qrBase64) {
+        settingsData.qrCodeUrl = qrBase64;
+      }
+
+      await update(ref(db, "settings/payment"), settingsData);
 
       alert("✅ Payment settings saved!");
+      qrBase64 = ""; // Reset
     };
 
     /* ================= ADD PRODUCT ================= */
