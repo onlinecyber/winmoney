@@ -5,63 +5,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invite & Earn</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/invite.css">
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body>
 
-  <div class="page w-full max-w-md mx-auto">
+  <div class="page">
+
+    <!-- HEADER -->
     <div class="header">
-      <span onclick="history.back()">←</span>
-      <h2>Invite & Earn</h2>
+      <span class="back-btn" onclick="history.back()">←</span>
+      <h2>🎁 Invite & Earn</h2>
     </div>
 
-    <div class="history-item">
-      <div class="top">
-        <div class="amount">₹<span id="reward">0</span></div>
-        <div class="status approved">EARNED</div>
+    <!-- REWARD CARD -->
+    <div class="reward-card">
+      <div class="reward-icon">💰</div>
+      <div class="reward-info">
+        <span class="reward-label">Total Earnings</span>
+        <span class="reward-amount">₹<span id="reward">0</span></span>
       </div>
-
-      <div class="row">
-        <span>Total Invites</span>
+      <div class="invite-count">
         <span id="inviteCount">0</span>
-      </div>
-
-      <div class="row">
-        <span>Your Referral Code</span>
-        <span id="refCode">----</span>
+        <span class="count-label">Invites</span>
       </div>
     </div>
-  </div>
-  <div class="history-item">
-    <div class="top">
-      <div class="amount">₹<span id="reward">0</span></div>
-      <div class="status approved">EARNED</div>
+
+    <!-- REFERRAL CODE -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">🔑</span>
+        <span class="section-title">Your Referral Code</span>
+      </div>
+      <div class="code-box">
+        <span class="code-text" id="refCode">----</span>
+        <button class="copy-btn" onclick="copyRefCode()">Copy</button>
+      </div>
     </div>
 
-    <div class="row">
-      <span>Total Invites</span>
-      <span id="inviteCount">0</span>
+    <!-- INVITE LINK -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">🔗</span>
+        <span class="section-title">Your Invite Link</span>
+      </div>
+      <div class="link-box">
+        <span class="link-text" id="inviteLink">Loading...</span>
+      </div>
+      <button class="action-btn" onclick="copyInviteLink()">📋 Copy Link</button>
+      <button class="whatsapp-btn" onclick="shareWhatsApp()">📱 Share on WhatsApp</button>
     </div>
 
-    <div class="row">
-      <span>Your Referral Code</span>
-      <span class="ref-code" id="refCode">----</span>
+    <!-- HOW IT WORKS -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="section-icon">❓</span>
+        <span class="section-title">How It Works</span>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <span>Share your referral link with friends</span>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <span>Friend registers using your link</span>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <span>You earn reward on their deposit</span>
+        </div>
+      </div>
     </div>
 
-    <button onclick="copyRefCode()">Copy Code</button>
-
-    <div class="row">
-      <span>Invite Link</span>
-    </div>
-    <div class="ref-code" id="inviteLink"></div>
-
-    <button onclick="copyInviteLink()">Copy Invite Link</button>
-    <button class="whatsapp-btn" onclick="shareWhatsApp()">
-      📱 Share on WhatsApp
-    </button>
   </div>
 
   <script type="module" src="/js/invite.js"></script>
