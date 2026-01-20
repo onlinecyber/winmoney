@@ -1,10 +1,26 @@
 import { auth, db } from "./firebase.js";
 import { onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-import { ref, push, get }
+import { ref, push, get, onValue }
   from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 import "./toast.js";
+
+/* ================= LOAD PAYMENT SETTINGS ================= */
+onValue(ref(db, "settings/payment"), snap => {
+  if (snap.exists()) {
+    const data = snap.val();
+    // Update UPI ID
+    const upiEl = document.getElementById("upi");
+    if (upiEl && data.upiId) upiEl.innerText = data.upiId;
+
+    // Update QR Code image
+    const qrImgs = document.querySelectorAll("#qrBox img");
+    if (qrImgs.length > 0 && data.qrCodeUrl) {
+      qrImgs.forEach(img => img.src = data.qrCodeUrl);
+    }
+  }
+});
 /* ================= GET AMOUNT ================= */
 const params = new URLSearchParams(window.location.search);
 const rechargeAmount = Number(params.get("amount")) || 0;

@@ -232,6 +232,7 @@
     <button onclick="show('products')" class="active">📦 Products</button>
     <button onclick="show('recharge')">💳 Recharge</button>
     <button onclick="show('withdraw')">💸 Withdraw</button>
+    <button onclick="show('settings')">⚙️ Settings</button>
   </nav>
 
   <div class="searchBox">
@@ -298,6 +299,34 @@
     <div id="withdrawList"></div>
   </section>
 
+  <!-- ================= SETTINGS ================= -->
+  <section id="settings">
+    <h3>⚙️ Payment Settings</h3>
+
+    <div id="settingsBox">
+      <label>UPI ID</label>
+      <input type="text" id="upiId" placeholder="Enter UPI ID (e.g., name@upi)">
+
+      <label>QR Code Image URL</label>
+      <input type="text" id="qrCodeUrl" placeholder="Enter QR Code Image URL">
+
+      <p style="font-size:12px;color:#666;margin-top:10px;">
+        💡 Tip: Upload QR image to hosting and paste URL here
+      </p>
+
+      <div id="qrPreview" style="margin:15px 0;text-align:center;"></div>
+
+      <button class="edit" onclick="savePaymentSettings()">💾 Save Settings</button>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h4>Current Settings</h4>
+      <p><b>UPI ID:</b> <span id="currentUpi">Loading...</span></p>
+      <p><b>QR Code:</b></p>
+      <img id="currentQr" src="" style="max-width:200px;border-radius:10px;margin-top:10px;">
+    </div>
+  </section>
+
   <script type="module">
     import { db } from "../js/firebase.js";
     import { ref, onValue, get, set, update, remove, runTransaction } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
@@ -310,6 +339,40 @@
       document.querySelector(`nav button[onclick="show('${id}')"]`).classList.add("active");
       if (id !== "products") document.getElementById("editBox").style.display = "none";
     }
+
+    /* ================= PAYMENT SETTINGS ================= */
+    // Load current settings
+    onValue(ref(db, "settings/payment"), snap => {
+      if (snap.exists()) {
+        const data = snap.val();
+        document.getElementById("currentUpi").innerText = data.upiId || "Not set";
+        document.getElementById("currentQr").src = data.qrCodeUrl || "";
+        document.getElementById("upiId").value = data.upiId || "";
+        document.getElementById("qrCodeUrl").value = data.qrCodeUrl || "";
+      } else {
+        document.getElementById("currentUpi").innerText = "Not set";
+        document.getElementById("currentQr").src = "";
+      }
+    });
+
+    // Save settings
+    window.savePaymentSettings = async () => {
+      const upiId = document.getElementById("upiId").value.trim();
+      const qrCodeUrl = document.getElementById("qrCodeUrl").value.trim();
+
+      if (!upiId) {
+        alert("Please enter UPI ID");
+        return;
+      }
+
+      await set(ref(db, "settings/payment"), {
+        upiId,
+        qrCodeUrl,
+        updatedAt: Date.now()
+      });
+
+      alert("✅ Payment settings saved!");
+    };
 
     /* ================= ADD PRODUCT ================= */
     document.getElementById("saveBtn").addEventListener("click", async () => {
