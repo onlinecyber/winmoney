@@ -37,6 +37,12 @@ onAuthStateChanged(auth, (user) => {
     const usernameEl = document.getElementById("username");
     if (usernameEl) usernameEl.innerText = data.name || "User";
 
+    // Set avatar letter (first character of name)
+    const avatarEl = document.getElementById("userAvatar");
+    if (avatarEl && data.name) {
+      avatarEl.innerText = data.name.charAt(0).toUpperCase();
+    }
+
     // Set user ID (first 8 chars of uid)
     const userIdEl = document.getElementById("userId");
     if (userIdEl) userIdEl.innerText = "ID: " + uid.substring(0, 8).toUpperCase();
