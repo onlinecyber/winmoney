@@ -6,28 +6,13 @@ import { ref, push, get, onValue }
 
 import "./toast.js";
 
-/* ================= LOAD PAYMENT SETTINGS ================= */
-onValue(ref(db, "settings/payment"), snap => {
-  if (snap.exists()) {
-    const data = snap.val();
-    // Update UPI ID
-    const upiEl = document.getElementById("upi");
-    if (upiEl && data.upiId) upiEl.innerText = data.upiId;
-
-    // Update QR Code image
-    const qrImgs = document.querySelectorAll("#qrBox img");
-    if (qrImgs.length > 0 && data.qrCodeUrl) {
-      qrImgs.forEach(img => img.src = data.qrCodeUrl);
-    }
-  }
-});
 /* ================= GET AMOUNT ================= */
 const params = new URLSearchParams(window.location.search);
 const rechargeAmount = Number(params.get("amount")) || 0;
 
 // 🔴 CHANGE HERE: elements EXIST karte hain ya nahi check
 const payAmountEl = document.getElementById("payAmount");
-const transferAmountEl = document.getElementById("transferAmount");
+const transferAmountEl = document.getElementById("TransferAmount");
 const amtTextEl = document.getElementById("amtText");
 const qrAmountEl = document.getElementById("qrAmount");
 
@@ -43,10 +28,31 @@ const timerEl = document.getElementById("timer");
 if (timerEl) {
   setInterval(() => {
     time--;
+    if (time < 0) time = 0;
     const m = String(Math.floor(time / 60)).padStart(2, "0");
     const s = String(time % 60).padStart(2, "0");
     timerEl.innerText = `00:${m}:${s}`;
   }, 1000);
+}
+
+/* ================= LOAD PAYMENT SETTINGS ================= */
+try {
+  onValue(ref(db, "settings/payment"), snap => {
+    if (snap.exists()) {
+      const data = snap.val();
+      // Update UPI ID
+      const upiEl = document.getElementById("upi");
+      if (upiEl && data.upiId) upiEl.innerText = data.upiId;
+
+      // Update QR Code image
+      const qrImgs = document.querySelectorAll("#qrBox img");
+      if (qrImgs.length > 0 && data.qrCodeUrl) {
+        qrImgs.forEach(img => img.src = data.qrCodeUrl);
+      }
+    }
+  });
+} catch (e) {
+  console.log("Settings load error:", e);
 }
 
 /* ================= AUTH ================= */
