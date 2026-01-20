@@ -67,28 +67,53 @@ window.copyText = function (id) {
   toastSuccess("Copied!");
 };
 
+/* ================= UTR ERROR DISPLAY ================= */
+function showUtrError(message) {
+  const errorEl = document.getElementById("utrError");
+  const errorEl2 = document.getElementById("utrError2");
+  if (errorEl) {
+    errorEl.innerText = message;
+    errorEl.style.display = "block";
+  }
+  if (errorEl2) {
+    errorEl2.innerText = message;
+    errorEl2.style.display = "block";
+  }
+}
+
+window.clearUtrError = function () {
+  const errorEl = document.getElementById("utrError");
+  const errorEl2 = document.getElementById("utrError2");
+  if (errorEl) errorEl.style.display = "none";
+  if (errorEl2) errorEl2.style.display = "none";
+};
+
 /* ================= SUBMIT UTR ================= */
 window.submitUTR = async function () {
-  const utr = document.getElementById("utr").value.trim().replace(/\s/g, '');
+  // Get UTR from whichever input has value
+  let utr = document.getElementById("utr")?.value.trim().replace(/\s/g, '') || "";
+  if (!utr) {
+    utr = document.getElementById("utr2")?.value.trim().replace(/\s/g, '') || "";
+  }
 
   // UTR validation: 12-22 digits (standard UPI UTR range)
   if (!utr) {
-    toastWarning("Please enter UTR number");
+    showUtrError("Please enter UTR number");
     return;
   }
 
   if (!/^\d+$/.test(utr)) {
-    toastError("UTR should contain only numbers");
+    showUtrError("UTR should contain only numbers");
     return;
   }
 
   if (utr.length < 12) {
-    toastError("UTR is too short. Minimum 12 digits required.");
+    showUtrError("Invalid UTR. Minimum 12 digits required");
     return;
   }
 
   if (utr.length > 22) {
-    toastError("UTR is too long. Maximum 22 digits allowed.");
+    showUtrError("Invalid UTR. Maximum 22 digits allowed");
     return;
   }
 
@@ -101,7 +126,7 @@ window.submitUTR = async function () {
   });
 
   if (duplicate) {
-    toastError("UTR already used!");
+    showUtrError("This UTR has already been used");
     return;
   }
 

@@ -61,9 +61,10 @@
       <div class="step">
         <b>2. Submit Ref No / Reference No / UTR</b>
         <div class="utr-box">
-          <input type="text" id="utr" placeholder="UTR (UPI Ref. ID)">
+          <input type="text" id="utr" placeholder="UTR (UPI Ref. ID)" oninput="clearUtrError()">
           <button onclick="submitUTR()">Submit</button>
         </div>
+        <p class="utr-error" id="utrError"></p>
       </div>
 
     </div>
@@ -78,9 +79,10 @@
       <div class="step">
         <b>2. Submit Ref No / Reference No / UTR</b>
         <div class="utr-box">
-          <input type="text" id="utr" placeholder="UTR (UPI Ref. ID)">
+          <input type="text" id="utr2" placeholder="UTR (UPI Ref. ID)" oninput="clearUtrError()">
           <button onclick="submitUTR()">Submit</button>
         </div>
+        <p class="utr-error" id="utrError2"></p>
       </div>
     </div>
 
