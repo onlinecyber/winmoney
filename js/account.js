@@ -24,7 +24,23 @@ onAuthStateChanged(auth, (user) => {
   }
 
   const uid = user.uid;
+  const userRef = ref(db, `users/${uid}`);
   const walletsRef = ref(db, `users/${uid}/wallets`);
+
+  // 🔥 LOAD USER NAME AND ID
+  onValue(userRef, (snapshot) => {
+    if (!snapshot.exists()) return;
+
+    const data = snapshot.val();
+
+    // Set username
+    const usernameEl = document.getElementById("username");
+    if (usernameEl) usernameEl.innerText = data.name || "User";
+
+    // Set user ID (first 8 chars of uid)
+    const userIdEl = document.getElementById("userId");
+    if (userIdEl) userIdEl.innerText = "ID: " + uid.substring(0, 8).toUpperCase();
+  }, { onlyOnce: true });
 
   // 🔥 ENSURE WALLET NODE EXISTS (VERY IMPORTANT)
   runTransaction(walletsRef, (w) => {
