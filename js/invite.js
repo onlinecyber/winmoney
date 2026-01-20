@@ -29,6 +29,35 @@ onAuthStateChanged(auth, async (user) => {
 
   document.getElementById("reward").innerText =
     data.referrals?.reward || 0;
+
+  // 📜 LOAD REFERRAL HISTORY
+  const historyContainer = document.getElementById("referralHistory");
+  const referralHistory = data.referralHistory || {};
+  const historyItems = Object.values(referralHistory);
+
+  if (historyItems.length > 0 && historyContainer) {
+    // Sort by date (newest first)
+    historyItems.sort((a, b) => b.createdAt - a.createdAt);
+
+    historyContainer.innerHTML = historyItems.map(item => {
+      const date = new Date(item.createdAt);
+      const dateStr = date.toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      });
+
+      return `
+        <div class="history-item">
+          <div class="history-left">
+            <span class="history-name">${item.referredUserName || 'User'}</span>
+            <span class="history-date">${dateStr}</span>
+          </div>
+          <span class="history-amount">+₹${item.rewardAmount}</span>
+        </div>
+      `;
+    }).join('');
+  }
 });
 
 /* COPY FUNCTIONS */

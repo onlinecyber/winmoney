@@ -410,22 +410,29 @@
         total => (Number(total) || 0) + amount
       );
 
-      /* 🔥 REFERRAL REWARD LOGIC (First Recharge Only) */
+      /* 🔥 REFERRAL REWARD LOGIC (First Recharge Only + 3 Day Limit) */
       const userSnap = await get(ref(db, `users/${uid}`));
       const userData = userSnap.val() || {};
 
       // Check if this is first approved recharge
       const hasReceivedFirstReward = userData.stats?.firstRechargeRewarded || false;
       const referredBy = userData.referredBy || null;
+      const userCreatedAt = userData.createdAt || 0;
 
-      if (!hasReceivedFirstReward && referredBy) {
+      // ⏰ 3 DAY TIME LIMIT CHECK
+      const THREE_DAYS_MS = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
+      const isWithinTimeLimit = (Date.now() - userCreatedAt) <= THREE_DAYS_MS;
+
+      if (!hasReceivedFirstReward && referredBy && isWithinTimeLimit) {
         // Find referrer by referral code
         const allUsersSnap = await get(ref(db, "users"));
         let referrerUID = null;
+        let referrerName = "";
 
         allUsersSnap.forEach(child => {
           if (child.val().referralCode === referredBy) {
             referrerUID = child.key;
+            referrerName = child.val().name || "Unknown";
           }
         });
 
@@ -449,6 +456,15 @@
             reward => (Number(reward) || 0) + REFERRAL_REWARD
           );
 
+          // 📝 SAVE REFERRAL HISTORY
+          await push(ref(db, `users/${referrerUID}/referralHistory`), {
+            referredUserName: userData.name || "User",
+            referredUid: uid,
+            rewardAmount: REFERRAL_REWARD,
+            rechargeAmount: amount,
+            createdAt: Date.now()
+          });
+
           // Mark user as rewarded (so reward isn't given again)
           await update(ref(db, `users/${uid}/stats`), {
             firstRechargeRewarded: true
@@ -456,6 +472,13 @@
 
           console.log(`✅ Referral reward ₹${REFERRAL_REWARD} given to ${referrerUID}`);
         }
+      } else if (!hasReceivedFirstReward && referredBy && !isWithinTimeLimit) {
+        // Mark as rewarded anyway to prevent future checks
+        await update(ref(db, `users/${uid}/stats`), {
+          firstRechargeRewarded: true,
+          referralExpired: true
+        });
+        console.log(`⏰ Referral reward expired - user registered more than 3 days ago`);
       }
 
       /* ✅ UPDATE PAYMENT STATUS */

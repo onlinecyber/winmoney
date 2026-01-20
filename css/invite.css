@@ -212,3 +212,48 @@ body {
     font-weight: 700;
     flex-shrink: 0;
 }
+
+/* REFERRAL HISTORY */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.empty-text {
+    font-size: 13px;
+    opacity: 0.6;
+    text-align: center;
+    padding: 20px;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.history-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.history-date {
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+.history-amount {
+    font-size: 16px;
+    font-weight: 700;
+    color: #10b981;
+}
