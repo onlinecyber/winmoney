@@ -75,7 +75,10 @@ window.registerUser = async function () {
     /* 🔐 Hash transaction password */
     const hashedTxPassword = await hashPassword(txPassword);
 
-    /* ✅ CREATE USER (NO REWARD HERE) */
+    /* 🎁 SIGNUP BONUS */
+    const SIGNUP_BONUS = 20; // ₹20 welcome bonus
+
+    /* ✅ CREATE USER WITH SIGNUP BONUS */
     await set(ref(db, "users/" + uid), {
       name,
       phone,
@@ -84,7 +87,8 @@ window.registerUser = async function () {
       status: "active",
 
       wallets: {
-        withdraw: 0
+        deposit: 0,
+        withdraw: SIGNUP_BONUS // 🎁 ₹20 signup bonus
       },
 
       referralCode,
@@ -97,7 +101,7 @@ window.registerUser = async function () {
       createdAt: Date.now()
     });
 
-    console.log("✅ User saved to database");
+    console.log("✅ User saved with ₹" + SIGNUP_BONUS + " signup bonus");
     toastSuccess("Registration successful!");
     window.location.href = "/account.html";
 
