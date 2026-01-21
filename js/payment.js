@@ -36,11 +36,19 @@ if (timerEl) {
 }
 
 /* ================= LOAD PAYMENT SETTINGS ================= */
+let dynamicUpiId = ""; // Will be loaded from Firebase
+
 try {
   onValue(ref(db, "settings/payment"), snap => {
     if (snap.exists()) {
       const data = snap.val();
-      // Update UPI ID
+
+      // Store UPI for deeplinks
+      if (data.upiId) {
+        dynamicUpiId = data.upiId;
+      }
+
+      // Update UPI ID display
       const upiEl = document.getElementById("upi");
       if (upiEl && data.upiId) upiEl.innerText = data.upiId;
 
@@ -171,18 +179,22 @@ window.submitUTR = async function () {
 
 /* ================= PAYMENT APP REDIRECT ================= */
 
-// 🔴 CHANGE HERE: Paytm open
+// Paytm open with dynamic UPI
 window.openPaytm = function () {
-  // UPI deeplink (Paytm)
-  window.location.href =
-    "upi://pay?pa=inzamamulh758@ptaxis&pn=Recharge&am=" + rechargeAmount;
+  if (!dynamicUpiId) {
+    toastError("Payment settings not loaded. Please refresh.");
+    return;
+  }
+  window.location.href = `upi://pay?pa=${dynamicUpiId}&pn=Recharge&am=${rechargeAmount}`;
 };
 
-// 🔴 CHANGE HERE: PhonePe open
+// PhonePe open with dynamic UPI
 window.openPhonePe = function () {
-  // UPI deeplink (PhonePe)
-  window.location.href =
-    "upi://pay?pa=inzamamulh758@ptaxis&pn=Recharge&am=" + rechargeAmount;
+  if (!dynamicUpiId) {
+    toastError("Payment settings not loaded. Please refresh.");
+    return;
+  }
+  window.location.href = `upi://pay?pa=${dynamicUpiId}&pn=Recharge&am=${rechargeAmount}`;
 };
 
 /* ================= AUTO STATUS CHECK ================= */
