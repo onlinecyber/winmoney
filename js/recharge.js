@@ -44,7 +44,7 @@ window.selectAmount = function (element, value) {
   // 🔥 store globally
   window.selectedAmount = value;
 
-  console.log("Selected Amount:", value);
+
 };
 
 

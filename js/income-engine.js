@@ -66,7 +66,7 @@ onAuthStateChanged(auth, async (user) => {
         }
       }
 
-      console.log(`✅ Product ${p.name} completed! Total ₹${totalIncome} added to wallet`);
+
     }
 
     // Update product status

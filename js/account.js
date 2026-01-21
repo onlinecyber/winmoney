@@ -131,7 +131,7 @@ onAuthStateChanged(auth, (user) => {
     if (withdrawWallet) withdrawWallet.innerText =
       window.userWallet.withdraw.toFixed(2);
 
-    console.log("✅ Wallet LIVE:", window.userWallet);
+
   });
 });
 

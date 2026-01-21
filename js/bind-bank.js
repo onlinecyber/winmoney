@@ -28,7 +28,7 @@ onAuthStateChanged(auth, (user) => {
 
 // 🔥 ADD BANK CARD
 window.addBank = async function () {
-  console.log("🔥 addBank() called");
+
 
   const bank = document.getElementById("bank").value;
   const ifsc = document.getElementById("ifsc").value.trim();
@@ -36,7 +36,7 @@ window.addBank = async function () {
   const account = document.getElementById("account").value.trim();
   const txpass = document.getElementById("txpass").value.trim();
 
-  console.log("Bank:", bank, "IFSC:", ifsc, "Holder:", holder, "Account:", account);
+
 
   // 🔴 validation
   if (!bank || !ifsc || !holder || !account || !txpass) {
@@ -45,14 +45,14 @@ window.addBank = async function () {
   }
 
   try {
-    console.log("🔐 Verifying transaction password...");
+
 
     // 🔐 Verify transaction password
     const userSnap = await get(ref(db, "users/" + currentUser.uid));
     const userData = userSnap.val() || {};
     const storedTxPassword = userData.txPassword || "";
 
-    console.log("Stored password length:", storedTxPassword.length);
+
 
     // Check if stored password is hashed (64 chars) or plain text
     const hashedInput = await hashPassword(txpass);
@@ -62,11 +62,11 @@ window.addBank = async function () {
 
     if (!isMatch) {
       toastError("Incorrect transaction password");
-      console.log("❌ Password mismatch");
+
       return;
     }
 
-    console.log("✅ Password verified, checking for duplicate account...");
+
 
     // 🔒 CHECK IF BANK ACCOUNT ALREADY USED (using bankAccounts index)
     const bankCheckRef = ref(db, "bankAccounts/" + account);
@@ -78,12 +78,12 @@ window.addBank = async function () {
       // If linked to different user, block
       if (existingUid !== currentUser.uid) {
         toastWarning("Bank already linked to another account");
-        console.log("❌ Duplicate bank account detected");
+
         return;
       }
     }
 
-    console.log("✅ No duplicate found, saving bank...");
+
 
     // 🔴 SAVE BANK UNDER USER
     await set(ref(db, "users/" + currentUser.uid + "/bank"), {
@@ -100,7 +100,7 @@ window.addBank = async function () {
       createdAt: Date.now()
     });
 
-    console.log("✅ Bank saved successfully!");
+
     toastSuccess("Bank card added successfully!");
 
     // 🔥 BACK TO WITHDRAW PAGE

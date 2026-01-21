@@ -60,7 +60,7 @@ try {
     }
   });
 } catch (e) {
-  console.log("Settings load error:", e);
+  // Settings load error - silent fail
 }
 
 /* ================= AUTH ================= */

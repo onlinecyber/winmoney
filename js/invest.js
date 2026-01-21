@@ -132,7 +132,7 @@ window.buyProduct = async function (product) {
   const withdraw = Number(wallets.withdraw || 0);
   const totalBalance = deposit + withdraw;
 
-  console.log("Deposit =", deposit, "| Withdraw =", withdraw, "| Total =", totalBalance, "| Price =", price);
+
 
   // Check if combined balance is sufficient
   if (totalBalance < price) {
@@ -156,7 +156,7 @@ window.buyProduct = async function (product) {
     newWithdraw = withdraw - remaining;
   }
 
-  console.log("After deduction: Deposit =", newDeposit, "| Withdraw =", newWithdraw);
+
 
   // Update wallets
   await set(walletsRef, {
@@ -175,7 +175,7 @@ window.buyProduct = async function (product) {
     totalInvested: currentInvested + price
   });
 
-  console.log("Updated totalInvested =", currentInvested + price);
+
 
   // Save product purchase
   await set(prodRef, {

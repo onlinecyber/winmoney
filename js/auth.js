@@ -101,7 +101,7 @@ window.registerUser = async function () {
       createdAt: Date.now()
     });
 
-    console.log("✅ User saved with ₹" + SIGNUP_BONUS + " signup bonus");
+
     toastSuccess("Registration successful!");
     window.location.href = "/account.html";
 
