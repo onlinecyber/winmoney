@@ -48,7 +48,7 @@
       <div class="step">
         <b>1. Transfer <span id="TransferAmount">0</span> RS to the following upi</b>
         <div class="copy-box">
-          <span id="upi">inzamamulh758@ptaxis</span>
+          <span id="upi">Loading...</span>
           <button onclick="copyText('upi')">📋</button>
         </div>
 
@@ -74,7 +74,8 @@
       <!-- 🔴 CHANGE HERE: dynamic amount -->
       <h2>₹<span id="qrAmount">0</span></h2>
       <p>Use Mobile Scan code to pay</p>
-      <img src="/images/QR.jpeg" width="220">
+      <img id="qrCodeImage" src="" alt="Loading QR Code..." width="220" style="display:none;">
+      <p id="qrLoadingText" style="color:#666;font-size:14px;">Loading QR Code...</p>
 
       <div class="step">
         <b>2. Submit Ref No / Reference No / UTR</b>

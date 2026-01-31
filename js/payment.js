@@ -53,9 +53,16 @@ try {
       if (upiEl && data.upiId) upiEl.innerText = data.upiId;
 
       // Update QR Code image
-      const qrImgs = document.querySelectorAll("#qrBox img");
-      if (qrImgs.length > 0 && data.qrCodeUrl) {
-        qrImgs.forEach(img => img.src = data.qrCodeUrl);
+      const qrImg = document.getElementById("qrCodeImage");
+      const qrLoadingText = document.getElementById("qrLoadingText");
+
+      if (qrImg && data.qrCodeUrl) {
+        qrImg.src = data.qrCodeUrl;
+        qrImg.style.display = "block";
+        if (qrLoadingText) qrLoadingText.style.display = "none";
+      } else if (qrLoadingText) {
+        qrLoadingText.innerText = "QR Code not configured";
+        qrLoadingText.style.color = "#ef4444";
       }
     }
   });
