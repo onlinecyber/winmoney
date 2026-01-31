@@ -59,6 +59,7 @@ try {
       if (qrImg && data.qrCodeUrl) {
         qrImg.src = data.qrCodeUrl;
         qrImg.style.display = "block";
+        qrImg.style.margin = "15px auto";
         if (qrLoadingText) qrLoadingText.style.display = "none";
       } else if (qrLoadingText) {
         qrLoadingText.innerText = "QR Code not configured";
