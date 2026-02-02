@@ -12,8 +12,6 @@ import {
   set
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
-import { toastSuccess, toastError, toastWarning } from "./toast.js";
-
 /* ================= GLOBAL WALLET ================= */
 window.userWallet = {
   deposit: 0,
@@ -155,6 +153,14 @@ window.logout = function () {
     location.href = "/index.html";
   });
 };
+
+// Add logout event listener
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', window.logout);
+  }
+});
 
 
 /* ================= DAILY CHECK-IN SYSTEM ================= */
