@@ -2,7 +2,9 @@ import { auth, db } from "./firebase.js";
 
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 import {
@@ -12,6 +14,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 import "./toast.js";
+
+/* ================= SET AUTH PERSISTENCE ================= */
+// Keep user logged in across browser sessions
+setPersistence(auth, browserLocalPersistence).catch((error) => {
+  console.error("Persistence error:", error);
+});
 
 /* helper: phone -> fake email */
 function phoneToEmail(phone) {
