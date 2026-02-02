@@ -152,40 +152,6 @@ window.logout = function () {
   });
 };
 
-/* ================= BANNER SLIDER ================= */
-let currentSlide = 0;
-const slides = document.querySelectorAll('.banner-slide');
-const dotsContainer = document.getElementById('bannerDots');
-
-// Create dots
-slides.forEach((_, index) => {
-  const dot = document.createElement('div');
-  dot.classList.add('banner-dot');
-  if (index === 0) dot.classList.add('active');
-  dot.addEventListener('click', () => goToSlide(index));
-  dotsContainer.appendChild(dot);
-});
-
-const dots = document.querySelectorAll('.banner-dot');
-
-function goToSlide(n) {
-  slides[currentSlide].classList.remove('active');
-  dots[currentSlide].classList.remove('active');
-
-  currentSlide = n;
-  if (currentSlide >= slides.length) currentSlide = 0;
-  if (currentSlide < 0) currentSlide = slides.length - 1;
-
-  slides[currentSlide].classList.add('active');
-  dots[currentSlide].classList.add('active');
-}
-
-function nextSlide() {
-  goToSlide(currentSlide + 1);
-}
-
-// Auto-slide every 3 seconds
-setInterval(nextSlide, 3000);
 
 /* ================= DAILY CHECK-IN SYSTEM ================= */
 import { toastSuccess, toastError, toastWarning } from "./toast.js";
@@ -210,8 +176,8 @@ async function loadCheckinStatus() {
   const streak = data.streak || 0;
   const lastCheckin = data.lastCheckin || 0;
 
-  // Update streak display
-  document.getElementById('streakCount').textContent = streak;
+  // Update streak display in compact badge
+  document.getElementById('streakDisplay').textContent = `🔥 ${streak} days`;
 
   // Check if can check-in today
   const now = Date.now();
@@ -219,16 +185,10 @@ async function loadCheckinStatus() {
   const timeSinceLastCheckin = now - lastCheckin;
 
   if (timeSinceLastCheckin < oneDay) {
-    // Already checked in today
-    const btn = document.getElementById('checkinBtn');
-    const btnText = document.getElementById('checkinBtnText');
-    const status = document.getElementById('checkinStatus');
-
-    btn.disabled = true;
-    btnText.textContent = '✓ Checked In';
-
-    const hoursLeft = Math.ceil((oneDay - timeSinceLastCheckin) / (60 * 60 * 1000));
-    status.textContent = `Come back in ${hoursLeft} hours`;
+    // Already checked in today - disable badge
+    const badge = document.getElementById('checkinCompact');
+    badge.classList.add('disabled');
+    badge.style.pointerEvents = 'none';
   }
 }
 
@@ -292,19 +252,15 @@ window.dailyCheckin = async function () {
     });
 
     // Update UI
-    document.getElementById('streakCount').textContent = newStreak;
-    const btn = document.getElementById('checkinBtn');
-    const btnText = document.getElementById('checkinBtnText');
-    const status = document.getElementById('checkinStatus');
+    document.getElementById('streakDisplay').textContent = `🔥 ${newStreak} days`;
+    const badge = document.getElementById('checkinCompact');
+    badge.classList.add('disabled');
+    badge.style.pointerEvents = 'none';
 
-    btn.disabled = true;
-    btnText.textContent = '✓ Checked In';
-    status.textContent = 'Come back in 24 hours';
-
-    // Celebration animation
-    document.querySelector('.checkin-card').classList.add('celebrate');
+    // Celebration animation on header
+    document.querySelector('.header-section').classList.add('celebrate');
     setTimeout(() => {
-      document.querySelector('.checkin-card').classList.remove('celebrate');
+      document.querySelector('.header-section').classList.remove('celebrate');
     }, 600);
 
     // Show success message

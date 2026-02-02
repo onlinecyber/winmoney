@@ -125,158 +125,52 @@ body {
   border-radius: 10px;
 }
 
-/* ====================== BANNER SLIDER ====================== */
-.banner-slider {
-  margin-bottom: 20px;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
+/* ====================== COMPACT CHECK-IN IN HEADER ====================== */
+.header-checkin {
+  margin-top: 14px;
 }
 
-.banner-container {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-}
-
-.banner-slide {
-  display: none;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  padding: 24px 20px;
-  border-radius: 16px;
-  min-height: 100px;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.banner-slide.active {
-  display: block;
-}
-
-.banner-slide:nth-child(2) {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
-
-.banner-slide:nth-child(3) {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.banner-content h3 {
-  font-size: 18px;
-  margin-bottom: 6px;
-  font-weight: 700;
-}
-
-.banner-content p {
-  font-size: 13px;
-  opacity: 0.95;
-  line-height: 1.4;
-}
-
-.banner-dots {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin-top: 12px;
-}
-
-.banner-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.banner-dot.active {
-  width: 24px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.9);
-}
-
-/* ====================== DAILY CHECK-IN ====================== */
-.checkin-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-}
-
-.checkin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.checkin-header h3 {
-  font-size: 18px;
-  margin: 0;
-}
-
-.streak-badge {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.streak-emoji {
-  font-size: 16px;
-}
-
-.checkin-reward {
-  font-size: 14px;
-  opacity: 0.95;
-  margin: 8px 0 16px 0;
-}
-
-.checkin-btn {
-  width: 100%;
-  padding: 14px;
-  border: none;
+.checkin-compact {
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 12px;
-  background: #fff;
-  color: #667eea;
-  font-size: 15px;
-  font-weight: 700;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.checkin-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+.checkin-compact:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
 }
 
-.checkin-btn:disabled {
-  background: rgba(255, 255, 255, 0.5);
+.checkin-compact.disabled {
+  opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
 }
 
-.checkin-status {
-  text-align: center;
-  font-size: 12px;
-  margin-top: 10px;
+.checkin-icon {
+  font-size: 28px;
+}
+
+.checkin-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checkin-label {
+  font-size: 13px;
   opacity: 0.9;
+}
+
+.checkin-streak {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.95;
 }
 
 @keyframes celebrate {

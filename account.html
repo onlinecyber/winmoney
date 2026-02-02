@@ -39,47 +39,17 @@
           <div class="vip-bar" id="vipBar"></div>
         </div>
       </div>
-    </div>
 
-    <!-- BANNER SLIDER -->
-    <div class="banner-slider">
-      <div class="banner-container" id="bannerContainer">
-        <div class="banner-slide active">
-          <div class="banner-content">
-            <h3>🎁 Welcome Bonus</h3>
-            <p>Get ₹20 on signup! Start earning today</p>
-          </div>
-        </div>
-        <div class="banner-slide">
-          <div class="banner-content">
-            <h3>💸 Refer & Earn</h3>
-            <p>Invite friends & earn ₹100 per referral</p>
-          </div>
-        </div>
-        <div class="banner-slide">
-          <div class="banner-content">
-            <h3>👑 VIP Benefits</h3>
-            <p>Unlock premium rewards by investing more</p>
+      <!-- COMPACT CHECK-IN BADGE -->
+      <div class="header-checkin">
+        <div class="checkin-compact" id="checkinCompact" onclick="dailyCheckin()">
+          <span class="checkin-icon">🎁</span>
+          <div class="checkin-info">
+            <span class="checkin-label">Daily Check-in</span>
+            <span class="checkin-streak" id="streakDisplay">🔥 0 days</span>
           </div>
         </div>
       </div>
-      <div class="banner-dots" id="bannerDots"></div>
-    </div>
-
-    <!-- DAILY CHECK-IN -->
-    <div class="checkin-card">
-      <div class="checkin-header">
-        <h3>🎁 Daily Check-in</h3>
-        <div class="streak-badge" id="streakBadge">
-          <span class="streak-emoji">🔥</span>
-          <span id="streakCount">0</span> Days
-        </div>
-      </div>
-      <p class="checkin-reward">Get ₹5 daily reward!</p>
-      <button class="checkin-btn" id="checkinBtn" onclick="dailyCheckin()">
-        <span id="checkinBtnText">Check In Now</span>
-      </button>
-      <p class="checkin-status" id="checkinStatus"></p>
     </div>
 
     <!-- QUICK ACTIONS -->
