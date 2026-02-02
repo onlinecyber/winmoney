@@ -7,8 +7,12 @@ import {
 import {
   ref,
   onValue,
-  runTransaction
+  runTransaction,
+  get,
+  set
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+
+import { toastSuccess, toastError, toastWarning } from "./toast.js";
 
 /* ================= GLOBAL WALLET ================= */
 window.userWallet = {
@@ -154,8 +158,6 @@ window.logout = function () {
 
 
 /* ================= DAILY CHECK-IN SYSTEM ================= */
-import { toastSuccess, toastError, toastWarning } from "./toast.js";
-import { get, set, runTransaction } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 let checkinUser = null;
 
