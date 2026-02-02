@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Account</title>
   <link rel="stylesheet" href="/css/account.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
 </head>
 
 <body>
@@ -65,6 +66,22 @@
       <div class="banner-dots" id="bannerDots"></div>
     </div>
 
+    <!-- DAILY CHECK-IN -->
+    <div class="checkin-card">
+      <div class="checkin-header">
+        <h3>🎁 Daily Check-in</h3>
+        <div class="streak-badge" id="streakBadge">
+          <span class="streak-emoji">🔥</span>
+          <span id="streakCount">0</span> Days
+        </div>
+      </div>
+      <p class="checkin-reward">Get ₹5 daily reward!</p>
+      <button class="checkin-btn" id="checkinBtn" onclick="dailyCheckin()">
+        <span id="checkinBtnText">Check In Now</span>
+      </button>
+      <p class="checkin-status" id="checkinStatus"></p>
+    </div>
+
     <!-- QUICK ACTIONS -->
     <div class="quick-actions">
       <button class="action-btn invest" onclick="location.href='/bronze.html'">
@@ -79,6 +96,13 @@
         <span class="action-icon">💰</span>
         <span>Withdraw</span>
       </button>
+    </div>
+
+    <!-- LIVE TRANSACTION FEED -->
+    <div class="live-feed">
+      <div class="feed-ticker" id="feedTicker">
+        <span class="feed-item">🎉 Rajesh from Delhi just earned ₹850!</span>
+      </div>
     </div>
 
     <!-- WALLET CARDS -->

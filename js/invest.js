@@ -31,6 +31,13 @@ onAuthStateChanged(auth, async (user) => {
 async function loadProducts() {
   if (!list) return;
 
+  // Show skeleton loading
+  list.innerHTML = `
+    <div class="product-card skeleton skeleton-product"></div>
+    <div class="product-card skeleton skeleton-product"></div>
+    <div class="product-card skeleton skeleton-product"></div>
+  `;
+
   const snap = await get(ref(db, "products"));
   list.innerHTML = "";
 

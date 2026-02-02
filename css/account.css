@@ -165,6 +165,7 @@ body {
     opacity: 0;
     transform: translateX(10px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -203,6 +204,130 @@ body {
   width: 24px;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.9);
+}
+
+/* ====================== DAILY CHECK-IN ====================== */
+.checkin-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.checkin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.checkin-header h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.streak-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.streak-emoji {
+  font-size: 16px;
+}
+
+.checkin-reward {
+  font-size: 14px;
+  opacity: 0.95;
+  margin: 8px 0 16px 0;
+}
+
+.checkin-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #fff;
+  color: #667eea;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.checkin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.checkin-btn:disabled {
+  background: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.checkin-status {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+@keyframes celebrate {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.celebrate {
+  animation: celebrate 0.6s ease;
+}
+
+/* ====================== LIVE TRANSACTION FEED ====================== */
+.live-feed {
+  background: rgba(102, 126, 234, 0.1);
+  border-left: 3px solid #667eea;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.feed-ticker {
+  display: flex;
+  align-items: center;
+  animation: scroll 20s linear infinite;
+  white-space: nowrap;
+}
+
+.feed-item {
+  font-size: 13px;
+  color: #fff;
+  margin-right: 100px;
+  opacity: 0.9;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 /* ====================== QUICK ACTIONS ====================== */

@@ -186,3 +186,170 @@ function nextSlide() {
 
 // Auto-slide every 3 seconds
 setInterval(nextSlide, 3000);
+
+/* ================= DAILY CHECK-IN SYSTEM ================= */
+import { toastSuccess, toastError, toastWarning } from "./toast.js";
+import { get, set, runTransaction } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+
+let checkinUser = null;
+
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    checkinUser = user;
+    await loadCheckinStatus();
+  }
+});
+
+async function loadCheckinStatus() {
+  if (!checkinUser) return;
+
+  const checkinRef = ref(db, `users/${checkinUser.uid}/checkin`);
+  const snap = await get(checkinRef);
+  const data = snap.val() || {};
+
+  const streak = data.streak || 0;
+  const lastCheckin = data.lastCheckin || 0;
+
+  // Update streak display
+  document.getElementById('streakCount').textContent = streak;
+
+  // Check if can check-in today
+  const now = Date.now();
+  const oneDay = 24 * 60 * 60 * 1000;
+  const timeSinceLastCheckin = now - lastCheckin;
+
+  if (timeSinceLastCheckin < oneDay) {
+    // Already checked in today
+    const btn = document.getElementById('checkinBtn');
+    const btnText = document.getElementById('checkinBtnText');
+    const status = document.getElementById('checkinStatus');
+
+    btn.disabled = true;
+    btnText.textContent = '✓ Checked In';
+
+    const hoursLeft = Math.ceil((oneDay - timeSinceLastCheckin) / (60 * 60 * 1000));
+    status.textContent = `Come back in ${hoursLeft} hours`;
+  }
+}
+
+window.dailyCheckin = async function () {
+  if (!checkinUser) {
+    toastError('Please login first');
+    return;
+  }
+
+  const uid = checkinUser.uid;
+  const checkinRef = ref(db, `users/${uid}/checkin`);
+  const walletsRef = ref(db, `users/${uid}/wallets`);
+
+  try {
+    const checkinSnap = await get(checkinRef);
+    const checkinData = checkinSnap.val() || {};
+
+    const now = Date.now();
+    const lastCheckin = checkinData.lastCheckin || 0;
+    const oneDay = 24 * 60 * 60 * 1000;
+    const twoDays = 2 * oneDay;
+
+    // Check if already checked in today
+    if (now - lastCheckin < oneDay) {
+      toastWarning('Already checked in today!');
+      return;
+    }
+
+    // Calculate new streak
+    let newStreak = checkinData.streak || 0;
+    if (now - lastCheckin < twoDays) {
+      // Continued streak
+      newStreak++;
+    } else {
+      // Streak broken, restart
+      newStreak = 1;
+    }
+
+    // Base reward
+    let reward = 5;
+
+    // Bonus for 7-day streak
+    if (newStreak === 7) {
+      reward = 50; // Big bonus!
+    }
+
+    // Update check-in data
+    await set(checkinRef, {
+      lastCheckin: now,
+      streak: newStreak,
+      totalCheckins: (checkinData.totalCheckins || 0) + 1
+    });
+
+    // Add reward to withdraw wallet
+    await runTransaction(walletsRef, (current) => {
+      const wallets = current || { deposit: 0, withdraw: 0 };
+      return {
+        deposit: wallets.deposit || 0,
+        withdraw: (wallets.withdraw || 0) + reward
+      };
+    });
+
+    // Update UI
+    document.getElementById('streakCount').textContent = newStreak;
+    const btn = document.getElementById('checkinBtn');
+    const btnText = document.getElementById('checkinBtnText');
+    const status = document.getElementById('checkinStatus');
+
+    btn.disabled = true;
+    btnText.textContent = '✓ Checked In';
+    status.textContent = 'Come back in 24 hours';
+
+    // Celebration animation
+    document.querySelector('.checkin-card').classList.add('celebrate');
+    setTimeout(() => {
+      document.querySelector('.checkin-card').classList.remove('celebrate');
+    }, 600);
+
+    // Show success message
+    if (newStreak === 7) {
+      toastSuccess(`🎉 7-Day Streak! Earned ₹${reward}!`);
+    } else {
+      toastSuccess(`✅ Check-in successful! Earned ₹${reward}`);
+    }
+
+  } catch (error) {
+    toastError('Check-in failed: ' + error.message);
+  }
+};
+
+/* ================= LIVE TRANSACTION FEED ================= */
+const feedTicker = document.getElementById('feedTicker');
+
+const names = ['Rajesh', 'Priya', 'Amit', 'Neha', 'Vikram', 'Pooja', 'Rahul', 'Anjali', 'Suresh', 'Kavita'];
+const cities = ['Delhi', 'Mumbai', 'Bangalore', 'Pune', 'Hyderabad', 'Chennai', 'Kolkata', 'Ahmedabad'];
+const actions = [
+  { emoji: '🎉', text: 'just earned', min: 100, max: 5000 },
+  { emoji: '💰', text: 'withdrew', min: 500, max: 10000 },
+  { emoji: '📈', text: 'invested', min: 1000, max: 20000 }
+];
+
+function generateFeedMessage() {
+  const name = names[Math.floor(Math.random() * names.length)];
+  const city = cities[Math.floor(Math.random() * cities.length)];
+  const action = actions[Math.floor(Math.random() * actions.length)];
+  const amount = Math.floor(Math.random() * (action.max - action.min) + action.min);
+
+  return `${action.emoji} ${name} from ${city} ${action.text} ₹${amount.toLocaleString()}!`;
+}
+
+// Generate multiple feed items for infinite scroll
+function populateFeed() {
+  let feedHTML = '';
+  for (let i = 0; i < 10; i++) {
+    feedHTML += `<span class="feed-item">${generateFeedMessage()}</span>`;
+  }
+  feedTicker.innerHTML = feedHTML + feedHTML; // Duplicate for seamless loop
+}
+
+populateFeed();
+
+// Regenerate feed every 30 seconds for variety
+setInterval(populateFeed, 30000);
+
