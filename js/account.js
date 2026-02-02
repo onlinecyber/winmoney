@@ -194,6 +194,14 @@ async function loadCheckinStatus() {
   }
 }
 
+// Add click event listener
+document.addEventListener('DOMContentLoaded', () => {
+  const badge = document.getElementById('checkinCompact');
+  if (badge) {
+    badge.addEventListener('click', window.dailyCheckin);
+  }
+});
+
 window.dailyCheckin = async function () {
   if (!checkinUser) {
     toastError('Please login first');
