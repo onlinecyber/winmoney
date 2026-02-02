@@ -151,3 +151,38 @@ window.logout = function () {
     location.href = "/index.html";
   });
 };
+
+/* ================= BANNER SLIDER ================= */
+let currentSlide = 0;
+const slides = document.querySelectorAll('.banner-slide');
+const dotsContainer = document.getElementById('bannerDots');
+
+// Create dots
+slides.forEach((_, index) => {
+  const dot = document.createElement('div');
+  dot.classList.add('banner-dot');
+  if (index === 0) dot.classList.add('active');
+  dot.addEventListener('click', () => goToSlide(index));
+  dotsContainer.appendChild(dot);
+});
+
+const dots = document.querySelectorAll('.banner-dot');
+
+function goToSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+
+  currentSlide = n;
+  if (currentSlide >= slides.length) currentSlide = 0;
+  if (currentSlide < 0) currentSlide = slides.length - 1;
+
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+  goToSlide(currentSlide + 1);
+}
+
+// Auto-slide every 3 seconds
+setInterval(nextSlide, 3000);
