@@ -69,6 +69,31 @@ onAuthStateChanged(auth, (user) => {
 
     const vipBarEl = document.getElementById("vipBar");
     if (vipBarEl) vipBarEl.style.width = Math.min(progressPercent, 100) + "%";
+
+    // ✅ LOAD DASHBOARD STATS (Referrals)
+    const refEl = document.getElementById("dashInviteCount");
+    if (refEl) {
+      let count = 0;
+      if (data.referrals) {
+        if (typeof data.referrals === 'object') {
+          count = Number(data.referrals.count);
+          if (isNaN(count) || count === 0) {
+            count = Object.keys(data.referrals).filter(k => k !== 'count' && k !== 'reward').length;
+          }
+        } else if (typeof data.referrals === 'number') {
+          count = data.referrals;
+        }
+      }
+      if (!count && data.referralHistory) {
+        count = Object.keys(data.referralHistory).length;
+      }
+      refEl.innerText = count || 0;
+    }
+
+    const bonusEl = document.getElementById("dashBonus");
+    if (bonusEl) {
+      bonusEl.innerText = "₹" + (data.referrals?.reward || 0);
+    }
   });
 
   // 🔥 ENSURE WALLET NODE EXISTS (VERY IMPORTANT)
