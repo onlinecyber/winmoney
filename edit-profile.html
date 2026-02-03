@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="/css/edit-profile.css">
+</head>
+
+<body>
+    <div class="edit-profile-page">
+        <!-- HEADER -->
+        <div class="header">
+            <a href="/profile.html" class="back-btn">←</a>
+            <h2>Edit Profile</h2>
+        </div>
+
+        <div class="content">
+            <!-- SECTION: PERSONAL INFO -->
+            <div class="section-card">
+                <h3 class="section-title">Personal Information</h3>
+                <div class="input-box">
+                    <label>Full Name</label>
+                    <input type="text" id="editName" placeholder="Enter your name">
+                </div>
+                <button class="primary-btn" onclick="updateName()">Update Name</button>
+            </div>
+
+            <!-- SECTION: LOGIN PASSWORD -->
+            <div class="section-card">
+                <h3 class="section-title">Change Login Password</h3>
+                <div class="input-box">
+                    <label>New Password</label>
+                    <input type="password" id="newLoginPassword" placeholder="Minimum 6 characters">
+                </div>
+                <button class="primary-btn" onclick="updateLoginPassword()">Update Password</button>
+            </div>
+
+            <!-- SECTION: TRANSACTION PASSWORD -->
+            <div class="section-card">
+                <h3 class="section-title">Transaction Password</h3>
+                <div class="input-box">
+                    <label>Current Transaction Password</label>
+                    <input type="password" id="oldTxPassword" placeholder="Required for security">
+                </div>
+                <div class="input-box">
+                    <label>New Transaction Password</label>
+                    <input type="password" id="newTxPassword" placeholder="Minimum 6 characters">
+                </div>
+                <button class="primary-btn" onclick="updateTxPassword()">Update TX Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS SCRIPTS -->
+    <script src="/js/toast.js"></script>
+    <script type="module" src="/js/edit-profile.js"></script>
+</body>
+
+</html>
