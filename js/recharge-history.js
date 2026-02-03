@@ -5,6 +5,9 @@ import {
 
 import {
   ref,
+  query,
+  orderByChild,
+  equalTo,
   get
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
@@ -16,23 +19,26 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   const list = document.getElementById("historyList");
-  list.innerHTML = "";
+  list.innerHTML = "<p class='loading'>Loading...</p>";
 
-  const snap = await get(ref(db, "payments"));
+  // Query only current user's payments
+  const paymentsRef = ref(db, "payments");
+  const userPaymentsQuery = query(paymentsRef, orderByChild("uid"), equalTo(user.uid));
+
+  const snap = await get(userPaymentsQuery);
 
   if (!snap.exists()) {
     list.innerHTML = "<p class='loading'>No recharge history</p>";
     return;
   }
 
+  list.innerHTML = "";
   let found = false;
 
   snap.forEach(child => {
     const data = child.val();
 
-    // 🔐 Only current user
-    if (data.uid !== user.uid) return;
-
+    // Query already filters by uid, no need to check again
     found = true;
 
     const dateObj = new Date(data.createdAt || Date.now());

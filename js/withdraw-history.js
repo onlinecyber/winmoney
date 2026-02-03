@@ -2,7 +2,7 @@ import { auth, db } from "./firebase.js";
 import { onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 import {
-  ref, onValue
+  ref, query, orderByChild, equalTo, onValue
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
 
 const list = document.getElementById("withdrawList");
@@ -14,9 +14,11 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
 
+  // Query only current user's withdrawals
   const withdrawRef = ref(db, "withdrawals");
+  const userWithdrawQuery = query(withdrawRef, orderByChild("uid"), equalTo(user.uid));
 
-  onValue(withdrawRef, (snapshot) => {
+  onValue(userWithdrawQuery, (snapshot) => {
     list.innerHTML = "";
 
     if (!snapshot.exists()) {
@@ -27,8 +29,7 @@ onAuthStateChanged(auth, (user) => {
     snapshot.forEach(child => {
       const data = child.val();
 
-      // 🔐 only current user
-      if (data.uid !== user.uid) return;
+      // Query already filters by uid
 
       const dateObj = new Date(data.createdAt || Date.now());
       const date = dateObj.toLocaleDateString();
