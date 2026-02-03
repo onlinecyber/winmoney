@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Account</title>
   <link rel="stylesheet" href="/css/account.css">
-  <link rel="stylesheet" href="/css/skeleton.css">
 </head>
 
 <body>
@@ -39,25 +38,47 @@
           <div class="vip-bar" id="vipBar"></div>
         </div>
       </div>
+    </div>
 
-      <!-- COMPACT CHECK-IN BADGE -->
-      <div class="header-checkin">
-        <div class="checkin-compact" id="checkinCompact">
-          <span class="checkin-icon">🎁</span>
-          <div class="checkin-info">
-            <span class="checkin-label">Daily Check-in</span>
-            <span class="checkin-streak" id="streakDisplay">🔥 0 days</span>
+    <!-- BANNER SLIDER -->
+    <div class="banner-slider">
+      <div class="banner-container" id="bannerContainer">
+        <div class="banner-slide active">
+          <div class="banner-content">
+            <h3>🎁 Welcome Bonus</h3>
+            <p>Get ₹20 on signup! Start earning today</p>
+          </div>
+        </div>
+        <div class="banner-slide">
+          <div class="banner-content">
+            <h3>💸 Refer & Earn</h3>
+            <p>Invite friends & earn ₹100 per referral</p>
+          </div>
+        </div>
+        <div class="banner-slide">
+          <div class="banner-content">
+            <h3>👑 VIP Benefits</h3>
+            <p>Unlock premium rewards by investing more</p>
           </div>
         </div>
       </div>
+      <div class="banner-dots" id="bannerDots"></div>
     </div>
 
-
-    <!-- LIVE TRANSACTION FEED -->
-    <div class="live-feed">
-      <div class="feed-ticker" id="feedTicker">
-        <span class="feed-item">🎉 Rajesh from Delhi just earned ₹850!</span>
-      </div>
+    <!-- QUICK ACTIONS -->
+    <div class="quick-actions">
+      <button class="action-btn invest" onclick="location.href='/bronze.html'">
+        <span class="action-icon">📈</span>
+        <span>Invest</span>
+      </button>
+      <button class="action-btn recharge" onclick="location.href='/recharge.html'">
+        <span class="action-icon">💳</span>
+        <span>Recharge</span>
+      </button>
+      <button class="action-btn withdraw" onclick="location.href='/withdraw.html'">
+        <span class="action-icon">💰</span>
+        <span>Withdraw</span>
+      </button>
     </div>
 
     <!-- WALLET CARDS -->
@@ -81,46 +102,52 @@
       </div>
     </div>
 
-    <!-- STATS CARDS -->
-    <div class="stats-section">
-      <div class="stat-card" onclick="location.href='/my-products.html'">
-        <div class="stat-value" id="totalInvested">₹0</div>
-        <div class="stat-label">Total Invested</div>
-      </div>
-      <div class="stat-card" onclick="location.href='/income-history.html'">
-        <div class="stat-value" id="todayIncome">₹0</div>
-        <div class="stat-label">Today's Income</div>
+    <!-- MENU GRID -->
+    <div class="menu-section">
+      <h4 class="section-title">Services</h4>
+      <div class="menu-grid">
+        <div class="menu-item" onclick="location.href='/my-products.html'">
+          <span class="menu-icon">📦</span>
+          <span class="menu-text">My Orders</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/income-history.html'">
+          <span class="menu-icon">📊</span>
+          <span class="menu-text">Income</span>
+        </div>
+        <div class="menu-item" id="bankCardBtn">
+          <span class="menu-icon">🏦</span>
+          <span class="menu-text">Bank Card</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/invite.html'">
+          <span class="menu-icon">🎁</span>
+          <span class="menu-text">Invite</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/recharge-history.html'">
+          <span class="menu-icon">📥</span>
+          <span class="menu-text">Recharge</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/withdraw-history.html'">
+          <span class="menu-icon">📤</span>
+          <span class="menu-text">Withdraw</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/help-center.html'">
+          <span class="menu-icon">❓</span>
+          <span class="menu-text">Help</span>
+        </div>
+        <div class="menu-item" onclick="location.href='/info.html'">
+          <span class="menu-icon">ℹ️</span>
+          <span class="menu-text">About</span>
+        </div>
       </div>
     </div>
 
+    <!-- LOGOUT -->
+    <button class="logout-btn" onclick="logout()">
+      <span>🚪</span> Logout
+    </button>
+
   </div>
 
-  <!-- FIXED BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
-    <a href="/account.html" class="nav-item active">
-      <span class="nav-icon">�</span>
-      <span class="nav-label">Home</span>
-    </a>
-    <a href="/bronze.html" class="nav-item">
-      <span class="nav-icon">�</span>
-      <span class="nav-label">Invest</span>
-    </a>
-    <a href="/recharge.html" class="nav-item">
-      <span class="nav-icon">�</span>
-      <span class="nav-label">Wallet</span>
-    </a>
-    <a href="/income-history.html" class="nav-item">
-      <span class="nav-icon">📊</span>
-      <span class="nav-label">History</span>
-    </a>
-    <a href="/invite.html" class="nav-item">
-      <span class="nav-icon">👤</span>
-      <span class="nav-label">Profile</span>
-    </a>
-  </nav>
-
-
-  <script src="/js/toast.js"></script>
   <script type="module" src="/js/account.js"></script>
   <script type="module" src="/js/income-engine.js"></script>
 </body>
