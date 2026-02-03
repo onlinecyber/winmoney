@@ -70,22 +70,12 @@ onAuthStateChanged(auth, (user) => {
     const vipBarEl = document.getElementById("vipBar");
     if (vipBarEl) vipBarEl.style.width = Math.min(progressPercent, 100) + "%";
 
-    // ✅ LOAD DASHBOARD STATS (Referrals)
+    // ✅ LOAD DASHBOARD STATS (Total Signups)
     const refEl = document.getElementById("dashInviteCount");
     if (refEl) {
       let count = 0;
       if (data.referrals) {
-        if (typeof data.referrals === 'object') {
-          count = Number(data.referrals.count);
-          if (isNaN(count) || count === 0) {
-            count = Object.keys(data.referrals).filter(k => k !== 'count' && k !== 'reward').length;
-          }
-        } else if (typeof data.referrals === 'number') {
-          count = data.referrals;
-        }
-      }
-      if (!count && data.referralHistory) {
-        count = Object.keys(data.referralHistory).length;
+        count = Number(data.referrals.total || data.referrals.count || 0);
       }
       refEl.innerText = count || 0;
     }

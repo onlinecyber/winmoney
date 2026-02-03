@@ -102,12 +102,36 @@ window.registerUser = async function () {
       referralCode,
       referredBy: inputRefCode, // 🔥 stored only
       referrals: {
-        count: 0,
-        reward: 0
+        count: 0, // Rewarded count
+        reward: 0,
+        total: 0 // Total signups
       },
 
       createdAt: Date.now()
     });
+
+    /* 🔥 INCREMENT TOTAL REFERRALS FOR REFERRER */
+    if (inputRefCode) {
+      try {
+        const usersSnap = await get(ref(db, "users"));
+        if (usersSnap.exists()) {
+          let referrerUID = null;
+          usersSnap.forEach(child => {
+            if (child.val().referralCode === inputRefCode) {
+              referrerUID = child.key;
+            }
+          });
+          if (referrerUID) {
+            const totalRef = ref(db, `users/${referrerUID}/referrals/total`);
+            await runTransaction(totalRef, (current) => {
+              return (Number(current) || 0) + 1;
+            });
+          }
+        }
+      } catch (e) {
+        console.error("Failed to increment total referrals:", e);
+      }
+    }
 
 
     toastSuccess("Registration successful!");

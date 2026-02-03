@@ -33,25 +33,35 @@ async function loadUserProfile(user) {
         const phone = data.phone || "Not set";
 
         // Set avatar letter
-        document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
+        const avatarEl = document.getElementById('avatarLetter');
+        if (avatarEl) avatarEl.textContent = name.charAt(0).toUpperCase();
 
-        // 1. Set name (HTML has no subtext element anymore)
-        document.getElementById('userName').textContent = name;
+        // 1. Set name
+        const nameEl = document.getElementById('userName');
+        if (nameEl) nameEl.textContent = name;
 
         // 2. Set phone in details section ONLY
         const phoneEl = document.getElementById('userPhone');
         if (phoneEl) phoneEl.textContent = phone;
 
         // Load VIP level
-        const vipLevel = data.vipLevel || 0;
-        document.getElementById('vipBadge').textContent = `VIP ${vipLevel}`;
+        const vipBadge = document.getElementById('vipBadge');
+        if (vipBadge) {
+            const vipLevel = data.vipLevel || 0;
+            vipBadge.textContent = `VIP ${vipLevel}`;
+        }
 
         // Check bank account status
         const bankRef = ref(db, `bankAccounts/${user.uid}`);
         const bankSnap = await get(bankRef);
-        if (bankSnap.exists()) {
-            document.getElementById('bankStatus').textContent = "Linked ✅";
-            document.getElementById('bankStatus').style.color = "#4ade80";
+        const bankStatusEl = document.getElementById('bankStatus');
+        if (bankStatusEl) {
+            if (bankSnap.exists()) {
+                bankStatusEl.textContent = "Linked ✅";
+                bankStatusEl.style.color = "#4ade80";
+            } else {
+                bankStatusEl.textContent = "Not linked";
+            }
         }
     }
 
@@ -59,11 +69,14 @@ async function loadUserProfile(user) {
     const creationTime = user.metadata.creationTime;
     if (creationTime) {
         const joinDate = new Date(creationTime);
-        document.getElementById('joinDate').textContent = joinDate.toLocaleDateString('en-IN', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-        });
+        const joinDateEl = document.getElementById('joinDate');
+        if (joinDateEl) {
+            joinDateEl.textContent = joinDate.toLocaleDateString('en-IN', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
     }
 }
 
@@ -106,33 +119,21 @@ function loadUserStats(uid) {
         const streakEl = document.getElementById('checkinStreak');
         if (streakEl) streakEl.textContent = data.checkin?.streak || 0;
 
-        // 🎯 Referral Count (Ultimate Robust Logic)
+        // Referral Count (Total Signups Preferred)
         const referralEl = document.getElementById('referralCount');
         if (referralEl) {
             let count = 0;
             if (data.referrals) {
-                if (typeof data.referrals === 'object') {
-                    // Try getting direct count first
-                    count = Number(data.referrals.count);
+                // Return total signups if available, otherwise rewarded count
+                count = Number(data.referrals.total || data.referrals.count || 0);
 
-                    // If no direct count, count the keys (excluding meta keys)
-                    if (isNaN(count) || count === 0) {
-                        count = Object.keys(data.referrals).filter(k => k !== 'count' && k !== 'reward').length;
-                    }
-                } else if (typeof data.referrals === 'number') {
-                    count = data.referrals;
+                // Final fallback: count keys if no total/count fields
+                if (count === 0 && typeof data.referrals === 'object') {
+                    count = Object.keys(data.referrals).filter(k => k !== 'count' && k !== 'reward' && k !== 'total').length;
                 }
             }
-
-            // Fallback 2: Check separate referralCount field
-            if (!count && data.referralCount) {
-                count = Number(data.referralCount) || 0;
-            }
-
-            // Fallback 3: Check referral history length
-            if (!count && data.referralHistory) {
-                count = Object.keys(data.referralHistory).length;
-            }
+            // Add rewarded count to total if they are separate (logic safety)
+            if (data.referrals?.count > count) count = data.referrals.count;
 
             referralEl.textContent = count || 0;
         }
