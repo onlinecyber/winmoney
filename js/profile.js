@@ -24,15 +24,38 @@ onAuthStateChanged(auth, async (user) => {
 
 /* ================= LOAD USER PROFILE ================= */
 async function loadUserProfile(user) {
-    // Set avatar letter
-    const name = user.displayName || user.email || "User";
-    document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
+    const userRef = ref(db, `users/${user.uid}`);
+    const snap = await get(userRef);
 
-    // Set name and email
-    document.getElementById('userName').textContent = name;
-    document.getElementById('userEmail').textContent = user.email || "No email";
+    if (snap.exists()) {
+        const data = snap.val();
+        const name = data.name || "User";
+        const phone = data.phone || "Not set";
 
-    // Set join date
+        // Set avatar letter
+        document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
+
+        // Set name and phone/email
+        document.getElementById('userName').textContent = name;
+        document.getElementById('userEmail').textContent = phone; // Show phone instead of fake email
+
+        // Set phone in details section
+        document.getElementById('userPhone').textContent = phone;
+
+        // Load VIP level
+        const vipLevel = data.vipLevel || 0;
+        document.getElementById('vipBadge').textContent = `VIP ${vipLevel}`;
+
+        // Check bank account status
+        const bankRef = ref(db, `bankAccounts/${user.uid}`);
+        const bankSnap = await get(bankRef);
+        if (bankSnap.exists()) {
+            document.getElementById('bankStatus').textContent = "Linked ✅";
+            document.getElementById('bankStatus').style.color = "#4ade80";
+        }
+    }
+
+    // Set join date (from auth metadata)
     const creationTime = user.metadata.creationTime;
     if (creationTime) {
         const joinDate = new Date(creationTime);
@@ -41,28 +64,6 @@ async function loadUserProfile(user) {
             month: 'short',
             year: 'numeric'
         });
-    }
-
-    // Set phone
-    if (user.phoneNumber) {
-        document.getElementById('userPhone').textContent = user.phoneNumber;
-    }
-
-    // Load VIP level
-    const userRef = ref(db, `users/${user.uid}`);
-    const snap = await get(userRef);
-    if (snap.exists()) {
-        const data = snap.val();
-        const vipLevel = data.vipLevel || 0;
-        document.getElementById('vipBadge').textContent = `VIP ${vipLevel}`;
-    }
-
-    // Check bank status
-    const bankRef = ref(db, `bankAccounts/${user.uid}`);
-    const bankSnap = await get(bankRef);
-    if (bankSnap.exists()) {
-        document.getElementById('bankStatus').textContent = "✓ Linked";
-        document.getElementById('bankStatus').style.color = "#4ade80";
     }
 }
 
@@ -77,43 +78,53 @@ function loadUserStats(uid) {
                 totalEarnings += Number(income.amount) || 0;
             });
         }
-        document.getElementById('totalEarnings').textContent = `₹${totalEarnings.toLocaleString()}`;
+        const earningsEl = document.getElementById('totalEarnings');
+        if (earningsEl) earningsEl.textContent = `₹${totalEarnings.toLocaleString()}`;
     });
 
     // Active Products count
     onValue(ref(db, `userProducts/${uid}`), (snap) => {
+        const productsEl = document.getElementById('totalProducts');
+        if (!productsEl) return;
+
         if (snap.exists()) {
             let activeCount = 0;
             snap.forEach(child => {
                 const product = child.val();
                 if (product.status === "active") activeCount++;
             });
-            document.getElementById('totalProducts').textContent = activeCount;
+            productsEl.textContent = activeCount;
+        } else {
+            productsEl.textContent = "0";
         }
     });
 
-    // Check-in streak
+    // Check-in Streak
     onValue(ref(db, `users/${uid}/checkin`), (snap) => {
-        if (snap.exists()) {
-            const checkin = snap.val();
-            document.getElementById('checkinStreak').textContent = checkin.streak || 0;
-        }
+        const streakEl = document.getElementById('checkinStreak');
+        if (!streakEl) return;
+        const streak = snap.exists() ? (snap.val().streak || 0) : 0;
+        streakEl.textContent = streak;
     });
 
-    // Referral count
+    // Referral Count
     onValue(ref(db, `users/${uid}/referrals`), (snap) => {
-        if (snap.exists()) {
-            const referrals = snap.val();
-            const count = referrals.count || Object.keys(referrals).length || 0;
-            document.getElementById('referralCount').textContent = count;
-        }
+        const referralEl = document.getElementById('referralCount');
+        if (!referralEl) return;
+        const count = snap.exists() ? (snap.val().count || 0) : 0;
+        referralEl.textContent = count;
     });
 }
 
 /* ================= LOGOUT ================= */
 window.logout = async () => {
     if (confirm("Are you sure you want to logout?")) {
-        await signOut(auth);
-        location.href = "/login.html";
+        try {
+            await signOut(auth);
+            location.href = "/login.html";
+        } catch (err) {
+            console.error("Logout error:", err);
+            alert("Logout failed. Try again.");
+        }
     }
 };
