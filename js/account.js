@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ================= LIVE TRANSACTION FEED ================= */
-const feedTicker = document.getElementById('feedTicker');
+const feedTicker = document.getElementById('feedTicker2');
 
 const names = ['Rajesh', 'Priya', 'Amit', 'Neha', 'Vikram', 'Pooja', 'Rahul', 'Anjali', 'Suresh', 'Kavita'];
 const cities = ['Delhi', 'Mumbai', 'Bangalore', 'Pune', 'Hyderabad', 'Chennai', 'Kolkata', 'Ahmedabad'];

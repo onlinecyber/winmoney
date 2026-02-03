@@ -15,8 +15,8 @@ body {
   max-width: 420px;
   margin: auto;
   padding: 16px;
-  padding-bottom: 130px;
-  /* Space for live feed + bottom nav */
+  padding-bottom: 100px;
+  /* Space for bottom nav only */
 }
 
 /* ====================== HEADER SECTION ====================== */
@@ -384,17 +384,14 @@ body {
   border-color: #ef4444;
 }
 
-/* ====================== LIVE TRANSACTION FEED (Bottom) ====================== */
-.live-feed-bottom {
-  position: fixed;
-  bottom: 80px;
-  left: 0;
-  right: 0;
+/* ====================== LIVE TRANSACTION FEED (Inline) ====================== */
+.live-feed-inline {
   background: linear-gradient(90deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
-  border-top: 1px solid rgba(102, 126, 234, 0.3);
-  padding: 8px 16px;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
   overflow: hidden;
-  z-index: 999;
 }
 
 .feed-ticker {
