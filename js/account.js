@@ -312,6 +312,15 @@ window.dailyCheckin = async function () {
       };
     });
 
+    // Save to incomeHistory for total earnings
+    const incomeRef = ref(db, `incomeHistory/${checkinUser.uid}/${Date.now()}`);
+    await set(incomeRef, {
+      type: 'checkin',
+      amount: reward,
+      description: newStreak === 7 ? '7-Day Streak Bonus' : 'Daily Check-in',
+      date: Date.now()
+    });
+
     // Update UI
     const streakCountEl = document.getElementById('streakCount');
     if (streakCountEl) streakCountEl.textContent = newStreak;
