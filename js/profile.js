@@ -86,7 +86,7 @@ function loadUserStats(uid) {
             let activeCount = 0;
             snap.forEach(child => {
                 const product = child.val();
-                if (product.active) activeCount++;
+                if (product.status === "active") activeCount++;
             });
             document.getElementById('totalProducts').textContent = activeCount;
         }
