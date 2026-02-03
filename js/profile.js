@@ -35,9 +35,10 @@ async function loadUserProfile(user) {
         // Set avatar letter
         document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
 
-        // Set name and phone/email
+        // Set name and hide secondary info in header (only show in details)
         document.getElementById('userName').textContent = name;
-        document.getElementById('userEmail').textContent = phone; // Show phone instead of fake email
+        const subtextEl = document.getElementById('userEmail');
+        if (subtextEl) subtextEl.style.display = 'none';
 
         // Set phone in details section
         document.getElementById('userPhone').textContent = phone;
@@ -99,20 +100,29 @@ function loadUserStats(uid) {
         }
     });
 
-    // Check-in Streak
-    onValue(ref(db, `users/${uid}/checkin`), (snap) => {
-        const streakEl = document.getElementById('checkinStreak');
-        if (!streakEl) return;
-        const streak = snap.exists() ? (snap.val().streak || 0) : 0;
-        streakEl.textContent = streak;
-    });
+    // Check-in & Referral Stats
+    onValue(ref(db, `users/${uid}`), (snap) => {
+        if (!snap.exists()) return;
+        const data = snap.val();
 
-    // Referral Count
-    onValue(ref(db, `users/${uid}/referrals`), (snap) => {
+        // Check-in Streak
+        const streakEl = document.getElementById('checkinStreak');
+        if (streakEl) streakEl.textContent = data.checkin?.streak || 0;
+
+        // Referral Count
         const referralEl = document.getElementById('referralCount');
-        if (!referralEl) return;
-        const count = snap.exists() ? (snap.val().count || 0) : 0;
-        referralEl.textContent = count;
+        if (referralEl) {
+            // Count can be in referrals.count or as keys in referrals object
+            let count = 0;
+            if (data.referrals) {
+                if (typeof data.referrals === 'object') {
+                    count = data.referrals.count || 0;
+                } else if (typeof data.referrals === 'number') {
+                    count = data.referrals;
+                }
+            }
+            referralEl.textContent = count;
+        }
     });
 }
 
