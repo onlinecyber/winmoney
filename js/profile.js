@@ -35,7 +35,7 @@ async function loadUserProfile(user) {
         // Set avatar letter
         document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
 
-        // 1. Set name
+        // 1. Set name (HTML has no subtext element anymore)
         document.getElementById('userName').textContent = name;
 
         // 2. Set phone in details section ONLY
@@ -69,7 +69,7 @@ async function loadUserProfile(user) {
 
 /* ================= LOAD USER STATS ================= */
 function loadUserStats(uid) {
-    // Total Earnings from incomeHistory
+    // 1. Total Earnings from incomeHistory
     onValue(ref(db, `incomeHistory/${uid}`), (snap) => {
         let totalEarnings = 0;
         if (snap.exists()) {
@@ -82,54 +82,45 @@ function loadUserStats(uid) {
         if (earningsEl) earningsEl.textContent = `₹${totalEarnings.toLocaleString()}`;
     });
 
-    // Active Products count
+    // 2. Active Products count
     onValue(ref(db, `userProducts/${uid}`), (snap) => {
         const productsEl = document.getElementById('totalProducts');
         if (!productsEl) return;
 
+        let activeCount = 0;
         if (snap.exists()) {
-            let activeCount = 0;
             snap.forEach(child => {
                 const product = child.val();
                 if (product.status === "active") activeCount++;
             });
-            productsEl.textContent = activeCount;
-        } else {
-            productsEl.textContent = "0";
         }
+        productsEl.textContent = activeCount;
     });
 
-    // Combined Check-in & Referral Stats
+    // 3. User Node Stats (Check-in, Referrals)
     onValue(ref(db, `users/${uid}`), (snap) => {
         if (!snap.exists()) return;
         const data = snap.val();
 
-        // 🎯 Check-in Streak
+        // Check-in Streak
         const streakEl = document.getElementById('checkinStreak');
         if (streakEl) streakEl.textContent = data.checkin?.streak || 0;
 
-        // 🎯 Referral Count (Robust logic)
+        // Referral Count
         const referralEl = document.getElementById('referralCount');
         if (referralEl) {
             let count = 0;
-
-            // Try method 1: data.referrals.count
-            if (data.referrals && typeof data.referrals === 'object') {
-                count = Number(data.referrals.count) || 0;
-            } else if (typeof data.referrals === 'number') {
-                count = data.referrals;
+            if (data.referrals) {
+                if (typeof data.referrals === 'object') {
+                    count = Number(data.referrals.count) || 0;
+                } else if (typeof data.referrals === 'number') {
+                    count = data.referrals;
+                }
             }
-
-            // Try method 2: separate field
-            if (count === 0 && data.referralCount) {
-                count = Number(data.referralCount) || 0;
-            }
-
-            // Try method 3: history length (users who recharged)
+            // Fallback to history length
             if (count === 0 && data.referralHistory) {
                 count = Object.keys(data.referralHistory).length;
             }
-
             referralEl.textContent = count;
         }
     });

@@ -29,83 +29,47 @@ onAuthStateChanged(auth, (user) => {
   const userRef = ref(db, `users/${uid}`);
   const walletsRef = ref(db, `users/${uid}/wallets`);
 
-  // 🔥 LOAD USER NAME AND ID
+  // 🔥 LOAD USER NAME
   onValue(userRef, (snapshot) => {
     if (!snapshot.exists()) return;
-
     const data = snapshot.val();
 
     // Set username
     const usernameEl = document.getElementById("username");
     if (usernameEl) usernameEl.innerText = data.name || "User";
 
-    // Set avatar letter (first character of name)
+    // Set avatar letter
     const avatarEl = document.getElementById("userAvatar");
     if (avatarEl && data.name) {
       avatarEl.innerText = data.name.charAt(0).toUpperCase();
     }
 
-    // 🔥 LOAD REFERRAL COUNT
-    const referralEl = document.getElementById("accReferralCount");
-    if (referralEl) {
-      let count = 0;
-      if (data.referrals) {
-        if (typeof data.referrals === 'object') {
-          count = Number(data.referrals.count) || 0;
-        } else if (typeof data.referrals === 'number') {
-          count = data.referrals;
-        }
-      }
-      // Fallback to history length
-      if (count === 0 && data.referralHistory) {
-        count = Object.keys(data.referralHistory).length;
-      }
-      referralEl.innerText = count;
-    }
-
-    // 🔥 VIP LEVEL CALCULATION (Based on Total Investment)
+    // VIP Level Logic
     const totalInvested = Number(data.stats?.totalInvested || 0);
-
-    // VIP Levels:
-    // VIP 0: ₹0 - ₹999
-    // VIP 1: ₹1,000 - ₹4,999
-    // VIP 2: ₹5,000 - ₹14,999
-    // VIP 3: ₹15,000 - ₹49,999
-    // VIP 4: ₹50,000+
-
     let vipLevel = 0;
-    let nextThreshold = 1000;
     let progressPercent = 0;
 
-    if (totalInvested >= 50000) {
-      vipLevel = 4;
-      progressPercent = 100;
-    } else if (totalInvested >= 15000) {
+    if (totalInvested >= 50000) vipLevel = 4, progressPercent = 100;
+    else if (totalInvested >= 15000) {
       vipLevel = 3;
-      nextThreshold = 50000;
-      progressPercent = ((totalInvested - 15000) / (50000 - 15000)) * 100;
+      progressPercent = ((totalInvested - 15000) / (35000)) * 100;
     } else if (totalInvested >= 5000) {
       vipLevel = 2;
-      nextThreshold = 15000;
-      progressPercent = ((totalInvested - 5000) / (15000 - 5000)) * 100;
+      progressPercent = ((totalInvested - 5000) / (10000)) * 100;
     } else if (totalInvested >= 1000) {
       vipLevel = 1;
-      nextThreshold = 5000;
-      progressPercent = ((totalInvested - 1000) / (5000 - 1000)) * 100;
+      progressPercent = ((totalInvested - 1000) / (4000)) * 100;
     } else {
       vipLevel = 0;
-      nextThreshold = 1000;
       progressPercent = (totalInvested / 1000) * 100;
     }
 
-    // Update VIP display
     const vipLevelEl = document.querySelector(".vip-level");
     if (vipLevelEl) vipLevelEl.innerText = "VIP " + vipLevel;
 
     const vipBarEl = document.getElementById("vipBar");
     if (vipBarEl) vipBarEl.style.width = Math.min(progressPercent, 100) + "%";
-
-  }, { onlyOnce: true });
+  });
 
   // 🔥 ENSURE WALLET NODE EXISTS (VERY IMPORTANT)
   runTransaction(walletsRef, (w) => {
