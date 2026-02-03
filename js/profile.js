@@ -119,23 +119,18 @@ function loadUserStats(uid) {
         const streakEl = document.getElementById('checkinStreak');
         if (streakEl) streakEl.textContent = data.checkin?.streak || 0;
 
-        // Referral Count (Total Signups Preferred)
+        // 🎯 Referral Count & Daily Bonus
         const referralEl = document.getElementById('referralCount');
+        const bonusEl = document.getElementById('dailyBonus');
+
         if (referralEl) {
-            let count = 0;
-            if (data.referrals) {
-                // Return total signups if available, otherwise rewarded count
-                count = Number(data.referrals.total || data.referrals.count || 0);
+            let count = Number(data.referrals?.total || data.referrals?.count || 0);
+            referralEl.textContent = count;
+        }
 
-                // Final fallback: count keys if no total/count fields
-                if (count === 0 && typeof data.referrals === 'object') {
-                    count = Object.keys(data.referrals).filter(k => k !== 'count' && k !== 'reward' && k !== 'total').length;
-                }
-            }
-            // Add rewarded count to total if they are separate (logic safety)
-            if (data.referrals?.count > count) count = data.referrals.count;
-
-            referralEl.textContent = count || 0;
+        if (bonusEl) {
+            let reward = Number(data.referrals?.reward || 0);
+            bonusEl.textContent = `₹${reward.toLocaleString()}`;
         }
     });
 }
