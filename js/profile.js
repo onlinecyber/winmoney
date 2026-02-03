@@ -68,13 +68,16 @@ async function loadUserProfile(user) {
 
 /* ================= LOAD USER STATS ================= */
 function loadUserStats(uid) {
-    // Total Earnings from stats
-    onValue(ref(db, `users/${uid}/stats`), (snap) => {
+    // Total Earnings from incomeHistory
+    onValue(ref(db, `incomeHistory/${uid}`), (snap) => {
+        let totalEarnings = 0;
         if (snap.exists()) {
-            const stats = snap.val();
-            const totalEarnings = stats.totalIncome || 0;
-            document.getElementById('totalEarnings').textContent = `₹${totalEarnings.toLocaleString()}`;
+            snap.forEach(child => {
+                const income = child.val();
+                totalEarnings += Number(income.amount) || 0;
+            });
         }
+        document.getElementById('totalEarnings').textContent = `₹${totalEarnings.toLocaleString()}`;
     });
 
     // Active Products count
