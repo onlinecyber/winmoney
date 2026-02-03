@@ -106,22 +106,35 @@ function loadUserStats(uid) {
         const streakEl = document.getElementById('checkinStreak');
         if (streakEl) streakEl.textContent = data.checkin?.streak || 0;
 
-        // Referral Count
+        // 🎯 Referral Count (Ultimate Robust Logic)
         const referralEl = document.getElementById('referralCount');
         if (referralEl) {
             let count = 0;
             if (data.referrals) {
                 if (typeof data.referrals === 'object') {
-                    count = Number(data.referrals.count) || 0;
+                    // Try getting direct count first
+                    count = Number(data.referrals.count);
+
+                    // If no direct count, count the keys (excluding meta keys)
+                    if (isNaN(count) || count === 0) {
+                        count = Object.keys(data.referrals).filter(k => k !== 'count' && k !== 'reward').length;
+                    }
                 } else if (typeof data.referrals === 'number') {
                     count = data.referrals;
                 }
             }
-            // Fallback to history length
-            if (count === 0 && data.referralHistory) {
+
+            // Fallback 2: Check separate referralCount field
+            if (!count && data.referralCount) {
+                count = Number(data.referralCount) || 0;
+            }
+
+            // Fallback 3: Check referral history length
+            if (!count && data.referralHistory) {
                 count = Object.keys(data.referralHistory).length;
             }
-            referralEl.textContent = count;
+
+            referralEl.textContent = count || 0;
         }
     });
 }

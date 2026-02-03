@@ -24,21 +24,26 @@ onAuthStateChanged(auth, async (user) => {
   document.getElementById("inviteLink").innerText = inviteLink;
 
   // stats
+  // stats count
   let count = 0;
   if (data.referrals) {
     if (typeof data.referrals === 'object') {
-      count = Number(data.referrals.count) || 0;
+      count = Number(data.referrals.count);
+      // If no direct count, count keys
+      if (isNaN(count) || count === 0) {
+        count = Object.keys(data.referrals).filter(k => k !== 'count' && k !== 'reward').length;
+      }
     } else if (typeof data.referrals === 'number') {
       count = data.referrals;
     }
   }
 
-  // Fallback to history length if count is 0
-  if (count === 0 && data.referralHistory) {
+  // Fallback to history length if count is still 0
+  if (!count && data.referralHistory) {
     count = Object.keys(data.referralHistory).length;
   }
 
-  document.getElementById("inviteCount").innerText = count;
+  document.getElementById("inviteCount").innerText = count || 0;
 
   document.getElementById("reward").innerText =
     data.referrals?.reward || 0;
