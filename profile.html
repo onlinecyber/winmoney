@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Dream Money</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+
+<body>
+    <div class="profile-page">
+
+        <!-- HEADER -->
+        <div class="profile-header">
+            <a href="/account.html" class="back-btn">←</a>
+            <h1>My Profile</h1>
+            <div class="edit-btn" onclick="location.href='/edit-profile.html'">✏️</div>
+        </div>
+
+        <!-- USER INFO CARD -->
+        <div class="user-card">
+            <div class="avatar">
+                <span id="avatarLetter">U</span>
+            </div>
+            <div class="user-info">
+                <h2 id="userName">Loading...</h2>
+                <p id="userEmail">Loading...</p>
+                <div class="vip-badge" id="vipBadge">VIP 0</div>
+            </div>
+        </div>
+
+        <!-- STATS SECTION -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <span class="stat-icon">💰</span>
+                <span class="stat-value" id="totalEarnings">₹0</span>
+                <span class="stat-label">Total Earnings</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">📦</span>
+                <span class="stat-value" id="totalProducts">0</span>
+                <span class="stat-label">Active Products</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🔥</span>
+                <span class="stat-value" id="checkinStreak">0</span>
+                <span class="stat-label">Day Streak</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">👥</span>
+                <span class="stat-value" id="referralCount">0</span>
+                <span class="stat-label">Referrals</span>
+            </div>
+        </div>
+
+        <!-- ACCOUNT INFO -->
+        <div class="section">
+            <h3 class="section-title">Account Details</h3>
+            <div class="info-list">
+                <div class="info-item">
+                    <span class="info-icon">📅</span>
+                    <div class="info-content">
+                        <span class="info-label">Member Since</span>
+                        <span class="info-value" id="joinDate">Loading...</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📱</span>
+                    <div class="info-content">
+                        <span class="info-label">Phone</span>
+                        <span class="info-value" id="userPhone">Not set</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">🏦</span>
+                    <div class="info-content">
+                        <span class="info-label">Bank Account</span>
+                        <span class="info-value" id="bankStatus">Not linked</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK LINKS MENU -->
+        <div class="section">
+            <h3 class="section-title">Quick Links</h3>
+            <div class="menu-list">
+                <a href="/my-products.html" class="menu-item">
+                    <span class="menu-icon">📦</span>
+                    <span class="menu-text">My Products</span>
+                    <span class="menu-arrow">›</span>
+                </a>
+                <a href="/income-history.html" class="menu-item">
+                    <span class="menu-icon">📊</span>
+                    <span class="menu-text">Income History</span>
+                    <span class="menu-arrow">›</span>
+                </a>
+                <a href="/recharge-history.html" class="menu-item">
+                    <span class="menu-icon">📥</span>
+                    <span class="menu-text">Recharge History</span>
+                    <span class="menu-arrow">›</span>
+                </a>
+                <a href="/withdraw-history.html" class="menu-item">
+                    <span class="menu-icon">📤</span>
+                    <span class="menu-text">Withdraw History</span>
+                    <span class="menu-arrow">›</span>
+                </a>
+                <a href="/invite.html" class="menu-item">
+                    <span class="menu-icon">🎁</span>
+                    <span class="menu-text">Invite Friends</span>
+                    <span class="menu-arrow">›</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- SETTINGS MENU -->
+        <div class="section">
+            <h3 class="section-title">Settings</h3>
+            <div class="menu-list">
+                <a href="/bind-bank.html" class="menu-item">
+                    <span class="menu-icon">🏦</span>
+                    <span class="menu-text">Bank Details</span>
+                    <span class="menu-arrow">›</span>
+                </a>
+                <a href="/help-center.html" class="menu-item">
+                    <span class="menu-icon">❓</span>
+                    <span class="menu-text">Help Center</span>
+                    <span class="menu-arrow">›</span>
+                </a>
+                <a href="/about.html" class="menu-item">
+                    <span class="menu-icon">ℹ️</span>
+                    <span class="menu-text">About Us</span>
+                    <span class="menu-arrow">›</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- LOGOUT -->
+        <button class="logout-btn" onclick="logout()">
+            <span>🚪</span> Logout
+        </button>
+
+        <!-- VERSION -->
+        <p class="version">Dream Money v2.0.0</p>
+
+    </div>
+
+    <script type="module" src="/js/profile.js"></script>
+</body>
+
+</html>
