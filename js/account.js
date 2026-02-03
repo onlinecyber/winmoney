@@ -366,34 +366,34 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ================= LIVE TRANSACTION FEED ================= */
 const feedTicker = document.getElementById('feedTicker2');
 
-const names = ['Rajesh', 'Priya', 'Amit', 'Neha', 'Vikram', 'Pooja', 'Rahul', 'Anjali', 'Suresh', 'Kavita'];
-const cities = ['Delhi', 'Mumbai', 'Bangalore', 'Pune', 'Hyderabad', 'Chennai', 'Kolkata', 'Ahmedabad'];
-const actions = [
-  { emoji: '🎉', text: 'just earned', min: 100, max: 5000 },
-  { emoji: '💰', text: 'withdrew', min: 500, max: 10000 },
-  { emoji: '📈', text: 'invested', min: 1000, max: 20000 }
-];
+// Action mappings
+const actionMap = {
+  'earned': { emoji: '🎉', text: 'just earned' },
+  'withdrew': { emoji: '💰', text: 'withdrew' },
+  'invested': { emoji: '📈', text: 'invested' }
+};
 
-function generateFeedMessage() {
-  const name = names[Math.floor(Math.random() * names.length)];
-  const city = cities[Math.floor(Math.random() * cities.length)];
-  const action = actions[Math.floor(Math.random() * actions.length)];
-  const amount = Math.floor(Math.random() * (action.max - action.min) + action.min);
+// Load feed from Firebase
+function loadLiveFeed() {
+  onValue(ref(db, 'liveFeed'), (snap) => {
+    if (!feedTicker) return;
 
-  return `${action.emoji} ${name} from ${city} ${action.text} ₹${amount.toLocaleString()}!`;
+    if (!snap.exists()) {
+      // No admin messages, show default
+      feedTicker.innerHTML = '<span class="feed-item">🎉 Welcome to Dream Money! Start investing today!</span>';
+      return;
+    }
+
+    let feedHTML = '';
+    snap.forEach(child => {
+      const f = child.val();
+      const action = actionMap[f.action] || actionMap['earned'];
+      feedHTML += `<span class="feed-item">${action.emoji} ${f.name} from ${f.city} ${action.text} ₹${Number(f.amount).toLocaleString()}!</span>`;
+    });
+
+    // Duplicate for seamless loop animation
+    feedTicker.innerHTML = feedHTML + feedHTML;
+  });
 }
 
-// Generate multiple feed items for infinite scroll
-function populateFeed() {
-  let feedHTML = '';
-  for (let i = 0; i < 10; i++) {
-    feedHTML += `<span class="feed-item">${generateFeedMessage()}</span>`;
-  }
-  feedTicker.innerHTML = feedHTML + feedHTML; // Duplicate for seamless loop
-}
-
-populateFeed();
-
-// Regenerate feed every 30 seconds for variety
-setInterval(populateFeed, 30000);
-
+loadLiveFeed();

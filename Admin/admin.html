@@ -244,6 +244,7 @@
     <button onclick="show('products')" class="active">📦 Products</button>
     <button onclick="show('recharge')">💳 Recharge</button>
     <button onclick="show('withdraw')">💸 Withdraw</button>
+    <button onclick="show('livefeed')">📢 Feed</button>
     <button onclick="show('settings')">⚙️ Settings</button>
   </nav>
 
@@ -335,6 +336,26 @@
       <p><b>QR Code:</b></p>
       <img id="currentQr" src="" style="max-width:200px;border-radius:10px;margin-top:10px;">
     </div>
+  </section>
+
+  <!-- ================= LIVE FEED ================= -->
+  <section id="livefeed">
+    <h3>📢 Live Transaction Feed</h3>
+
+    <div class="card">
+      <h4>➕ Add Feed Message</h4>
+      <input id="feedName" placeholder="Name (e.g., Rajesh)">
+      <input id="feedCity" placeholder="City (e.g., Delhi)">
+      <select id="feedAction">
+        <option value="earned">🎉 Just earned</option>
+        <option value="withdrew">💰 Withdrew</option>
+        <option value="invested">📈 Invested</option>
+      </select>
+      <input id="feedAmount" type="number" placeholder="Amount (e.g., 5000)">
+      <button class="edit" onclick="addFeedMessage()">➕ Add Message</button>
+    </div>
+
+    <div id="feedList"></div>
   </section>
 
   <script type="module">
@@ -618,6 +639,51 @@
     });
     window.approveWithdraw = id => update(ref(db, "withdrawals/" + id), { status: "approved", approvedAt: Date.now() });
     window.rejectWithdraw = async (id, uid, amount) => { await runTransaction(ref(db, `users/${uid}/wallets/withdraw`), bal => (Number(bal) || 0) + amount); await update(ref(db, "withdrawals/" + id), { status: "rejected", rejectedAt: Date.now() }); alert("✅ Withdraw rejected & refunded"); }
+
+    /* ================= LIVE FEED ================= */
+    const feedList = document.getElementById("feedList");
+
+    // Load feed messages
+    onValue(ref(db, "liveFeed"), snap => {
+      feedList.innerHTML = "";
+      if (!snap.exists()) { feedList.innerHTML = "<p>No feed messages. Add some!</p>"; return; }
+      snap.forEach(c => {
+        const f = c.val(), id = c.key;
+        const actionEmoji = f.action === 'earned' ? '🎉' : f.action === 'withdrew' ? '💰' : '📈';
+        const actionText = f.action === 'earned' ? 'just earned' : f.action === 'withdrew' ? 'withdrew' : 'invested';
+        feedList.innerHTML += `
+          <div class="card">
+            <p><b>Preview:</b> ${actionEmoji} ${f.name} from ${f.city} ${actionText} ₹${Number(f.amount).toLocaleString()}!</p>
+            <button class="delete" onclick="deleteFeed('${id}')">🗑️ Delete</button>
+          </div>
+        `;
+      });
+    });
+
+    // Add feed message
+    window.addFeedMessage = async () => {
+      const name = document.getElementById("feedName").value.trim();
+      const city = document.getElementById("feedCity").value.trim();
+      const action = document.getElementById("feedAction").value;
+      const amount = document.getElementById("feedAmount").value;
+
+      if (!name || !city || !amount) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      const newRef = ref(db, "liveFeed/" + Date.now());
+      await set(newRef, { name, city, action, amount: Number(amount), createdAt: Date.now() });
+
+      // Clear form
+      document.getElementById("feedName").value = "";
+      document.getElementById("feedCity").value = "";
+      document.getElementById("feedAmount").value = "";
+      alert("✅ Feed message added!");
+    };
+
+    // Delete feed
+    window.deleteFeed = id => { if (confirm("Delete this message?")) remove(ref(db, "liveFeed/" + id)); };
 
   </script>
 </body>
