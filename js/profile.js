@@ -35,13 +35,16 @@ async function loadUserProfile(user) {
         // Set avatar letter
         document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
 
-        // Set name and hide secondary info in header (only show in details)
+        // 1. Set name & REMOVE the secondary line (phone/email) from header
         document.getElementById('userName').textContent = name;
         const subtextEl = document.getElementById('userEmail');
-        if (subtextEl) subtextEl.style.display = 'none';
+        if (subtextEl) {
+            subtextEl.remove(); // Remove element completely from DOM
+        }
 
-        // Set phone in details section
-        document.getElementById('userPhone').textContent = phone;
+        // 2. Set phone in details section ONLY
+        const phoneEl = document.getElementById('userPhone');
+        if (phoneEl) phoneEl.textContent = phone;
 
         // Load VIP level
         const vipLevel = data.vipLevel || 0;
@@ -100,27 +103,37 @@ function loadUserStats(uid) {
         }
     });
 
-    // Check-in & Referral Stats
+    // Combined Check-in & Referral Stats
     onValue(ref(db, `users/${uid}`), (snap) => {
         if (!snap.exists()) return;
         const data = snap.val();
 
-        // Check-in Streak
+        // 🎯 Check-in Streak
         const streakEl = document.getElementById('checkinStreak');
         if (streakEl) streakEl.textContent = data.checkin?.streak || 0;
 
-        // Referral Count
+        // 🎯 Referral Count (Robust logic)
         const referralEl = document.getElementById('referralCount');
         if (referralEl) {
-            // Count can be in referrals.count or as keys in referrals object
             let count = 0;
-            if (data.referrals) {
-                if (typeof data.referrals === 'object') {
-                    count = data.referrals.count || 0;
-                } else if (typeof data.referrals === 'number') {
-                    count = data.referrals;
-                }
+
+            // Try method 1: data.referrals.count
+            if (data.referrals && typeof data.referrals === 'object') {
+                count = Number(data.referrals.count) || 0;
+            } else if (typeof data.referrals === 'number') {
+                count = data.referrals;
             }
+
+            // Try method 2: separate field
+            if (count === 0 && data.referralCount) {
+                count = Number(data.referralCount) || 0;
+            }
+
+            // Try method 3: history length (users who recharged)
+            if (count === 0 && data.referralHistory) {
+                count = Object.keys(data.referralHistory).length;
+            }
+
             referralEl.textContent = count;
         }
     });
