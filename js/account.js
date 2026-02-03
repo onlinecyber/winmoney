@@ -162,6 +162,44 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+/* ================= BANNER SLIDER ================= */
+let currentSlide = 0;
+const slides = document.querySelectorAll('.banner-slide');
+const dotsContainer = document.getElementById('bannerDots');
+
+// Create dots
+if (dotsContainer && slides.length > 0) {
+  slides.forEach((_, index) => {
+    const dot = document.createElement('div');
+    dot.classList.add('banner-dot');
+    if (index === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+}
+
+const dots = document.querySelectorAll('.banner-dot');
+
+function goToSlide(n) {
+  if (slides.length === 0) return;
+  slides[currentSlide].classList.remove('active');
+  if (dots.length > 0) dots[currentSlide].classList.remove('active');
+
+  currentSlide = n;
+  if (currentSlide >= slides.length) currentSlide = 0;
+  if (currentSlide < 0) currentSlide = slides.length - 1;
+
+  slides[currentSlide].classList.add('active');
+  if (dots.length > 0) dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+  goToSlide(currentSlide + 1);
+}
+
+// Auto-slide every 3 seconds
+setInterval(nextSlide, 3000);
+
 
 /* ================= DAILY CHECK-IN SYSTEM ================= */
 
