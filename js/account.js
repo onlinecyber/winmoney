@@ -370,7 +370,8 @@ const feedTicker = document.getElementById('feedTicker2');
 const actionMap = {
   'earned': { emoji: '🎉', text: 'just earned' },
   'withdrew': { emoji: '💰', text: 'withdrew' },
-  'invested': { emoji: '📈', text: 'invested' }
+  'invested': { emoji: '📈', text: 'invested' },
+  'referred': { emoji: '🎁', text: 'referred & earned' }
 };
 
 // Load feed from Firebase

@@ -350,6 +350,7 @@
         <option value="earned">🎉 Just earned</option>
         <option value="withdrew">💰 Withdrew</option>
         <option value="invested">📈 Invested</option>
+        <option value="referred">🎁 Referred & earned</option>
       </select>
       <input id="feedAmount" type="number" placeholder="Amount (e.g., 5000)">
       <button class="edit" onclick="addFeedMessage()">➕ Add Message</button>
@@ -649,8 +650,8 @@
       if (!snap.exists()) { feedList.innerHTML = "<p>No feed messages. Add some!</p>"; return; }
       snap.forEach(c => {
         const f = c.val(), id = c.key;
-        const actionEmoji = f.action === 'earned' ? '🎉' : f.action === 'withdrew' ? '💰' : '📈';
-        const actionText = f.action === 'earned' ? 'just earned' : f.action === 'withdrew' ? 'withdrew' : 'invested';
+        const actionEmoji = f.action === 'earned' ? '🎉' : f.action === 'withdrew' ? '💰' : f.action === 'invested' ? '📈' : '🎁';
+        const actionText = f.action === 'earned' ? 'just earned' : f.action === 'withdrew' ? 'withdrew' : f.action === 'invested' ? 'invested' : 'referred & earned';
         feedList.innerHTML += `
           <div class="card">
             <p><b>Preview:</b> ${actionEmoji} ${f.name} from ${f.city} ${actionText} ₹${Number(f.amount).toLocaleString()}!</p>
