@@ -148,6 +148,56 @@
 
   </div>
 
+  <!-- LIVE TRANSACTION FEED -->
+  <div class="live-feed-bottom">
+    <div class="feed-ticker" id="feedTicker">
+      <span class="feed-item">🎉 Rajesh from Delhi just earned ₹850!</span>
+    </div>
+  </div>
+
+  <!-- FIXED BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+    <a href="/invite.html" class="nav-item">
+      <span class="nav-icon">🎁</span>
+      <span class="nav-label">Refer & Earn</span>
+    </a>
+    <div class="nav-item center-btn" id="checkinNavBtn">
+      <div class="checkin-circle">
+        <span class="checkin-icon-big">🎁</span>
+        <span class="checkin-text">Check-in</span>
+      </div>
+    </div>
+    <a href="/profile.html" class="nav-item">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <!-- CHECK-IN MODAL -->
+  <div class="checkin-modal" id="checkinModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>🎁 Daily Check-in</h2>
+        <button class="close-modal" onclick="closeCheckinModal()">×</button>
+      </div>
+      <div class="streak-info">
+        <div class="streak-circle" id="streakCircle">
+          <span class="streak-number" id="streakCount">0</span>
+          <span class="streak-text">Day Streak</span>
+        </div>
+      </div>
+      <div class="reward-info">
+        <p>Get <strong>₹5</strong> daily reward!</p>
+        <p class="bonus-text">🔥 7-Day Streak = ₹50 Bonus!</p>
+      </div>
+      <button class="checkin-btn-big" id="checkinBtnModal" onclick="dailyCheckin()">
+        <span id="checkinBtnText">✨ Check In Now ✨</span>
+      </button>
+      <p class="checkin-status" id="checkinStatus"></p>
+    </div>
+  </div>
+
+  <script src="/js/toast.js"></script>
   <script type="module" src="/js/account.js"></script>
   <script type="module" src="/js/income-engine.js"></script>
 </body>

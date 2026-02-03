@@ -222,8 +222,9 @@ async function loadCheckinStatus() {
   const streak = data.streak || 0;
   const lastCheckin = data.lastCheckin || 0;
 
-  // Update streak display in compact badge
-  document.getElementById('streakDisplay').textContent = `🔥 ${streak} days`;
+  // Update streak display in modal
+  const streakCountEl = document.getElementById('streakCount');
+  if (streakCountEl) streakCountEl.textContent = streak;
 
   // Check if can check-in today
   const now = Date.now();
@@ -231,10 +232,16 @@ async function loadCheckinStatus() {
   const timeSinceLastCheckin = now - lastCheckin;
 
   if (timeSinceLastCheckin < oneDay) {
-    // Already checked in today - disable badge
-    const badge = document.getElementById('checkinCompact');
-    badge.classList.add('disabled');
-    badge.style.pointerEvents = 'none';
+    // Already checked in today
+    const btn = document.getElementById('checkinBtnModal');
+    const btnText = document.getElementById('checkinBtnText');
+    const status = document.getElementById('checkinStatus');
+
+    if (btn) btn.disabled = true;
+    if (btnText) btnText.textContent = '✓ Already Checked In';
+
+    const hoursLeft = Math.ceil((oneDay - timeSinceLastCheckin) / (60 * 60 * 1000));
+    if (status) status.textContent = `Come back in ${hoursLeft} hours`;
   }
 }
 
@@ -306,15 +313,22 @@ window.dailyCheckin = async function () {
     });
 
     // Update UI
-    document.getElementById('streakDisplay').textContent = `🔥 ${newStreak} days`;
-    const badge = document.getElementById('checkinCompact');
-    badge.classList.add('disabled');
-    badge.style.pointerEvents = 'none';
+    const streakCountEl = document.getElementById('streakCount');
+    if (streakCountEl) streakCountEl.textContent = newStreak;
 
-    // Celebration animation on header
-    document.querySelector('.header-section').classList.add('celebrate');
+    const btn = document.getElementById('checkinBtnModal');
+    const btnText = document.getElementById('checkinBtnText');
+    const status = document.getElementById('checkinStatus');
+
+    if (btn) btn.disabled = true;
+    if (btnText) btnText.textContent = '✓ Checked In!';
+    if (status) status.textContent = 'Come back in 24 hours';
+
+    // Celebration animation on modal
+    const modal = document.getElementById('checkinModal');
+    if (modal) modal.classList.add('celebrate');
     setTimeout(() => {
-      document.querySelector('.header-section').classList.remove('celebrate');
+      if (modal) modal.classList.remove('celebrate');
     }, 600);
 
     // Show success message
@@ -328,6 +342,26 @@ window.dailyCheckin = async function () {
     toastError('Check-in failed: ' + error.message);
   }
 };
+
+/* ================= CHECK-IN MODAL ================= */
+window.openCheckinModal = function () {
+  const modal = document.getElementById('checkinModal');
+  if (modal) modal.classList.add('show');
+  loadCheckinStatus(); // Refresh status when opening
+};
+
+window.closeCheckinModal = function () {
+  const modal = document.getElementById('checkinModal');
+  if (modal) modal.classList.remove('show');
+};
+
+// Add event listener for check-in nav button
+document.addEventListener('DOMContentLoaded', () => {
+  const checkinNavBtn = document.getElementById('checkinNavBtn');
+  if (checkinNavBtn) {
+    checkinNavBtn.addEventListener('click', window.openCheckinModal);
+  }
+});
 
 /* ================= LIVE TRANSACTION FEED ================= */
 const feedTicker = document.getElementById('feedTicker');
