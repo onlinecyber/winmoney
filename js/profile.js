@@ -35,12 +35,8 @@ async function loadUserProfile(user) {
         // Set avatar letter
         document.getElementById('avatarLetter').textContent = name.charAt(0).toUpperCase();
 
-        // 1. Set name & REMOVE the secondary line (phone/email) from header
+        // 1. Set name
         document.getElementById('userName').textContent = name;
-        const subtextEl = document.getElementById('userEmail');
-        if (subtextEl) {
-            subtextEl.remove(); // Remove element completely from DOM
-        }
 
         // 2. Set phone in details section ONLY
         const phoneEl = document.getElementById('userPhone');

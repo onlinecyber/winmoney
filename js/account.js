@@ -45,9 +45,23 @@ onAuthStateChanged(auth, (user) => {
       avatarEl.innerText = data.name.charAt(0).toUpperCase();
     }
 
-    // Set user ID (first 8 chars of uid)
-    const userIdEl = document.getElementById("userId");
-    if (userIdEl) userIdEl.innerText = "ID: " + uid.substring(0, 8).toUpperCase();
+    // 🔥 LOAD REFERRAL COUNT
+    const referralEl = document.getElementById("accReferralCount");
+    if (referralEl) {
+      let count = 0;
+      if (data.referrals) {
+        if (typeof data.referrals === 'object') {
+          count = Number(data.referrals.count) || 0;
+        } else if (typeof data.referrals === 'number') {
+          count = data.referrals;
+        }
+      }
+      // Fallback to history length
+      if (count === 0 && data.referralHistory) {
+        count = Object.keys(data.referralHistory).length;
+      }
+      referralEl.innerText = count;
+    }
 
     // 🔥 VIP LEVEL CALCULATION (Based on Total Investment)
     const totalInvested = Number(data.stats?.totalInvested || 0);

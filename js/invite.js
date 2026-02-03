@@ -24,8 +24,21 @@ onAuthStateChanged(auth, async (user) => {
   document.getElementById("inviteLink").innerText = inviteLink;
 
   // stats
-  document.getElementById("inviteCount").innerText =
-    data.referrals?.count || 0;
+  let count = 0;
+  if (data.referrals) {
+    if (typeof data.referrals === 'object') {
+      count = Number(data.referrals.count) || 0;
+    } else if (typeof data.referrals === 'number') {
+      count = data.referrals;
+    }
+  }
+
+  // Fallback to history length if count is 0
+  if (count === 0 && data.referralHistory) {
+    count = Object.keys(data.referralHistory).length;
+  }
+
+  document.getElementById("inviteCount").innerText = count;
 
   document.getElementById("reward").innerText =
     data.referrals?.reward || 0;
