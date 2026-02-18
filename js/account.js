@@ -84,6 +84,50 @@ onAuthStateChanged(auth, (user) => {
     if (bonusEl) {
       bonusEl.innerText = "₹" + (data.referrals?.reward || 0);
     }
+
+    // 🌳 REFERRAL MILESTONE TREE
+    const refCount = Number(data.referrals?.count || 0);
+    const milestones = data.referrals?.milestones || {};
+    const treeRefEl = document.getElementById("treeRefCount");
+    if (treeRefEl) treeRefEl.innerText = refCount;
+
+    const TREE_MILESTONES = [
+      { target: 2, nodeId: "treeNode2", statusId: "treeStatus2", lineId: "treeLine2" },
+      { target: 5, nodeId: "treeNode5", statusId: "treeStatus5", lineId: "treeLine5" },
+      { target: 10, nodeId: "treeNode10", statusId: "treeStatus10", lineId: null }
+    ];
+
+    TREE_MILESTONES.forEach(ms => {
+      const node = document.getElementById(ms.nodeId);
+      const status = document.getElementById(ms.statusId);
+      const line = ms.lineId ? document.getElementById(ms.lineId) : null;
+      if (!node || !status) return;
+
+      // Remove old classes
+      node.classList.remove("completed", "active");
+      if (line) line.classList.remove("active");
+
+      if (milestones[`m${ms.target}`]) {
+        // Already claimed
+        node.classList.add("completed");
+        status.innerText = "✅";
+        if (line) line.classList.add("active");
+      } else if (refCount >= ms.target) {
+        // Ready to claim (will auto-claim on next recharge approval)
+        node.classList.add("completed");
+        status.innerText = "🎉";
+        if (line) line.classList.add("active");
+      } else {
+        // Next milestone in progress
+        const prevTarget = ms.target === 2 ? 0 : ms.target === 5 ? 2 : 5;
+        if (refCount >= prevTarget) {
+          node.classList.add("active");
+          status.innerText = `${refCount}/${ms.target}`;
+        } else {
+          status.innerText = "🔒";
+        }
+      }
+    });
   });
 
   // 🔥 ENSURE WALLET NODE EXISTS (VERY IMPORTANT)

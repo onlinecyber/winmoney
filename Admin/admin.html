@@ -563,30 +563,62 @@
         });
 
         if (referrerUID) {
-          const REFERRAL_REWARD = 100; // ₹100 reward
-
-          // Add reward to referrer's withdraw wallet
-          await runTransaction(
-            ref(db, `users/${referrerUID}/wallets/withdraw`),
-            bal => (Number(bal) || 0) + REFERRAL_REWARD
-          );
-
-          // Update referrer's referral stats
-          await runTransaction(
+          // 🔥 INCREMENT REFERRAL COUNT
+          const countResult = await runTransaction(
             ref(db, `users/${referrerUID}/referrals/count`),
             count => (Number(count) || 0) + 1
           );
+          const newCount = countResult.snapshot.val();
 
-          await runTransaction(
-            ref(db, `users/${referrerUID}/referrals/reward`),
-            reward => (Number(reward) || 0) + REFERRAL_REWARD
-          );
+          // 🎯 MILESTONE REWARDS: 2→₹300, 5→₹500, 10→₹1000
+          const MILESTONES = [
+            { target: 2, reward: 300 },
+            { target: 5, reward: 500 },
+            { target: 10, reward: 1000 }
+          ];
+
+          // Check which milestones are newly hit
+          const referrerSnap = await get(ref(db, `users/${referrerUID}`));
+          const referrerData = referrerSnap.val() || {};
+          const claimedMilestones = referrerData.referrals?.milestones || {};
+
+          let milestoneReward = 0;
+          let milestoneHit = null;
+
+          for (const ms of MILESTONES) {
+            if (newCount >= ms.target && !claimedMilestones[`m${ms.target}`]) {
+              milestoneReward = ms.reward;
+              milestoneHit = ms.target;
+            }
+          }
+
+          if (milestoneReward > 0) {
+            // 💰 Add milestone reward to referrer's withdraw wallet
+            await runTransaction(
+              ref(db, `users/${referrerUID}/wallets/withdraw`),
+              bal => (Number(bal) || 0) + milestoneReward
+            );
+
+            // Update total reward earned
+            await runTransaction(
+              ref(db, `users/${referrerUID}/referrals/reward`),
+              reward => (Number(reward) || 0) + milestoneReward
+            );
+
+            // Mark milestone as claimed
+            await update(ref(db, `users/${referrerUID}/referrals/milestones`), {
+              [`m${milestoneHit}`]: true
+            });
+
+            console.log(`🎯 Milestone ${milestoneHit} hit! ₹${milestoneReward} given to ${referrerUID}`);
+          }
 
           // 📝 SAVE REFERRAL HISTORY
           await push(ref(db, `users/${referrerUID}/referralHistory`), {
             referredUserName: userData.name || "User",
             referredUid: uid,
-            rewardAmount: REFERRAL_REWARD,
+            rewardAmount: milestoneReward || 0,
+            milestone: milestoneHit || null,
             rechargeAmount: amount,
             createdAt: Date.now()
           });
@@ -596,7 +628,7 @@
             firstRechargeRewarded: true
           });
 
-          console.log(`✅ Referral reward ₹${REFERRAL_REWARD} given to ${referrerUID}`);
+          console.log(`✅ Referral count now ${newCount} for ${referrerUID}`);
         }
       } else if (!hasReceivedFirstReward && referredBy && !isWithinTimeLimit) {
         // Mark as rewarded anyway to prevent future checks
